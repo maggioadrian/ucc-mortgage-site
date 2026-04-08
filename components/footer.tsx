@@ -2,29 +2,30 @@ import Link from "next/link";
 
 const footerColumns = [
   {
-    title: "Services",
+    title: "Solutions",
     links: [
-      { label: "Residential", href: "#" },
-      { label: "Commercial", href: "#" },
-      { label: "Private Lending", href: "#" },
-      { label: "HELOC", href: "#" },
+      { label: "Residential", href: "/solutions/residential" },
+      { label: "Commercial", href: "/solutions/commercial" },
+      { label: "Private Mortgages", href: "/solutions/private" },
+      { label: "Debt Consolidation", href: "/solutions/debt-consolidation" },
+      { label: "Refinancing", href: "/solutions/refinancing" },
+      { label: "Loans & Credit Lines", href: "/solutions/loans" },
     ],
   },
   {
     title: "Company",
     links: [
-      { label: "About Us", href: "#" },
-      { label: "Our Team", href: "#" },
-      { label: "Careers", href: "#" },
-      { label: "Contact", href: "#" },
+      { label: "About Us", href: "/about" },
+      { label: "Invest", href: "/invest" },
+      { label: "Rates", href: "/rates" },
+      { label: "Contact", href: "/contact" },
     ],
   },
   {
     title: "Resources",
     links: [
-      { label: "Blog", href: "#" },
-      { label: "FAQ", href: "#" },
-      { label: "Apply Online", href: "#" },
+      { label: "Resources & FAQ", href: "/resources" },
+      { label: "Apply Online", href: "/apply" },
     ],
   },
 ];
@@ -38,7 +39,7 @@ export function Footer() {
           <div className="col-span-2 md:col-span-1">
             <Link href="/" className="inline-flex items-center gap-1">
               <svg viewBox="0 0 80 28" className="h-7 w-auto" aria-label="UCC Mortgage">
-                <text x="0" y="22" className="font-semibold text-2xl" style={{ fontFamily: 'Open Sans, sans-serif' }}>
+                <text x="0" y="22" className="font-semibold text-2xl" style={{ fontFamily: "Open Sans, sans-serif" }}>
                   <tspan fill="#2e5f92">U</tspan>
                   <tspan fill="#006f7f">C</tspan>
                   <tspan fill="#27aae1">C</tspan>
