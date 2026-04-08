@@ -7,6 +7,7 @@ import { ArrowRight, ArrowLeft, CheckCircle2, Home, Building2, Landmark, PiggyBa
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { PageBackdrop } from "@/components/page-backdrop";
 
 const mortgageTypes = [
   { id: "residential", label: "Residential", description: "Purchase, renewal, or refinance a home", icon: Home },
@@ -98,11 +99,12 @@ export default function ApplyPage() {
   }
 
   return (
-    <div className="min-h-screen bg-[#0e1214]">
+    <div className="min-h-screen bg-[#0e1214] relative overflow-hidden">
+      <PageBackdrop variant="apply" />
       <ScrollProgress />
       <Navigation />
 
-      <main className="py-16 px-6">
+      <main className="relative py-16 px-6">
         <div className="max-w-2xl mx-auto">
 
           {/* Header */}

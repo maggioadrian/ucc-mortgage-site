@@ -6,6 +6,7 @@ import { ArrowRight, TrendingUp, TrendingDown, Minus, Info, Sparkles, RefreshCw 
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { PageBackdrop } from "@/components/page-backdrop";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 20 },
@@ -93,7 +94,8 @@ export default function RatesPage() {
             background: "radial-gradient(ellipse at 60% 0%, rgba(39,170,225,0.08) 0%, transparent 60%)",
           }}
         >
-          <div className="max-w-7xl mx-auto px-6">
+          <PageBackdrop variant="rates" />
+          <div className="relative max-w-7xl mx-auto px-6">
             <motion.div
               variants={fadeUp}
               initial="hidden"

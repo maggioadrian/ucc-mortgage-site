@@ -13,7 +13,18 @@ import {
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { PageBackdrop, type BackdropVariant } from "@/components/page-backdrop";
 import type { Solution } from "@/lib/solutions-data";
+
+const slugToVariant: Record<string, BackdropVariant> = {
+  residential: "residential",
+  commercial: "commercial",
+  "debt-consolidation": "debt-consolidation",
+  refinancing: "refinancing",
+  loans: "loans",
+  "farm-agriculture": "farm",
+  "vacant-land": "vacant-land",
+};
 
 type LucideIcon = React.ComponentType<{ className?: string }>;
 
@@ -36,6 +47,7 @@ const fadeUp = {
 
 export function SolutionPageClient({ solution }: { solution: Solution }) {
   const HeroIcon = getIcon(solution.heroIconId);
+  const backdropVariant = slugToVariant[solution.slug];
 
   return (
     <div className="min-h-screen bg-[#0e1214]">
@@ -51,7 +63,8 @@ export function SolutionPageClient({ solution }: { solution: Solution }) {
               "radial-gradient(ellipse at 70% 0%, rgba(0,111,127,0.14) 0%, transparent 60%)",
           }}
         >
-          <div className="max-w-7xl mx-auto px-6">
+          {backdropVariant && <PageBackdrop variant={backdropVariant} />}
+          <div className="relative max-w-7xl mx-auto px-6">
             <div className="max-w-3xl">
               <motion.div
                 variants={fadeUp}

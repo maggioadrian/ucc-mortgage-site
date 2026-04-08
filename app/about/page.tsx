@@ -6,6 +6,7 @@ import { ArrowRight, Award, Users, Shield, Heart } from "lucide-react";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { PageBackdrop } from "@/components/page-backdrop";
 
 const timeline = [
   {
@@ -120,7 +121,8 @@ export default function AboutPage() {
             background: "radial-gradient(ellipse at 30% 0%, rgba(46,95,146,0.14) 0%, transparent 60%)",
           }}
         >
-          <div className="max-w-7xl mx-auto px-6">
+          <PageBackdrop variant="about" />
+          <div className="relative max-w-7xl mx-auto px-6">
             <div className="max-w-3xl">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}

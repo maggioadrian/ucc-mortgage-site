@@ -10,6 +10,7 @@ import {
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { ScrollProgress } from "@/components/scroll-progress";
+import { PageBackdrop } from "@/components/page-backdrop";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -181,7 +182,8 @@ export function PrivatePageClient() {
             className="py-20 relative overflow-hidden border-b border-[#1a1f22]"
             style={{ background: "radial-gradient(ellipse at 75% 50%, rgba(39,170,225,0.07) 0%, transparent 60%)" }}
           >
-            <div className="max-w-7xl mx-auto px-6">
+            <PageBackdrop variant="private" />
+            <div className="relative max-w-7xl mx-auto px-6">
               <div className="max-w-3xl">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
@@ -426,7 +428,8 @@ export function PrivatePageClient() {
             className="py-20 relative overflow-hidden border-b border-[#006f7f]/25"
             style={{ background: "radial-gradient(ellipse at 25% 50%, rgba(0,111,127,0.13) 0%, transparent 55%)" }}
           >
-            <div className="max-w-7xl mx-auto px-6">
+            <PageBackdrop variant="invest" />
+            <div className="relative max-w-7xl mx-auto px-6">
               <div className="max-w-3xl">
                 <motion.div
                   initial={{ opacity: 0, y: 20 }}
