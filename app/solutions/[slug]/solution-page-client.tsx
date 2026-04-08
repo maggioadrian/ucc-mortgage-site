@@ -8,7 +8,7 @@ import {
   Search, Key, Briefcase, Clock, Factory, DollarSign, Hammer, Users,
   Shield, Zap, ArrowUpRight, Calendar, Target,
   Wallet, TrendingDown, Percent, BarChart3, CheckCircle,
-  Banknote, LineChart, RotateCcw, Coins, Tractor, Map,
+  Banknote, LineChart, RotateCcw, Coins, Tractor, Map, Leaf,
 } from "lucide-react";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
@@ -132,14 +132,26 @@ export function SolutionPageClient({ solution }: { solution: Solution }) {
             </div>
           </div>
 
-          {/* Decorative icon */}
-          <div className="absolute right-12 top-1/2 -translate-y-1/2 hidden lg:block pointer-events-none">
-            <div className="w-64 h-64 rounded-full bg-[#006f7f]/5 flex items-center justify-center">
-              <div className="w-40 h-40 rounded-full bg-[#006f7f]/8 flex items-center justify-center">
-                <HeroIcon className="w-20 h-20 text-[#27aae1]/20" />
+          {/* Decorative hero element */}
+          {solution.slug === "farm-agriculture" ? (
+            <div className="absolute right-12 top-1/2 -translate-y-1/2 hidden lg:flex flex-col items-center gap-3 pointer-events-none">
+              <div className="p-6 rounded-2xl border border-[#006f7f]/20 bg-[#006f7f]/05"
+                style={{ background: "linear-gradient(135deg, rgba(0,111,127,0.10) 0%, rgba(14,18,20,0.80) 100%)" }}>
+                <Leaf className="w-8 h-8 text-[#27aae1]/30 mb-3 mx-auto" />
+                <p className="text-xs font-semibold text-[#27aae1]/40 text-center uppercase tracking-wider leading-snug max-w-[160px]">
+                  Windsor-Essex<br />Canada&apos;s greenhouse capital
+                </p>
               </div>
             </div>
-          </div>
+          ) : (
+            <div className="absolute right-12 top-1/2 -translate-y-1/2 hidden lg:block pointer-events-none">
+              <div className="w-64 h-64 rounded-full bg-[#006f7f]/5 flex items-center justify-center">
+                <div className="w-40 h-40 rounded-full bg-[#006f7f]/8 flex items-center justify-center">
+                  <HeroIcon className="w-20 h-20 text-[#27aae1]/20" />
+                </div>
+              </div>
+            </div>
+          )}
         </section>
 
         {/* Stats Bar */}
