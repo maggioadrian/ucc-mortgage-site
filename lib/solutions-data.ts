@@ -485,6 +485,158 @@ export const solutions: Solution[] = [
       { value: "$0", label: "Annual fee options available" },
     ],
   },
+  {
+    slug: "farm-agriculture",
+    title: "Farm & Agriculture Mortgages",
+    tagline: "Financing for the land that feeds us.",
+    badge: "Rural & agricultural lending",
+    description:
+      "Financing for working farms, hobby farms, acreages, and agricultural operations across Ontario. We understand the unique lending requirements of rural and farm properties and have lender partners who specialize in this space.",
+    heroIconId: "Tractor",
+    benefits: [
+      {
+        title: "Working farm financing",
+        description: "Cash crop, livestock, greenhouse, and mixed farming operations financed by lenders who understand agriculture.",
+        iconId: "Tractor",
+      },
+      {
+        title: "Hobby farms & acreages",
+        description: "Properties with outbuildings, acreage, and mixed residential-agricultural use welcome.",
+        iconId: "Home",
+      },
+      {
+        title: "Up to 50% LTV on raw farmland",
+        description: "Productive farmland financing with lenders who assess income potential, not just market value.",
+        iconId: "BarChart3",
+      },
+      {
+        title: "Operating line coordination",
+        description: "We work alongside your agricultural banker to structure mortgage debt that complements your operating credit.",
+        iconId: "Coins",
+      },
+      {
+        title: "Federal programs available",
+        description: "Farm Credit Canada (FCC) and CEBA-eligible structures accessed through our lender relationships.",
+        iconId: "Shield",
+      },
+      {
+        title: "Flexible income qualifying",
+        description: "Farm income fluctuates — our lenders understand crop cycles, insurance proceeds, and Schedule F income.",
+        iconId: "RefreshCw",
+      },
+    ],
+    eligibility: [
+      "Property classified as agricultural or rural residential in Ontario",
+      "Working farm, hobby farm, or mixed-use acreage",
+      "Minimum 25% down payment for most agricultural properties",
+      "Farm income documentation (T1 general, Schedule F) for 2 years",
+      "Environmental assessment may be required for certain operations",
+      "Property inspection including outbuildings and equipment sheds",
+    ],
+    steps: [
+      {
+        number: "01",
+        title: "Farm & property review",
+        description: "Tell us about the farm type, acreage, outbuildings, and current operations or intended use.",
+      },
+      {
+        number: "02",
+        title: "Ag lender matching",
+        description: "We connect your file with agricultural lending specialists who understand farm valuations.",
+      },
+      {
+        number: "03",
+        title: "Appraisal & assessment",
+        description: "Agricultural appraisal completed by a CUSPAP-accredited farm appraiser.",
+      },
+      {
+        number: "04",
+        title: "Approval & closing",
+        description: "Mortgage registered, funds advanced. Your farm, secured.",
+      },
+    ],
+    stats: [
+      { value: "50+ yrs", label: "Rural lending experience" },
+      { value: "Up to 80%", label: "LTV on residential farm" },
+      { value: "10+", label: "Ag-specialized lenders" },
+    ],
+  },
+  {
+    slug: "vacant-land",
+    title: "Vacant Land Mortgages",
+    tagline: "Finance the land. Build the future.",
+    badge: "Land purchase & development financing",
+    description:
+      "Whether you're buying land to build, hold as investment, or develop commercially — we have lender connections who will finance Ontario vacant land, lots, and development parcels.",
+    heroIconId: "Map",
+    benefits: [
+      {
+        title: "Residential lots",
+        description: "Serviced building lots in subdivisions and infill lots in established neighbourhoods financed.",
+        iconId: "Home",
+      },
+      {
+        title: "Raw land & acreages",
+        description: "Unserviced rural land, recreational properties, and large acreages considered by specialty lenders.",
+        iconId: "Map",
+      },
+      {
+        title: "Development parcels",
+        description: "Multi-lot development land, assemblies, and commercial development sites financed.",
+        iconId: "Building2",
+      },
+      {
+        title: "Land banking strategies",
+        description: "We advise on optimal mortgage structures for land being held for future development or appreciation.",
+        iconId: "TrendingDown",
+      },
+      {
+        title: "Construction tie-in",
+        description: "Transition your land mortgage directly into a construction mortgage when you're ready to build.",
+        iconId: "Hammer",
+      },
+      {
+        title: "Private lending options",
+        description: "When conventional lenders decline, our private lender network finances vacant land with adequate equity.",
+        iconId: "Landmark",
+      },
+    ],
+    eligibility: [
+      "Vacant land or lot located in Ontario",
+      "Minimum 35-50% down payment depending on land type and location",
+      "Serviced lots may qualify at higher LTV than raw unserviced land",
+      "Clear intended use (residential build, hold, or development)",
+      "Environmental assessment if adjacent to industrial or fuel use",
+      "Survey or reference plan required at closing",
+    ],
+    steps: [
+      {
+        number: "01",
+        title: "Land review",
+        description: "Share parcel details: size, services, zoning, location, and your intended timeline.",
+      },
+      {
+        number: "02",
+        title: "Lender matching",
+        description: "We match your parcel to lenders with appetite for that land type and location.",
+      },
+      {
+        number: "03",
+        title: "Valuation & conditions",
+        description: "Appraisal or broker price opinion. Environmental, survey, and zoning conditions satisfied.",
+      },
+      {
+        number: "04",
+        title: "Registered & funded",
+        description: "Title transferred, mortgage registered. You own the land.",
+      },
+    ],
+    stats: [
+      { value: "35–50%", label: "Typical min. down payment" },
+      { value: "Up to 65%", label: "LTV on serviced lots" },
+      { value: "Private avail.", label: "For challenging parcels" },
+    ],
+  },
 ];
 
 export function getSolutionBySlug(slug: string): Solution | undefined {

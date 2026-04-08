@@ -3,23 +3,29 @@
 import { useState, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Menu, X, ArrowRight, ChevronDown, Home, Building2, Landmark, PiggyBank, RefreshCw, CreditCard } from "lucide-react";
+import {
+  Menu, X, ArrowRight, ChevronDown,
+  Home, Building2, Landmark, PiggyBank, RefreshCw, CreditCard, Tractor, Map,
+} from "lucide-react";
 
 const solutionsLinks = [
-  { label: "Residential Mortgages", href: "/solutions/residential", icon: Home, description: "Purchase, renewal, refinancing" },
-  { label: "Commercial Mortgages", href: "/solutions/commercial", icon: Building2, description: "Multi-unit, retail, industrial" },
-  { label: "Private Mortgages", href: "/solutions/private", icon: Landmark, description: "Alternative lending, fast approvals" },
-  { label: "Debt Consolidation", href: "/solutions/debt-consolidation", icon: PiggyBank, description: "One payment, lower interest" },
-  { label: "Refinancing", href: "/solutions/refinancing", icon: RefreshCw, description: "Access equity, lower your rate" },
-  { label: "Loans & Credit Lines", href: "/solutions/loans", icon: CreditCard, description: "HELOC and home equity access" },
+  { label: "Residential Mortgages",  href: "/solutions/residential",        icon: Home,      description: "Purchase, renewal, refinancing" },
+  { label: "Commercial Mortgages",   href: "/solutions/commercial",          icon: Building2, description: "Multi-unit, retail, industrial" },
+  { label: "Private Mortgages",      href: "/solutions/private",             icon: Landmark,  description: "Borrowers & investors" },
+  { label: "Debt Consolidation",     href: "/solutions/debt-consolidation",  icon: PiggyBank, description: "One payment, lower interest" },
+  { label: "Refinancing",            href: "/solutions/refinancing",         icon: RefreshCw, description: "Access equity, lower your rate" },
+  { label: "Loans & Credit Lines",   href: "/solutions/loans",               icon: CreditCard,description: "HELOC and home equity access" },
+  { label: "Farm & Agriculture",     href: "/solutions/farm-agriculture",    icon: Tractor,   description: "Rural, farm, and ag financing" },
+  { label: "Vacant Land",            href: "/solutions/vacant-land",         icon: Map,       description: "Land purchase and development" },
 ];
 
 const mainLinks = [
-  { label: "Solutions", href: "#", hasDropdown: true },
-  { label: "Rates", href: "/rates" },
-  { label: "About", href: "/about" },
-  { label: "Resources", href: "/resources" },
-  { label: "Contact", href: "/contact" },
+  { label: "Solutions",  href: "#",          hasDropdown: true },
+  { label: "Rates",      href: "/rates" },
+  { label: "About",      href: "/about" },
+  { label: "Resources",  href: "/resources" },
+  { label: "Invest",     href: "/invest" },
+  { label: "Contact",    href: "/contact" },
 ];
 
 export function AnnouncementBanner() {
@@ -34,20 +40,14 @@ export function AnnouncementBanner() {
 }
 
 export function Navigation() {
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen]     = useState(false);
   const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
   const [desktopDropdownOpen, setDesktopDropdownOpen] = useState(false);
   const dropdownTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const pathname = usePathname();
 
-  const handleMouseEnter = () => {
-    if (dropdownTimeout.current) clearTimeout(dropdownTimeout.current);
-    setDesktopDropdownOpen(true);
-  };
-
-  const handleMouseLeave = () => {
-    dropdownTimeout.current = setTimeout(() => setDesktopDropdownOpen(false), 120);
-  };
+  const openDropdown  = () => { if (dropdownTimeout.current) clearTimeout(dropdownTimeout.current); setDesktopDropdownOpen(true); };
+  const closeDropdown = () => { dropdownTimeout.current = setTimeout(() => setDesktopDropdownOpen(false), 120); };
 
   const isActive = (href: string) => {
     if (href === "#") return pathname.startsWith("/solutions");
@@ -66,10 +66,11 @@ export function Navigation() {
         }}
       >
         <div className="h-full max-w-7xl mx-auto px-8 flex items-center justify-between">
+
           {/* Logo */}
-          <Link href="/" className="flex items-center gap-1">
+          <Link href="/" className="flex items-center gap-1 flex-shrink-0">
             <svg viewBox="0 0 80 28" className="h-7 w-auto" aria-label="UCC Mortgage">
-              <text x="0" y="22" className="font-semibold text-2xl" style={{ fontFamily: "Open Sans, sans-serif" }}>
+              <text x="0" y="22" style={{ fontFamily: "Open Sans, sans-serif", fontWeight: 600, fontSize: 28 }}>
                 <tspan fill="#2e5f92">U</tspan>
                 <tspan fill="#006f7f">C</tspan>
                 <tspan fill="#27aae1">C</tspan>
@@ -80,42 +81,28 @@ export function Navigation() {
             </span>
           </Link>
 
-          {/* Desktop Nav */}
-          <div className="hidden md:flex items-center gap-7">
+          {/* Desktop nav links */}
+          <div className="hidden md:flex items-center gap-6">
             {mainLinks.map((item) =>
               item.hasDropdown ? (
-                <div
-                  key={item.label}
-                  className="relative"
-                  onMouseEnter={handleMouseEnter}
-                  onMouseLeave={handleMouseLeave}
-                >
+                <div key={item.label} className="relative" onMouseEnter={openDropdown} onMouseLeave={closeDropdown}>
                   <button
-                    className={`group relative inline-flex items-center gap-1 text-[14px] font-semibold transition-colors py-1 ${
+                    className={`group relative inline-flex items-center gap-1 text-[13px] font-semibold transition-colors py-1 ${
                       isActive(item.href) ? "text-foreground" : "text-foreground/70 hover:text-foreground"
                     }`}
                   >
                     {item.label}
-                    <ChevronDown
-                      className={`w-3.5 h-3.5 transition-transform ${desktopDropdownOpen ? "rotate-180" : ""}`}
-                    />
-                    <span
-                      className={`absolute bottom-0 left-0 right-0 h-0.5 bg-[#27aae1] transition-transform origin-left ${
-                        isActive(item.href) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                      }`}
-                    />
+                    <ChevronDown className={`w-3.5 h-3.5 transition-transform ${desktopDropdownOpen ? "rotate-180" : ""}`} />
+                    <span className={`absolute bottom-0 left-0 right-0 h-0.5 bg-[#27aae1] transition-transform origin-left ${isActive(item.href) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
                   </button>
 
                   {/* Dropdown panel */}
                   {desktopDropdownOpen && (
                     <div
-                      className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[520px] rounded-2xl border border-[#27aae1]/15 shadow-2xl overflow-hidden"
-                      style={{
-                        background: "rgba(14,18,20,0.97)",
-                        backdropFilter: "blur(20px)",
-                      }}
-                      onMouseEnter={handleMouseEnter}
-                      onMouseLeave={handleMouseLeave}
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[560px] rounded-2xl border border-[#27aae1]/15 shadow-2xl overflow-hidden"
+                      style={{ background: "rgba(14,18,20,0.97)", backdropFilter: "blur(20px)" }}
+                      onMouseEnter={openDropdown}
+                      onMouseLeave={closeDropdown}
                     >
                       <div className="p-3 grid grid-cols-2 gap-1">
                         {solutionsLinks.map((sol) => {
@@ -142,11 +129,7 @@ export function Navigation() {
                       </div>
                       <div className="border-t border-[#1a1f22] px-4 py-3 flex items-center justify-between">
                         <span className="text-xs text-muted-foreground">Not sure which product? We&apos;ll help.</span>
-                        <Link
-                          href="/contact"
-                          className="text-xs font-semibold text-[#27aae1] hover:underline"
-                          onClick={() => setDesktopDropdownOpen(false)}
-                        >
+                        <Link href="/contact" className="text-xs font-semibold text-[#27aae1] hover:underline" onClick={() => setDesktopDropdownOpen(false)}>
                           Book a call →
                         </Link>
                       </div>
@@ -157,39 +140,32 @@ export function Navigation() {
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`group relative text-[14px] font-semibold transition-colors py-1 ${
+                  className={`group relative text-[13px] font-semibold transition-colors py-1 ${
                     isActive(item.href) ? "text-foreground" : "text-foreground/70 hover:text-foreground"
                   }`}
                 >
                   {item.label}
-                  <span
-                    className={`absolute bottom-0 left-0 right-0 h-0.5 bg-[#27aae1] transition-transform origin-left ${
-                      isActive(item.href) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"
-                    }`}
-                  />
+                  <span className={`absolute bottom-0 left-0 right-0 h-0.5 bg-[#27aae1] transition-transform origin-left ${isActive(item.href) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
                 </Link>
               )
             )}
           </div>
 
           {/* Desktop CTAs */}
-          <div className="hidden md:flex items-center gap-6">
-            <Link
-              href="/contact"
-              className="text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors"
-            >
+          <div className="hidden md:flex items-center gap-4 flex-shrink-0">
+            <Link href="/contact" className="text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors whitespace-nowrap">
               Book a call
             </Link>
             <Link
               href="/apply"
-              className="group inline-flex items-center gap-1.5 px-5 py-2 bg-[#27aae1] text-[#0e1214] text-sm font-semibold rounded-full transition-all hover:shadow-[0_0_20px_rgba(39,170,225,0.3)]"
+              className="group inline-flex items-center gap-1.5 px-5 py-2 bg-[#27aae1] text-[#0e1214] text-sm font-semibold rounded-full transition-all hover:shadow-[0_0_20px_rgba(39,170,225,0.3)] whitespace-nowrap"
             >
               Apply now
               <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
             </Link>
           </div>
 
-          {/* Mobile Toggle */}
+          {/* Mobile toggle */}
           <button
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
             className="md:hidden p-2 text-foreground/70 hover:text-foreground"
@@ -199,14 +175,11 @@ export function Navigation() {
           </button>
         </div>
 
-        {/* Mobile Menu */}
+        {/* Mobile menu */}
         {mobileMenuOpen && (
           <div
             className="md:hidden absolute top-[72px] left-0 right-0 border-b border-[#27aae1]/15 py-4 px-8 max-h-[80vh] overflow-y-auto"
-            style={{
-              background: "rgba(14, 18, 20, 0.97)",
-              backdropFilter: "blur(12px)",
-            }}
+            style={{ background: "rgba(14,18,20,0.97)", backdropFilter: "blur(12px)" }}
           >
             <div className="flex flex-col gap-1">
               {/* Solutions accordion */}
@@ -216,9 +189,7 @@ export function Navigation() {
                   className="w-full flex items-center justify-between text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors py-3"
                 >
                   Solutions
-                  <ChevronDown
-                    className={`w-4 h-4 transition-transform ${mobileDropdownOpen ? "rotate-180" : ""}`}
-                  />
+                  <ChevronDown className={`w-4 h-4 transition-transform ${mobileDropdownOpen ? "rotate-180" : ""}`} />
                 </button>
                 {mobileDropdownOpen && (
                   <div className="pl-4 space-y-1 mb-2">
@@ -227,10 +198,7 @@ export function Navigation() {
                         key={sol.href}
                         href={sol.href}
                         className="block text-sm text-muted-foreground hover:text-[#27aae1] transition-colors py-2"
-                        onClick={() => {
-                          setMobileMenuOpen(false);
-                          setMobileDropdownOpen(false);
-                        }}
+                        onClick={() => { setMobileMenuOpen(false); setMobileDropdownOpen(false); }}
                       >
                         {sol.label}
                       </Link>
@@ -251,11 +219,7 @@ export function Navigation() {
               ))}
 
               <div className="pt-4 mt-2 border-t border-[#1a1f22] flex flex-col gap-3">
-                <Link
-                  href="/contact"
-                  className="text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
+                <Link href="/contact" className="text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>
                   Book a call
                 </Link>
                 <Link
@@ -263,8 +227,7 @@ export function Navigation() {
                   className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-[#27aae1] text-[#0e1214] text-sm font-semibold rounded-full"
                   onClick={() => setMobileMenuOpen(false)}
                 >
-                  Apply now
-                  <ArrowRight className="w-4 h-4" />
+                  Apply now <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>

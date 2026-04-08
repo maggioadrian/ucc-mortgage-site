@@ -7,22 +7,22 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const testimonials = [
   {
     quote:
-      "I never thought I'd own a home — my credit wasn't the best. Anto made it happen. The whole process was smooth and I felt supported every step of the way.",
-    name: "Danielle M.",
+      "I never thought I'd own a home — my credit wasn't the best. Anto made it happen.",
+    name: "Danielle",
     location: "Tillsonburg",
     initials: "DM",
   },
   {
     quote:
-      "Dianna handled everything with ease and made it genuinely fun to work together. She found us an incredible rate that saved us thousands.",
-    name: "Bryan T.",
+      "Dianna handled everything with ease and made it genuinely fun to work together. I will refer her many times over.",
+    name: "Bryan",
     location: "Toronto",
     initials: "BT",
   },
   {
     quote:
-      "UCC helped us when we needed it most. Now our lives are stress free. They treated us like family, not just another file.",
-    name: "Colleen R.",
+      "UCC helped us when we needed it most. Thanks to Anto's hard work our lives are now stress free.",
+    name: "Colleen",
     location: "Windsor",
     initials: "CR",
   },
@@ -35,14 +35,14 @@ export function Testimonials() {
   const next = () => setActiveIndex((i) => (i === testimonials.length - 1 ? 0 : i + 1));
 
   return (
-    <motion.section 
+    <motion.section
       className="relative py-32 bg-[#0a0d0e]"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-100px" }}
       transition={{ duration: 0.5 }}
     >
-      {/* Large Quotation Mark Background */}
+      {/* Large decorative quotation mark */}
       <div
         className="pointer-events-none absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 select-none font-serif text-[400px] leading-none text-[#006f7f]"
         style={{ opacity: 0.1 }}
@@ -80,7 +80,7 @@ export function Testimonials() {
               {testimonials[activeIndex].location}
             </p>
 
-            {/* Star Rating as Dots */}
+            {/* Five-star dots */}
             <div className="mt-4 flex justify-center gap-1.5">
               {[...Array(5)].map((_, i) => (
                 <span key={i} className="w-2 h-2 rounded-full bg-[#27aae1]" />
@@ -98,15 +98,17 @@ export function Testimonials() {
           >
             <ChevronLeft className="w-5 h-5" />
           </button>
-          
-          {/* Dots */}
+
+          {/* Dot navigation */}
           <div className="flex gap-2">
             {testimonials.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setActiveIndex(index)}
-                className={`w-2 h-2 rounded-full transition-colors ${
-                  index === activeIndex ? "bg-[#27aae1]" : "bg-[#2a3033]"
+                className={`rounded-full transition-all ${
+                  index === activeIndex
+                    ? "w-6 h-2 bg-[#27aae1]"
+                    : "w-2 h-2 bg-[#2a3033] hover:bg-[#27aae1]/40"
                 }`}
                 aria-label={`Go to testimonial ${index + 1}`}
               />

@@ -8,7 +8,7 @@ import {
   Search, Key, Briefcase, Clock, Factory, DollarSign, Hammer, Users,
   Shield, Zap, ArrowUpRight, Calendar, Target,
   Wallet, TrendingDown, Percent, BarChart3, CheckCircle,
-  Banknote, LineChart, RotateCcw, Coins,
+  Banknote, LineChart, RotateCcw, Coins, Tractor, Map,
 } from "lucide-react";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
@@ -22,7 +22,7 @@ const iconMap: Record<string, LucideIcon> = {
   Search, Key, Briefcase, Clock, Factory, DollarSign, Hammer, Users,
   Shield, Zap, ArrowUpRight, Calendar, Target,
   Wallet, TrendingDown, Percent, BarChart3, CheckCircle,
-  Banknote, LineChart, RotateCcw, Coins,
+  Banknote, LineChart, RotateCcw, Coins, Tractor, Map,
 };
 
 function getIcon(id: string): LucideIcon {
