@@ -1,0 +1,163 @@
+@import 'tailwindcss';
+@import 'tw-animate-css';
+
+@custom-variant dark (&:is(.dark *));
+
+/* UCC Mortgage Co. Brand Colors */
+:root {
+  /* UCC Brand Colors */
+  --ucc-navy: #2e5f92;
+  --ucc-teal: #006f7f;
+  --ucc-light-blue: #27aae1;
+  --ucc-charcoal: #272B2D;
+  --ucc-black: #1a1a1a;
+  
+  /* Dark Theme (Default) */
+  --background: #0e1214;
+  --foreground: #f0f4f5;
+  --card: #161c1f;
+  --card-foreground: #c8dde4;
+  --popover: #161c1f;
+  --popover-foreground: #f0f4f5;
+  --primary: #27aae1;
+  --primary-foreground: #0e1214;
+  --secondary: #006f7f;
+  --secondary-foreground: #f0f4f5;
+  --muted: #161c1f;
+  --muted-foreground: #7a9099;
+  --accent: #2e5f92;
+  --accent-foreground: #f0f4f5;
+  --destructive: #dc2626;
+  --destructive-foreground: #f0f4f5;
+  --border: #1e2a2d;
+  --input: #1e2a2d;
+  --ring: #27aae1;
+  --radius: 0.375rem;
+  
+  /* Chart Colors */
+  --chart-1: #27aae1;
+  --chart-2: #006f7f;
+  --chart-3: #2e5f92;
+  --chart-4: #4a6a75;
+  --chart-5: #7a9099;
+}
+
+@theme inline {
+  --font-sans: var(--font-open-sans), 'Open Sans', system-ui, sans-serif;
+  --font-mono: 'Geist Mono', monospace;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
+  
+  /* UCC Brand Color Utilities */
+  --color-ucc-navy: var(--ucc-navy);
+  --color-ucc-teal: var(--ucc-teal);
+  --color-ucc-light-blue: var(--ucc-light-blue);
+  --color-ucc-charcoal: var(--ucc-charcoal);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Rate Ticker Animation */
+@keyframes marquee {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-marquee {
+  animation: marquee 30s linear infinite;
+}
+
+/* Shimmer Animation for Hero Text */
+@keyframes shimmer {
+  0% {
+    background-position: -200% center;
+  }
+  100% {
+    background-position: 200% center;
+  }
+}
+
+.shimmer-text {
+  background: linear-gradient(
+    90deg,
+    #27aae1 0%,
+    #27aae1 40%,
+    #4dd0e1 50%,
+    #27aae1 60%,
+    #27aae1 100%
+  );
+  background-size: 200% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shimmer 4s ease-in-out infinite;
+}
+
+/* Floating Card Animation */
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+.animate-float-delayed {
+  animation: float 4s ease-in-out infinite;
+  animation-delay: 1.3s;
+}
+
+.animate-float-delayed-2 {
+  animation: float 4s ease-in-out infinite;
+  animation-delay: 2.6s;
+}
+
+/* Scroll Progress Bar */
+.scroll-progress {
+  transform-origin: left;
+}
