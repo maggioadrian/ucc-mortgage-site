@@ -5,27 +5,29 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {
   Menu, X, ArrowRight, ChevronDown,
-  Home, Building2, Landmark, PiggyBank, RefreshCw, CreditCard, Tractor, Map,
+  Building2, Landmark, Home, TrendingUp, Calendar, Handshake,
 } from "lucide-react";
 
-const solutionsLinks = [
-  { label: "Residential Mortgages",  href: "/solutions/residential",        icon: Home,      description: "Purchase, renewal, refinancing" },
-  { label: "Commercial Mortgages",   href: "/solutions/commercial",          icon: Building2, description: "Multi-unit, retail, industrial" },
-  { label: "Private Mortgages",      href: "/solutions/private",             icon: Landmark,  description: "Borrowers & investors" },
-  { label: "Debt Consolidation",     href: "/solutions/debt-consolidation",  icon: PiggyBank, description: "One payment, lower interest" },
-  { label: "Refinancing",            href: "/solutions/refinancing",         icon: RefreshCw, description: "Access equity, lower your rate" },
-  { label: "Loans & Credit Lines",   href: "/solutions/loans",               icon: CreditCard,description: "HELOC and home equity access" },
-  { label: "Farm & Agriculture",     href: "/solutions/farm-agriculture",    icon: Tractor,   description: "Rural, farm, and ag financing" },
-  { label: "Vacant Land",            href: "/solutions/vacant-land",         icon: Map,       description: "Land purchase and development" },
+const borrowersLinks = [
+  { label: "Commercial Financing", href: "/solutions/commercial",        icon: Building2, description: "Multi-unit, retail, industrial" },
+  { label: "Private Mortgages",    href: "/solutions/private#borrowers", icon: Landmark,  description: "Fast approvals, any credit"    },
+  { label: "Residential",          href: "/solutions/residential",       icon: Home,      description: "Purchase, renewal, refinance"  },
+  { label: "All Solutions",        href: "/borrowers",                   icon: ArrowRight,description: "View all mortgage products"    },
+];
+
+const investorsLinks = [
+  { label: "Private Mortgage Investing", href: "/investors",           icon: TrendingUp, description: "8–12% secured annual returns"   },
+  { label: "Investment Process",         href: "/investors#process",   icon: ArrowRight, description: "How your money is deployed"      },
+  { label: "Book Investor Call",         href: "/contact",             icon: Calendar,   description: "Talk to our investment team"     },
 ];
 
 const mainLinks = [
-  { label: "Solutions",  href: "#",          hasDropdown: true },
-  { label: "Rates",      href: "/rates" },
-  { label: "About",      href: "/about" },
-  { label: "Resources",  href: "/resources" },
-  { label: "Invest",     href: "/invest" },
-  { label: "Contact",    href: "/contact" },
+  { label: "Borrowers", href: "/borrowers", dropdown: "borrowers" as const },
+  { label: "Investors", href: "/investors", dropdown: "investors" as const },
+  { label: "Partners",  href: "/partners"  },
+  { label: "Tools",     href: "/tools"     },
+  { label: "About",     href: "/about"     },
+  { label: "Contact",   href: "/contact"   },
 ];
 
 export function AnnouncementBanner() {
@@ -40,19 +42,27 @@ export function AnnouncementBanner() {
 }
 
 export function Navigation() {
-  const [mobileMenuOpen, setMobileMenuOpen]     = useState(false);
-  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
-  const [desktopDropdownOpen, setDesktopDropdownOpen] = useState(false);
-  const dropdownTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const pathname = usePathname();
+  const [mobileOpen, setMobileOpen]           = useState(false);
+  const [mobileExpanded, setMobileExpanded]   = useState<string | null>(null);
+  const [openDropdown, setOpenDropdown]       = useState<"borrowers" | "investors" | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pathname   = usePathname();
 
-  const openDropdown  = () => { if (dropdownTimeout.current) clearTimeout(dropdownTimeout.current); setDesktopDropdownOpen(true); };
-  const closeDropdown = () => { dropdownTimeout.current = setTimeout(() => setDesktopDropdownOpen(false), 120); };
-
-  const isActive = (href: string) => {
-    if (href === "#") return pathname.startsWith("/solutions");
-    return pathname === href;
+  const handleEnter = (name: "borrowers" | "investors") => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+    setOpenDropdown(name);
   };
+  const handleLeave = () => {
+    timeoutRef.current = setTimeout(() => setOpenDropdown(null), 120);
+  };
+  const keepOpen = () => {
+    if (timeoutRef.current) clearTimeout(timeoutRef.current);
+  };
+
+  const isActive = (href: string) =>
+    href === "/borrowers"
+      ? pathname === "/borrowers" || pathname.startsWith("/solutions")
+      : pathname === href || pathname.startsWith(href + "/");
 
   return (
     <>
@@ -60,7 +70,7 @@ export function Navigation() {
       <nav
         className="sticky top-0 z-50 h-[72px] border-b border-[#27aae1]/15"
         style={{
-          background: "rgba(14, 18, 20, 0.85)",
+          background: "rgba(14,18,20,0.88)",
           backdropFilter: "blur(16px)",
           WebkitBackdropFilter: "blur(16px)",
         }}
@@ -81,153 +91,162 @@ export function Navigation() {
             </span>
           </Link>
 
-          {/* Desktop nav links */}
-          <div className="hidden md:flex items-center gap-6">
-            {mainLinks.map((item) =>
-              item.hasDropdown ? (
-                <div key={item.label} className="relative" onMouseEnter={openDropdown} onMouseLeave={closeDropdown}>
-                  <button
+          {/* Desktop nav */}
+          <div className="hidden md:flex items-center gap-5">
+            {mainLinks.map((item) => {
+              const hasDropdown = !!item.dropdown;
+              const dropLinks = item.dropdown === "borrowers" ? borrowersLinks : investorsLinks;
+              const active    = isActive(item.href);
+              return (
+                <div
+                  key={item.label}
+                  className="relative"
+                  onMouseEnter={hasDropdown ? () => handleEnter(item.dropdown!) : undefined}
+                  onMouseLeave={hasDropdown ? handleLeave : undefined}
+                >
+                  <Link
+                    href={item.href}
                     className={`group relative inline-flex items-center gap-1 text-[13px] font-semibold transition-colors py-1 ${
-                      isActive(item.href) ? "text-foreground" : "text-foreground/70 hover:text-foreground"
+                      active ? "text-foreground" : "text-foreground/70 hover:text-foreground"
                     }`}
                   >
                     {item.label}
-                    <ChevronDown className={`w-3.5 h-3.5 transition-transform ${desktopDropdownOpen ? "rotate-180" : ""}`} />
-                    <span className={`absolute bottom-0 left-0 right-0 h-0.5 bg-[#27aae1] transition-transform origin-left ${isActive(item.href) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
-                  </button>
+                    {hasDropdown && (
+                      <ChevronDown className={`w-3.5 h-3.5 transition-transform ${openDropdown === item.dropdown ? "rotate-180" : ""}`} />
+                    )}
+                    <span className={`absolute bottom-0 left-0 right-0 h-0.5 bg-[#27aae1] transition-transform origin-left ${active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
+                  </Link>
 
-                  {/* Dropdown panel */}
-                  {desktopDropdownOpen && (
+                  {hasDropdown && openDropdown === item.dropdown && (
                     <div
-                      className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-[560px] rounded-2xl border border-[#27aae1]/15 shadow-2xl overflow-hidden"
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-72 rounded-2xl border border-[#27aae1]/15 shadow-2xl overflow-hidden"
                       style={{ background: "rgba(14,18,20,0.97)", backdropFilter: "blur(20px)" }}
-                      onMouseEnter={openDropdown}
-                      onMouseLeave={closeDropdown}
+                      onMouseEnter={keepOpen}
+                      onMouseLeave={handleLeave}
                     >
-                      <div className="p-3 grid grid-cols-2 gap-1">
-                        {solutionsLinks.map((sol) => {
-                          const Icon = sol.icon;
+                      <div className="p-2">
+                        {dropLinks.map((link) => {
+                          const Icon = link.icon;
                           return (
                             <Link
-                              key={sol.href}
-                              href={sol.href}
+                              key={link.href}
+                              href={link.href}
                               className="group flex items-start gap-3 p-3 rounded-xl hover:bg-[#27aae1]/6 transition-colors"
-                              onClick={() => setDesktopDropdownOpen(false)}
+                              onClick={() => setOpenDropdown(null)}
                             >
                               <div className="p-2 rounded-lg bg-[#27aae1]/10 flex-shrink-0 group-hover:bg-[#27aae1]/18 transition-colors">
-                                <Icon className="w-4 h-4 text-[#27aae1]" />
+                                <Icon className="w-3.5 h-3.5 text-[#27aae1]" />
                               </div>
                               <div>
-                                <div className="text-sm font-semibold text-foreground group-hover:text-[#27aae1] transition-colors">
-                                  {sol.label}
+                                <div className="text-sm font-semibold text-foreground group-hover:text-[#27aae1] transition-colors leading-tight">
+                                  {link.label}
                                 </div>
-                                <div className="text-xs text-muted-foreground mt-0.5">{sol.description}</div>
+                                <div className="text-xs text-muted-foreground mt-0.5">{link.description}</div>
                               </div>
                             </Link>
                           );
                         })}
                       </div>
-                      <div className="border-t border-[#1a1f22] px-4 py-3 flex items-center justify-between">
-                        <span className="text-xs text-muted-foreground">Not sure which product? We&apos;ll help.</span>
-                        <Link href="/contact" className="text-xs font-semibold text-[#27aae1] hover:underline" onClick={() => setDesktopDropdownOpen(false)}>
-                          Book a call →
-                        </Link>
-                      </div>
                     </div>
                   )}
                 </div>
-              ) : (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className={`group relative text-[13px] font-semibold transition-colors py-1 ${
-                    isActive(item.href) ? "text-foreground" : "text-foreground/70 hover:text-foreground"
-                  }`}
-                >
-                  {item.label}
-                  <span className={`absolute bottom-0 left-0 right-0 h-0.5 bg-[#27aae1] transition-transform origin-left ${isActive(item.href) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
-                </Link>
-              )
-            )}
+              );
+            })}
           </div>
 
           {/* Desktop CTAs */}
-          <div className="hidden md:flex items-center gap-4 flex-shrink-0">
-            <Link href="/contact" className="text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors whitespace-nowrap">
-              Book a call
+          <div className="hidden md:flex items-center gap-3 flex-shrink-0">
+            <Link
+              href="/tools/deal-submission"
+              className="text-sm font-semibold text-[#27aae1]/80 hover:text-[#27aae1] border border-[#27aae1]/25 hover:border-[#27aae1]/60 px-4 py-2 rounded-full transition-all whitespace-nowrap"
+            >
+              Submit a deal →
             </Link>
             <Link
-              href="/apply"
-              className="group inline-flex items-center gap-1.5 px-5 py-2 bg-[#27aae1] text-[#0e1214] text-sm font-semibold rounded-full transition-all hover:shadow-[0_0_20px_rgba(39,170,225,0.3)] whitespace-nowrap"
+              href="/contact"
+              className="inline-flex items-center gap-1.5 px-5 py-2 bg-[#27aae1] text-[#0e1214] text-sm font-semibold rounded-full transition-all hover:shadow-[0_0_20px_rgba(39,170,225,0.3)] whitespace-nowrap"
             >
-              Apply now
-              <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
+              Book a call
             </Link>
           </div>
 
           {/* Mobile toggle */}
           <button
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+            onClick={() => setMobileOpen(!mobileOpen)}
             className="md:hidden p-2 text-foreground/70 hover:text-foreground"
             aria-label="Toggle menu"
           >
-            {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            {mobileOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
           </button>
         </div>
 
         {/* Mobile menu */}
-        {mobileMenuOpen && (
+        {mobileOpen && (
           <div
             className="md:hidden absolute top-[72px] left-0 right-0 border-b border-[#27aae1]/15 py-4 px-8 max-h-[80vh] overflow-y-auto"
             style={{ background: "rgba(14,18,20,0.97)", backdropFilter: "blur(12px)" }}
           >
             <div className="flex flex-col gap-1">
-              {/* Solutions accordion */}
+              {/* Borrowers accordion */}
               <div>
                 <button
-                  onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
-                  className="w-full flex items-center justify-between text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors py-3"
+                  onClick={() => setMobileExpanded(mobileExpanded === "borrowers" ? null : "borrowers")}
+                  className="w-full flex items-center justify-between text-sm font-semibold text-foreground/70 hover:text-foreground py-3"
                 >
-                  Solutions
-                  <ChevronDown className={`w-4 h-4 transition-transform ${mobileDropdownOpen ? "rotate-180" : ""}`} />
+                  Borrowers
+                  <ChevronDown className={`w-4 h-4 transition-transform ${mobileExpanded === "borrowers" ? "rotate-180" : ""}`} />
                 </button>
-                {mobileDropdownOpen && (
+                {mobileExpanded === "borrowers" && (
                   <div className="pl-4 space-y-1 mb-2">
-                    {solutionsLinks.map((sol) => (
-                      <Link
-                        key={sol.href}
-                        href={sol.href}
+                    {borrowersLinks.map((l) => (
+                      <Link key={l.href} href={l.href}
                         className="block text-sm text-muted-foreground hover:text-[#27aae1] transition-colors py-2"
-                        onClick={() => { setMobileMenuOpen(false); setMobileDropdownOpen(false); }}
-                      >
-                        {sol.label}
+                        onClick={() => setMobileOpen(false)}>
+                        {l.label}
                       </Link>
                     ))}
                   </div>
                 )}
               </div>
-
-              {mainLinks.slice(1).map((item) => (
-                <Link
-                  key={item.label}
-                  href={item.href}
-                  className="text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors py-3"
-                  onClick={() => setMobileMenuOpen(false)}
+              {/* Investors accordion */}
+              <div>
+                <button
+                  onClick={() => setMobileExpanded(mobileExpanded === "investors" ? null : "investors")}
+                  className="w-full flex items-center justify-between text-sm font-semibold text-foreground/70 hover:text-foreground py-3"
                 >
+                  Investors
+                  <ChevronDown className={`w-4 h-4 transition-transform ${mobileExpanded === "investors" ? "rotate-180" : ""}`} />
+                </button>
+                {mobileExpanded === "investors" && (
+                  <div className="pl-4 space-y-1 mb-2">
+                    {investorsLinks.map((l) => (
+                      <Link key={l.href} href={l.href}
+                        className="block text-sm text-muted-foreground hover:text-[#27aae1] transition-colors py-2"
+                        onClick={() => setMobileOpen(false)}>
+                        {l.label}
+                      </Link>
+                    ))}
+                  </div>
+                )}
+              </div>
+              {/* Flat links */}
+              {mainLinks.filter(l => !l.dropdown).map((item) => (
+                <Link key={item.label} href={item.href}
+                  className="text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors py-3"
+                  onClick={() => setMobileOpen(false)}>
                   {item.label}
                 </Link>
               ))}
-
               <div className="pt-4 mt-2 border-t border-[#1a1f22] flex flex-col gap-3">
-                <Link href="/contact" className="text-sm font-semibold text-foreground/70 hover:text-foreground transition-colors" onClick={() => setMobileMenuOpen(false)}>
-                  Book a call
+                <Link href="/tools/deal-submission"
+                  className="text-sm font-semibold text-[#27aae1] transition-colors"
+                  onClick={() => setMobileOpen(false)}>
+                  Submit a deal →
                 </Link>
-                <Link
-                  href="/apply"
+                <Link href="/contact"
                   className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-[#27aae1] text-[#0e1214] text-sm font-semibold rounded-full"
-                  onClick={() => setMobileMenuOpen(false)}
-                >
-                  Apply now <ArrowRight className="w-4 h-4" />
+                  onClick={() => setMobileOpen(false)}>
+                  Book a call <ArrowRight className="w-4 h-4" />
                 </Link>
               </div>
             </div>
