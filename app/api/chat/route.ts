@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from "next/server";
 import Anthropic from "@anthropic-ai/sdk";
 import nodemailer from "nodemailer";
 
+export const dynamic = "force-dynamic";
+
 const SYSTEM_PROMPT = `You are Alex, a friendly and knowledgeable mortgage advisor at UCC Mortgage Co. in Windsor, Ontario. UCC has been Windsor's trusted mortgage broker since 1974 and is the only licensed mortgage administrator in Windsor-Essex County.
 
 Your job is to have a natural conversation with clients to understand their mortgage needs — specifically for private mortgages. You are warm, professional, and concise. Never use jargon without explaining it. Never ask more than one question at a time.
@@ -170,7 +172,13 @@ export async function POST(req: NextRequest) {
       messages: { role: "user" | "assistant"; content: string }[];
     };
 
-    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
+    const apiKey = process.env.ANTHROPIC_API_KEY;
+    if (!apiKey) {
+      console.error("[chat/route] ANTHROPIC_API_KEY is not set");
+      return NextResponse.json({ error: "ANTHROPIC_API_KEY environment variable is not configured" }, { status: 500 });
+    }
+
+    const client = new Anthropic({ apiKey });
 
     const response = await client.messages.create({
       model: "claude-sonnet-4-20250514",
@@ -213,7 +221,19 @@ export async function POST(req: NextRequest) {
       emailSent,
     });
   } catch (err: unknown) {
-    console.error("[chat/route]", err);
+    // Surface full Anthropic API error details for easier debugging
+    if (err instanceof Anthropic.APIError) {
+      console.error("[chat/route] Anthropic API error", {
+        status: err.status,
+        message: err.message,
+        name: err.name,
+      });
+      return NextResponse.json(
+        { error: `Anthropic API error ${err.status}: ${err.message}` },
+        { status: err.status ?? 500 }
+      );
+    }
+    console.error("[chat/route] Unexpected error", err);
     const message = err instanceof Error ? err.message : "Unknown error";
     return NextResponse.json({ error: message }, { status: 500 });
   }
