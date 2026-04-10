@@ -3,6 +3,7 @@ import Anthropic from "@anthropic-ai/sdk";
 import nodemailer from "nodemailer";
 
 export const dynamic = "force-dynamic";
+export const maxDuration = 30;
 
 // ── Branching system prompt ───────────────────────────────────────────────────
 
@@ -317,12 +318,41 @@ export async function POST(req: NextRequest) {
 
     const client = new Anthropic({ apiKey });
 
-    const response = await client.messages.create({
-      model: "claude-sonnet-4-20250514",
-      max_tokens: 768,
-      system: SYSTEM_PROMPT,
-      messages,
-    });
+    // Trim history to last 20 messages to avoid context overflow
+    const trimmedMessages = messages.slice(-20);
+
+    // Wrap the API call with a 25-second timeout
+    const timeoutSignal = AbortSignal.timeout(25_000);
+    let response: Awaited<ReturnType<typeof client.messages.create>>;
+    try {
+      response = await client.messages.create({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1024,
+        system: SYSTEM_PROMPT,
+        messages: trimmedMessages,
+      }, { signal: timeoutSignal });
+    } catch (apiErr: unknown) {
+      if (apiErr instanceof Anthropic.APIError) {
+        console.error("[chat-apply/route] Anthropic API error", {
+          status:  apiErr.status,
+          message: apiErr.message,
+          name:    apiErr.name,
+        });
+        return NextResponse.json(
+          { error: `Anthropic API error ${apiErr.status}: ${apiErr.message}` },
+          { status: apiErr.status ?? 500 }
+        );
+      }
+      const isTimeout = apiErr instanceof Error && (apiErr.name === "TimeoutError" || apiErr.name === "AbortError");
+      if (isTimeout) {
+        console.error("[chat-apply/route] Anthropic call timed out after 25s");
+        return NextResponse.json(
+          { error: "The request timed out. Please try again." },
+          { status: 504 }
+        );
+      }
+      throw apiErr; // re-throw for outer catch
+    }
 
     const rawText = response.content[0].type === "text" ? response.content[0].text : "";
 
