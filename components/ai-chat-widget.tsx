@@ -172,7 +172,7 @@ export function AIChatWidget() {
       const res = await fetch("/api/chat", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ messages: history }),
+        body: JSON.stringify({ messages: history, collectedData: {} }),
       });
 
       const data = await res.json();

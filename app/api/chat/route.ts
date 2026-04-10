@@ -167,6 +167,7 @@ async function sendCIMEmail(fields: ReturnType<typeof parseCIMFields>, cimText: 
 // ── Route handler ─────────────────────────────────────────────────────────────
 
 export async function POST(req: NextRequest) {
+  console.log("[chat/route] Chat API called");
   try {
     const { messages } = await req.json() as {
       messages: { role: "user" | "assistant"; content: string }[];
