@@ -157,10 +157,10 @@ export function Navigation() {
           {/* Desktop CTAs */}
           <div className="hidden md:flex items-center gap-3 flex-shrink-0">
             <Link
-              href="/tools/deal-submission"
+              href="/apply"
               className="text-sm font-semibold text-[#27aae1]/80 hover:text-[#27aae1] border border-[#27aae1]/25 hover:border-[#27aae1]/60 px-4 py-2 rounded-full transition-all whitespace-nowrap"
             >
-              Submit a deal →
+              Apply now →
             </Link>
             <Link
               href="/contact"
@@ -238,10 +238,10 @@ export function Navigation() {
                 </Link>
               ))}
               <div className="pt-4 mt-2 border-t border-[#1a1f22] flex flex-col gap-3">
-                <Link href="/tools/deal-submission"
+                <Link href="/apply"
                   className="text-sm font-semibold text-[#27aae1] transition-colors"
                   onClick={() => setMobileOpen(false)}>
-                  Submit a deal →
+                  Apply now →
                 </Link>
                 <Link href="/contact"
                   className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-[#27aae1] text-[#0e1214] text-sm font-semibold rounded-full"

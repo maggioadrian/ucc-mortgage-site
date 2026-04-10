@@ -139,8 +139,8 @@ export function AIChatWidget() {
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef       = useRef<HTMLInputElement>(null);
 
-  // Suppress on deal submission page
-  if (pathname === "/solutions/private/submit-deal") return null;
+  // Suppress on pages that have their own full-screen chat
+  if (pathname === "/apply" || pathname === "/solutions/private/submit-deal") return null;
 
   // Scroll to bottom on new message
   useEffect(() => {

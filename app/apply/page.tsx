@@ -1,458 +1,364 @@
 "use client";
 
-import { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
-import { ArrowRight, ArrowLeft, CheckCircle2, Home, Building2, Landmark, PiggyBank, RefreshCw, CreditCard, Check } from "lucide-react";
-import { Navigation } from "@/components/navigation";
-import { Footer } from "@/components/footer";
-import { ScrollProgress } from "@/components/scroll-progress";
-import { PageBackdrop } from "@/components/page-backdrop";
+import { motion, AnimatePresence } from "framer-motion";
+import { Send, Download, CheckCircle2, Shield, Clock, Building2 } from "lucide-react";
 
-const mortgageTypes = [
-  { id: "residential", label: "Residential", description: "Purchase, renewal, or refinance a home", icon: Home },
-  { id: "commercial", label: "Commercial", description: "Multi-unit, retail, office, or industrial", icon: Building2 },
-  { id: "private", label: "Private Mortgage", description: "Alternative lending, fast approvals", icon: Landmark },
-  { id: "debt-consolidation", label: "Debt Consolidation", description: "Roll high-interest debts into your mortgage", icon: PiggyBank },
-  { id: "refinancing", label: "Refinancing", description: "Access equity or lower your rate", icon: RefreshCw },
-  { id: "heloc", label: "HELOC / Credit Line", description: "Flexible revolving home equity access", icon: CreditCard },
-];
+// ── Types ─────────────────────────────────────────────────────────────────────
 
-const employmentOptions = ["Employed full-time", "Employed part-time", "Self-employed", "Retired", "Other"];
+type Role = "user" | "assistant";
 
-const steps = ["Mortgage type", "Property info", "Your details", "Confirm"];
+interface Message {
+  id: string;
+  role: Role;
+  content: string;
+  isTyping?: boolean;
+  cimText?: string;
+  emailSent?: boolean;
+}
 
-const slideVariants = {
-  enter: (dir: number) => ({ x: dir > 0 ? 40 : -40, opacity: 0 }),
-  center: { x: 0, opacity: 1 },
-  exit: (dir: number) => ({ x: dir > 0 ? -40 : 40, opacity: 0 }),
+const OPENING: Message = {
+  id: "open-0",
+  role: "assistant",
+  content: "Hi! I'm Alex, UCC's mortgage advisor. I'm here to help you find the right financing solution. To get started — are you looking to borrow money secured by a property, or are you interested in investing in private mortgages?",
 };
 
-export default function ApplyPage() {
-  const [step, setStep] = useState(0);
-  const [direction, setDirection] = useState(1);
-  const [submitted, setSubmitted] = useState(false);
+// ── Stages ────────────────────────────────────────────────────────────────────
 
-  const [form, setForm] = useState({
-    mortgageType: "",
-    purchasePrice: "",
-    downPayment: "",
-    propertyAddress: "",
-    propertyType: "Residential",
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    employment: "",
-    annualIncome: "",
-    consent: false,
-  });
+const STAGES = [
+  { n: 1, label: "Understanding your needs",  sub: "Determining the right mortgage type"    },
+  { n: 2, label: "Property details",           sub: "Collecting property & deal information" },
+  { n: 3, label: "Your profile",               sub: "Personal & financial information"        },
+  { n: 4, label: "Review & submit",            sub: "Confirming your file for the UCC team"  },
+];
 
-  const goNext = () => {
-    setDirection(1);
-    setStep((s) => s + 1);
-  };
-  const goBack = () => {
-    setDirection(-1);
-    setStep((s) => s - 1);
-  };
-  const handleSubmit = () => {
-    setSubmitted(true);
-  };
+// ── Download helper ───────────────────────────────────────────────────────────
 
-  const update = (field: string, value: string | boolean) =>
-    setForm((f) => ({ ...f, [field]: value }));
+function downloadCIM(text: string) {
+  const blob = new Blob([text], { type: "text/plain" });
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement("a");
+  a.href     = url;
+  a.download = `UCC-Mortgage-CIM-${Date.now()}.txt`;
+  a.click();
+  URL.revokeObjectURL(url);
+}
 
-  if (submitted) {
-    return (
-      <div className="min-h-screen bg-[#0e1214]">
-        <ScrollProgress />
-        <Navigation />
-        <div className="min-h-[calc(100vh-140px)] flex items-center justify-center px-6">
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.5 }}
-            className="text-center max-w-lg"
-          >
-            <div className="w-20 h-20 rounded-full bg-[#006f7f]/20 border-2 border-[#27aae1]/40 flex items-center justify-center mx-auto mb-6">
-              <CheckCircle2 className="w-10 h-10 text-[#27aae1]" />
-            </div>
-            <h1 className="text-3xl font-bold text-foreground mb-3">Application received</h1>
-            <p className="text-muted-foreground mb-4 leading-relaxed">
-              Thank you, {form.firstName}. One of our brokers will review your information and reach out within one business day to discuss your options.
-            </p>
-            <p className="text-sm text-muted-foreground/60 mb-8">
-              A confirmation has been sent to {form.email}.
-            </p>
-            <Link
-              href="/"
-              className="inline-flex items-center gap-2 px-7 py-3.5 bg-[#27aae1] text-[#0e1214] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(39,170,225,0.4)]"
-            >
-              Back to home
-            </Link>
-          </motion.div>
-        </div>
-        <Footer />
-      </div>
-    );
-  }
+// ── CIM card ──────────────────────────────────────────────────────────────────
 
+function CIMCard({ text, emailSent }: { text: string; emailSent: boolean }) {
   return (
-    <div className="min-h-screen bg-[#0e1214] relative overflow-hidden">
-      <PageBackdrop variant="apply" />
-      <ScrollProgress />
-      <Navigation />
+    <div className="mt-3 rounded-xl border border-[#27aae1]/20 overflow-hidden">
+      <div className="px-4 py-3 border-b border-[#27aae1]/15 flex items-center justify-between"
+        style={{ background: "rgba(0,111,127,0.12)" }}>
+        <span className="text-xs font-semibold text-[#27aae1] uppercase tracking-wider">
+          {emailSent ? "File sent to UCC team \u2713" : "Your Mortgage Summary"}
+        </span>
+        <button onClick={() => downloadCIM(text)}
+          className="flex items-center gap-1.5 text-xs text-muted-foreground hover:text-[#27aae1] transition-colors">
+          <Download className="w-3 h-3" /> Download
+        </button>
+      </div>
+      <pre className="px-4 py-3 text-[10px] text-muted-foreground leading-relaxed whitespace-pre-wrap max-h-48 overflow-y-auto bg-[#0a0d0e]">
+        {text}
+      </pre>
+    </div>
+  );
+}
 
-      <main className="relative py-16 px-6">
-        <div className="max-w-2xl mx-auto">
+// ── Typing indicator ──────────────────────────────────────────────────────────
 
-          {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.5 }}
-            className="text-center mb-10"
-          >
-            <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#006f7f]/20 border border-[#006f7f]/30 rounded-full text-xs font-medium text-[#27aae1] mb-4">
-              <span className="w-1.5 h-1.5 bg-[#27aae1] rounded-full animate-pulse" />
-              No hard credit pull at this stage
-            </span>
-            <h1 className="text-3xl sm:text-4xl font-bold text-foreground mb-2">Start your application</h1>
-            <p className="text-muted-foreground">Takes about 5 minutes. A broker will follow up within 1 business day.</p>
-          </motion.div>
+function TypingDots() {
+  return (
+    <div className="flex items-center gap-1 px-4 py-3.5">
+      {[0, 1, 2].map((i) => (
+        <span key={i} className="w-1.5 h-1.5 rounded-full bg-[#27aae1]/60 animate-bounce"
+          style={{ animationDelay: `${i * 0.15}s`, animationDuration: "0.9s" }} />
+      ))}
+    </div>
+  );
+}
 
-          {/* Progress Steps */}
-          <div className="flex items-center justify-between mb-10 px-2">
-            {steps.map((label, i) => (
-              <div key={i} className="flex items-center gap-0 flex-1 last:flex-none">
-                <div className="flex flex-col items-center">
-                  <div
-                    className={`w-8 h-8 rounded-full flex items-center justify-center text-xs font-semibold border-2 transition-all ${
-                      i < step
-                        ? "bg-[#27aae1] border-[#27aae1] text-[#0e1214]"
-                        : i === step
-                        ? "border-[#27aae1] text-[#27aae1] bg-[#27aae1]/10"
-                        : "border-[#2a3033] text-muted-foreground"
-                    }`}
-                  >
-                    {i < step ? <Check className="w-4 h-4" /> : i + 1}
-                  </div>
-                  <span className={`text-xs mt-1.5 font-medium hidden sm:block ${i === step ? "text-[#27aae1]" : "text-muted-foreground"}`}>
-                    {label}
-                  </span>
+// ── Message bubble ────────────────────────────────────────────────────────────
+
+function Bubble({ msg }: { msg: Message }) {
+  const isUser = msg.role === "user";
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 6 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.2 }}
+      className={`flex ${isUser ? "justify-end" : "justify-start"} mb-4`}>
+      {!isUser && (
+        <div className="w-8 h-8 rounded-full bg-[#006f7f] flex items-center justify-center text-xs font-bold text-white flex-shrink-0 mt-0.5 mr-2.5">
+          A
+        </div>
+      )}
+      <div className={`max-w-[80%] ${isUser ? "" : "flex-1 min-w-0"}`}>
+        {msg.isTyping ? (
+          <div className="rounded-2xl rounded-tl-sm bg-[#161c1f] border border-[#2a3033] inline-block">
+            <TypingDots />
+          </div>
+        ) : (
+          <>
+            <div className={`rounded-2xl px-4 py-3 text-sm leading-relaxed ${
+              isUser
+                ? "rounded-tr-sm bg-[#27aae1] text-[#0e1214] font-medium"
+                : "rounded-tl-sm bg-[#161c1f] border border-[#2a3033] text-foreground"
+            }`}>
+              {msg.content}
+            </div>
+            {msg.cimText && (
+              <CIMCard text={msg.cimText} emailSent={msg.emailSent ?? false} />
+            )}
+          </>
+        )}
+      </div>
+    </motion.div>
+  );
+}
+
+// ── Left panel ────────────────────────────────────────────────────────────────
+
+function LeftPanel({ stage, done }: { stage: number; done: boolean }) {
+  return (
+    <div className="hidden lg:flex flex-col w-[38%] flex-shrink-0 h-screen sticky top-0 px-12 py-10 border-r border-[#1a1f22]"
+      style={{ background: "linear-gradient(180deg, #0a0d0e 0%, #0e1214 100%)" }}>
+
+      <Link href="/" className="inline-flex items-center gap-1 mb-12">
+        <svg viewBox="0 0 80 28" className="h-7 w-auto" aria-label="UCC Mortgage">
+          <text x="0" y="22" style={{ fontFamily: "Open Sans, sans-serif", fontWeight: 600, fontSize: 28 }}>
+            <tspan fill="#2e5f92">U</tspan>
+            <tspan fill="#006f7f">C</tspan>
+            <tspan fill="#27aae1">C</tspan>
+          </text>
+        </svg>
+      </Link>
+
+      <div className="mb-10">
+        <h1 className="text-2xl font-bold text-foreground leading-snug mb-3">
+          Let&apos;s find the right mortgage for you.
+        </h1>
+        <p className="text-sm text-muted-foreground leading-relaxed">
+          Alex will guide you through a quick conversation. Takes about 3&ndash;5 minutes.
+        </p>
+      </div>
+
+      <div className="flex-1 space-y-1">
+        {STAGES.map((s) => {
+          const isActive   = stage === s.n && !done;
+          const isComplete = done || stage > s.n;
+          return (
+            <div key={s.n} className={`flex items-start gap-4 px-4 py-3.5 rounded-xl transition-all duration-300 ${
+              isActive ? "bg-[#006f7f]/12 border border-[#27aae1]/20" : ""
+            }`}>
+              <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-xs font-semibold border-2 transition-all ${
+                isComplete
+                  ? "bg-[#27aae1] border-[#27aae1] text-[#0e1214]"
+                  : isActive
+                  ? "border-[#27aae1] text-[#27aae1] bg-[#27aae1]/10"
+                  : "border-[#2a3033] text-muted-foreground/50"
+              }`}>
+                {isComplete ? <CheckCircle2 className="w-3.5 h-3.5" /> : s.n}
+              </div>
+              <div>
+                <div className={`text-sm font-semibold transition-colors ${
+                  isActive ? "text-foreground" : isComplete ? "text-foreground/70" : "text-muted-foreground/40"
+                }`}>
+                  {s.label}
                 </div>
-                {i < steps.length - 1 && (
-                  <div className={`flex-1 h-px mx-2 transition-all ${i < step ? "bg-[#27aae1]" : "bg-[#2a3033]"}`} />
+                {isActive && (
+                  <div className="text-xs text-muted-foreground mt-0.5">{s.sub}</div>
                 )}
               </div>
-            ))}
-          </div>
-
-          {/* Step Content */}
-          <div
-            className="relative rounded-2xl border border-[#27aae1]/10 p-8 overflow-hidden"
-            style={{ background: "linear-gradient(135deg, #161c1f 0%, #0e1214 100%)" }}
-          >
-            <AnimatePresence mode="wait" custom={direction}>
-              <motion.div
-                key={step}
-                custom={direction}
-                variants={slideVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ duration: 0.3, ease: "easeInOut" }}
-              >
-                {/* Step 1: Mortgage Type */}
-                {step === 0 && (
-                  <div>
-                    <h2 className="text-xl font-bold text-foreground mb-1">What type of mortgage are you looking for?</h2>
-                    <p className="text-sm text-muted-foreground mb-6">Select the option that best describes your situation.</p>
-                    <div className="grid sm:grid-cols-2 gap-3">
-                      {mortgageTypes.map((type) => {
-                        const Icon = type.icon;
-                        return (
-                          <button
-                            key={type.id}
-                            onClick={() => update("mortgageType", type.id)}
-                            className={`group text-left p-4 rounded-xl border-2 transition-all ${
-                              form.mortgageType === type.id
-                                ? "border-[#27aae1] bg-[#27aae1]/8"
-                                : "border-[#2a3033] hover:border-[#27aae1]/40"
-                            }`}
-                          >
-                            <div className="flex items-start gap-3">
-                              <div className={`p-2 rounded-lg ${form.mortgageType === type.id ? "bg-[#27aae1]/20" : "bg-[#1a1f22]"}`}>
-                                <Icon className={`w-4 h-4 ${form.mortgageType === type.id ? "text-[#27aae1]" : "text-muted-foreground"}`} />
-                              </div>
-                              <div>
-                                <div className={`text-sm font-semibold ${form.mortgageType === type.id ? "text-[#27aae1]" : "text-foreground"}`}>{type.label}</div>
-                                <div className="text-xs text-muted-foreground mt-0.5">{type.description}</div>
-                              </div>
-                            </div>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  </div>
-                )}
-
-                {/* Step 2: Property Info */}
-                {step === 1 && (
-                  <div>
-                    <h2 className="text-xl font-bold text-foreground mb-1">Property information</h2>
-                    <p className="text-sm text-muted-foreground mb-6">Tell us about the property you're financing.</p>
-                    <div className="space-y-5">
-                      <div>
-                        <label className="block text-sm font-medium text-foreground mb-1.5">Property address (or city if not yet chosen)</label>
-                        <input
-                          type="text"
-                          value={form.propertyAddress}
-                          onChange={(e) => update("propertyAddress", e.target.value)}
-                          placeholder="e.g. 123 Riverside Dr E, Windsor, ON"
-                          className="w-full px-4 py-3 rounded-lg bg-[#0e1214] border border-[#2a3033] text-foreground text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-[#27aae1]/50 transition-colors"
-                        />
-                      </div>
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium text-foreground mb-1.5">Purchase / appraised value</label>
-                          <div className="relative">
-                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">$</span>
-                            <input
-                              type="text"
-                              value={form.purchasePrice}
-                              onChange={(e) => update("purchasePrice", e.target.value)}
-                              placeholder="550,000"
-                              className="w-full pl-8 pr-4 py-3 rounded-lg bg-[#0e1214] border border-[#2a3033] text-foreground text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-[#27aae1]/50 transition-colors"
-                            />
-                          </div>
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-foreground mb-1.5">Down payment / equity</label>
-                          <div className="relative">
-                            <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">$</span>
-                            <input
-                              type="text"
-                              value={form.downPayment}
-                              onChange={(e) => update("downPayment", e.target.value)}
-                              placeholder="110,000"
-                              className="w-full pl-8 pr-4 py-3 rounded-lg bg-[#0e1214] border border-[#2a3033] text-foreground text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-[#27aae1]/50 transition-colors"
-                            />
-                          </div>
-                        </div>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-foreground mb-1.5">Property type</label>
-                        <div className="grid grid-cols-3 gap-2">
-                          {["Residential", "Condo", "Commercial"].map((t) => (
-                            <button
-                              key={t}
-                              onClick={() => update("propertyType", t)}
-                              className={`py-2.5 rounded-lg border text-sm font-medium transition-all ${
-                                form.propertyType === t
-                                  ? "border-[#27aae1] bg-[#27aae1]/10 text-[#27aae1]"
-                                  : "border-[#2a3033] text-muted-foreground hover:border-[#27aae1]/40"
-                              }`}
-                            >
-                              {t}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Step 3: Personal Info */}
-                {step === 2 && (
-                  <div>
-                    <h2 className="text-xl font-bold text-foreground mb-1">Your information</h2>
-                    <p className="text-sm text-muted-foreground mb-6">Used to match you with the right lenders. Not shared without your consent.</p>
-                    <div className="space-y-5">
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium text-foreground mb-1.5">First name</label>
-                          <input
-                            type="text"
-                            value={form.firstName}
-                            onChange={(e) => update("firstName", e.target.value)}
-                            placeholder="Jane"
-                            className="w-full px-4 py-3 rounded-lg bg-[#0e1214] border border-[#2a3033] text-foreground text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-[#27aae1]/50 transition-colors"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-foreground mb-1.5">Last name</label>
-                          <input
-                            type="text"
-                            value={form.lastName}
-                            onChange={(e) => update("lastName", e.target.value)}
-                            placeholder="Smith"
-                            className="w-full px-4 py-3 rounded-lg bg-[#0e1214] border border-[#2a3033] text-foreground text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-[#27aae1]/50 transition-colors"
-                          />
-                        </div>
-                      </div>
-                      <div className="grid sm:grid-cols-2 gap-4">
-                        <div>
-                          <label className="block text-sm font-medium text-foreground mb-1.5">Email address</label>
-                          <input
-                            type="email"
-                            value={form.email}
-                            onChange={(e) => update("email", e.target.value)}
-                            placeholder="jane@email.com"
-                            className="w-full px-4 py-3 rounded-lg bg-[#0e1214] border border-[#2a3033] text-foreground text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-[#27aae1]/50 transition-colors"
-                          />
-                        </div>
-                        <div>
-                          <label className="block text-sm font-medium text-foreground mb-1.5">Phone number</label>
-                          <input
-                            type="tel"
-                            value={form.phone}
-                            onChange={(e) => update("phone", e.target.value)}
-                            placeholder="(519) 555-0100"
-                            className="w-full px-4 py-3 rounded-lg bg-[#0e1214] border border-[#2a3033] text-foreground text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-[#27aae1]/50 transition-colors"
-                          />
-                        </div>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-foreground mb-1.5">Employment status</label>
-                        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-                          {employmentOptions.map((opt) => (
-                            <button
-                              key={opt}
-                              onClick={() => update("employment", opt)}
-                              className={`py-2.5 px-3 rounded-lg border text-sm font-medium transition-all text-left ${
-                                form.employment === opt
-                                  ? "border-[#27aae1] bg-[#27aae1]/10 text-[#27aae1]"
-                                  : "border-[#2a3033] text-muted-foreground hover:border-[#27aae1]/40"
-                              }`}
-                            >
-                              {opt}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                      <div>
-                        <label className="block text-sm font-medium text-foreground mb-1.5">Gross annual household income</label>
-                        <div className="relative">
-                          <span className="absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground text-sm">$</span>
-                          <input
-                            type="text"
-                            value={form.annualIncome}
-                            onChange={(e) => update("annualIncome", e.target.value)}
-                            placeholder="95,000"
-                            className="w-full pl-8 pr-4 py-3 rounded-lg bg-[#0e1214] border border-[#2a3033] text-foreground text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-[#27aae1]/50 transition-colors"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                )}
-
-                {/* Step 4: Confirmation */}
-                {step === 3 && (
-                  <div>
-                    <h2 className="text-xl font-bold text-foreground mb-1">Review your application</h2>
-                    <p className="text-sm text-muted-foreground mb-6">Make sure everything looks right before submitting.</p>
-
-                    <div className="space-y-4 mb-6">
-                      <div className="p-4 rounded-xl bg-[#0e1214] border border-[#1a1f22]">
-                        <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">Mortgage type</h3>
-                        <p className="text-sm text-foreground font-medium capitalize">{form.mortgageType.replace("-", " ") || "—"}</p>
-                      </div>
-                      <div className="p-4 rounded-xl bg-[#0e1214] border border-[#1a1f22]">
-                        <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">Property</h3>
-                        <div className="grid grid-cols-2 gap-3 text-sm">
-                          <div>
-                            <span className="text-muted-foreground">Address:</span>
-                            <span className="ml-2 text-foreground">{form.propertyAddress || "—"}</span>
-                          </div>
-                          <div>
-                            <span className="text-muted-foreground">Type:</span>
-                            <span className="ml-2 text-foreground">{form.propertyType}</span>
-                          </div>
-                          <div>
-                            <span className="text-muted-foreground">Value:</span>
-                            <span className="ml-2 text-foreground">${form.purchasePrice || "—"}</span>
-                          </div>
-                          <div>
-                            <span className="text-muted-foreground">Down payment:</span>
-                            <span className="ml-2 text-foreground">${form.downPayment || "—"}</span>
-                          </div>
-                        </div>
-                      </div>
-                      <div className="p-4 rounded-xl bg-[#0e1214] border border-[#1a1f22]">
-                        <h3 className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">Contact</h3>
-                        <div className="grid grid-cols-2 gap-3 text-sm">
-                          <div><span className="text-muted-foreground">Name:</span><span className="ml-2 text-foreground">{form.firstName} {form.lastName}</span></div>
-                          <div><span className="text-muted-foreground">Email:</span><span className="ml-2 text-foreground">{form.email || "—"}</span></div>
-                          <div><span className="text-muted-foreground">Phone:</span><span className="ml-2 text-foreground">{form.phone || "—"}</span></div>
-                          <div><span className="text-muted-foreground">Employment:</span><span className="ml-2 text-foreground">{form.employment || "—"}</span></div>
-                        </div>
-                      </div>
-                    </div>
-
-                    <label className="flex items-start gap-3 cursor-pointer">
-                      <div
-                        onClick={() => update("consent", !form.consent)}
-                        className={`mt-0.5 w-5 h-5 rounded flex items-center justify-center flex-shrink-0 border-2 transition-all ${
-                          form.consent ? "bg-[#27aae1] border-[#27aae1]" : "border-[#2a3033]"
-                        }`}
-                      >
-                        {form.consent && <Check className="w-3 h-3 text-[#0e1214]" />}
-                      </div>
-                      <span className="text-xs text-muted-foreground leading-relaxed">
-                        I consent to UCC Mortgage Co. contacting me regarding my application. My information will not be shared with lenders without my explicit consent. View our{" "}
-                        <Link href="#" className="text-[#27aae1] hover:underline">Privacy Policy</Link>.
-                      </span>
-                    </label>
-                  </div>
-                )}
-              </motion.div>
-            </AnimatePresence>
-
-            {/* Navigation Buttons */}
-            <div className="flex items-center justify-between mt-8 pt-6 border-t border-[#1a1f22]">
-              <button
-                onClick={goBack}
-                className={`inline-flex items-center gap-2 px-5 py-2.5 border border-[#2a3033] text-foreground text-sm font-semibold rounded-full hover:border-[#27aae1]/40 transition-all ${
-                  step === 0 ? "opacity-0 pointer-events-none" : ""
-                }`}
-              >
-                <ArrowLeft className="w-4 h-4" />
-                Back
-              </button>
-
-              {step < 3 ? (
-                <button
-                  onClick={goNext}
-                  disabled={step === 0 && !form.mortgageType}
-                  className="group inline-flex items-center gap-2 px-6 py-2.5 bg-[#27aae1] text-[#0e1214] text-sm font-semibold rounded-full transition-all hover:shadow-[0_0_20px_rgba(39,170,225,0.35)] disabled:opacity-40 disabled:cursor-not-allowed"
-                >
-                  Continue
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-                </button>
-              ) : (
-                <button
-                  onClick={handleSubmit}
-                  disabled={!form.consent}
-                  className="group inline-flex items-center gap-2 px-6 py-2.5 bg-[#27aae1] text-[#0e1214] text-sm font-semibold rounded-full transition-all hover:shadow-[0_0_20px_rgba(39,170,225,0.35)] disabled:opacity-40 disabled:cursor-not-allowed"
-                >
-                  Submit application
-                  <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
-                </button>
-              )}
             </div>
-          </div>
+          );
+        })}
+      </div>
 
-          <p className="text-center text-xs text-muted-foreground/60 mt-6">
-            No hard credit check. No obligation. Questions?{" "}
-            <Link href="/contact" className="text-[#27aae1] hover:underline">Call us directly.</Link>
+      <div className="mt-8 pt-8 border-t border-[#1a1f22] space-y-3">
+        {[
+          { Icon: Building2, text: "50+ years serving Windsor-Essex" },
+          { Icon: Shield,    text: "No hard credit pull at this stage" },
+          { Icon: Clock,     text: "Response within 1 business day" },
+        ].map(({ Icon, text }) => (
+          <div key={text} className="flex items-center gap-2.5 text-xs text-muted-foreground">
+            <Icon className="w-3.5 h-3.5 text-[#27aae1]/60 flex-shrink-0" />
+            {text}
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+// ── Main page ─────────────────────────────────────────────────────────────────
+
+export default function ApplyPage() {
+  const [messages, setMessages] = useState<Message[]>([OPENING]);
+  const [input, setInput]       = useState("");
+  const [loading, setLoading]   = useState(false);
+  const [stage, setStage]       = useState(1);
+  const [done, setDone]         = useState(false);
+  const messagesEndRef           = useRef<HTMLDivElement>(null);
+  const inputRef                 = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages]);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
+  const send = useCallback(async (text?: string) => {
+    const userText = (text ?? input).trim();
+    if (!userText || loading) return;
+    setInput("");
+
+    const userMsg: Message   = { id: `u-${Date.now()}`, role: "user",      content: userText };
+    const typingMsg: Message = { id: "typing",           role: "assistant", content: "", isTyping: true };
+
+    setMessages((prev) => [...prev, userMsg, typingMsg]);
+    setLoading(true);
+
+    const history = [...messages, userMsg]
+      .filter((m) => !m.isTyping)
+      .map((m) => ({ role: m.role, content: m.content }));
+
+    try {
+      const res = await fetch("/api/chat-apply", {
+        method:  "POST",
+        headers: { "Content-Type": "application/json" },
+        body:    JSON.stringify({ messages: history, collectedData: {} }),
+      });
+
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.error ?? "Request failed");
+
+      if (typeof data.stage === "number") setStage(data.stage);
+      if (data.cimGenerated) { setDone(true); setStage(4); }
+
+      const assistantMsg: Message = {
+        id:        `a-${Date.now()}`,
+        role:      "assistant",
+        content:   data.message,
+        cimText:   data.cimText   ?? undefined,
+        emailSent: data.emailSent ?? false,
+      };
+
+      setMessages((prev) => [...prev.filter((m) => m.id !== "typing"), assistantMsg]);
+    } catch (err) {
+      const errMsg: Message = {
+        id:      `err-${Date.now()}`,
+        role:    "assistant",
+        content: "Sorry, I ran into a technical issue. Please try again or call us at (519) 252-1110.",
+      };
+      setMessages((prev) => [...prev.filter((m) => m.id !== "typing"), errMsg]);
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  }, [input, loading, messages]);
+
+  const handleKey = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); send(); }
+  };
+
+  return (
+    <div className="flex min-h-screen bg-[#0e1214]">
+      <LeftPanel stage={stage} done={done} />
+
+      <div className="flex flex-col flex-1 min-w-0 h-screen">
+
+        {/* Mobile header */}
+        <div className="lg:hidden flex items-center justify-between px-5 py-4 border-b border-[#1a1f22] bg-[#0a0d0e]">
+          <Link href="/">
+            <svg viewBox="0 0 80 28" className="h-6 w-auto" aria-label="UCC Mortgage">
+              <text x="0" y="22" style={{ fontFamily: "Open Sans, sans-serif", fontWeight: 600, fontSize: 28 }}>
+                <tspan fill="#2e5f92">U</tspan>
+                <tspan fill="#006f7f">C</tspan>
+                <tspan fill="#27aae1">C</tspan>
+              </text>
+            </svg>
+          </Link>
+          <span className="text-xs font-medium px-3 py-1 rounded-full bg-[#006f7f]/20 border border-[#27aae1]/20 text-[#27aae1]">
+            Stage {stage} of 4
+          </span>
+        </div>
+
+        {/* Desktop chat header */}
+        <div className="hidden lg:flex items-center gap-3 px-8 py-5 border-b border-[#1a1f22]"
+          style={{ background: "linear-gradient(135deg, #161c1f 0%, #0e1214 100%)" }}>
+          <div className="w-10 h-10 rounded-full bg-[#006f7f] flex items-center justify-center font-bold text-white flex-shrink-0">
+            A
+          </div>
+          <div>
+            <div className="font-semibold text-foreground leading-tight">Alex</div>
+            <div className="text-xs text-muted-foreground leading-tight">UCC Mortgage Advisor &middot; Online</div>
+          </div>
+          <span className="ml-1 w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0" />
+          <div className="ml-auto text-xs text-muted-foreground/60">
+            Need help now?{" "}
+            <Link href="tel:5192521110" className="text-[#27aae1] hover:underline">(519) 252-1110</Link>
+          </div>
+        </div>
+
+        {/* Messages */}
+        <div className="flex-1 overflow-y-auto px-5 lg:px-8 py-6">
+          <AnimatePresence initial={false}>
+            {messages.map((msg) => <Bubble key={msg.id} msg={msg} />)}
+          </AnimatePresence>
+
+          {/* Quick starters — only shown on first message */}
+          {messages.length === 1 && (
+            <motion.div
+              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+              className="flex flex-wrap gap-2 mt-1 ml-10">
+              {[
+                "I need a private mortgage",
+                "I want to buy a commercial property",
+                "I\u2019m looking to refinance",
+                "I want to invest in mortgages",
+              ].map((s) => (
+                <button key={s} onClick={() => send(s)}
+                  className="text-xs px-3.5 py-2 rounded-full border border-[#27aae1]/30 text-[#27aae1] hover:bg-[#27aae1]/10 transition-colors">
+                  {s}
+                </button>
+              ))}
+            </motion.div>
+          )}
+
+          <div ref={messagesEndRef} />
+        </div>
+
+        {/* Input bar */}
+        <div className="px-5 lg:px-8 py-4 border-t border-[#1a1f22] bg-[#0a0d0e]">
+          <div className="flex items-center gap-3 max-w-3xl">
+            <input
+              ref={inputRef}
+              type="text"
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={handleKey}
+              placeholder={done ? "Your file has been submitted." : "Type a message\u2026"}
+              disabled={loading || done}
+              className="flex-1 px-4 py-3 rounded-xl bg-[#111618] border border-[#2a3033] text-foreground text-sm placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#27aae1]/50 transition-colors disabled:opacity-50"
+            />
+            <button
+              onClick={() => send()}
+              disabled={!input.trim() || loading || done}
+              className="w-11 h-11 flex-shrink-0 rounded-xl bg-[#27aae1] text-[#0e1214] flex items-center justify-center transition-all hover:shadow-[0_0_16px_rgba(39,170,225,0.4)] disabled:opacity-40 disabled:cursor-not-allowed">
+              <Send className="w-4 h-4" />
+            </button>
+          </div>
+          <p className="text-[10px] text-muted-foreground/40 mt-2 max-w-3xl">
+            Powered by UCC AI &middot; No hard credit check &middot; Not a commitment to lend
           </p>
         </div>
-      </main>
-
-      <Footer />
+      </div>
     </div>
   );
 }
