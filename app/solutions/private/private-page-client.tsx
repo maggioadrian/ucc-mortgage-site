@@ -11,6 +11,7 @@ import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
 import { ScrollProgress } from "@/components/scroll-progress";
 import { PageBackdrop } from "@/components/page-backdrop";
+import { MessageCircle } from "lucide-react";
 
 const fadeUp = {
   hidden: { opacity: 0, y: 24 },
@@ -125,6 +126,22 @@ export function PrivatePageClient() {
       <Navigation />
 
       <main>
+        {/* ── Alex chat banner ── */}
+        <div className="border-b border-[#006f7f]/20 bg-[#006f7f]/08 py-3">
+          <div className="max-w-7xl mx-auto px-6 flex items-center justify-between gap-4 flex-wrap">
+            <p className="text-sm text-muted-foreground">
+              <span className="font-semibold text-foreground">Not sure where to start?</span>{" "}
+              Our AI advisor can walk you through your options in minutes.
+            </p>
+            <button
+              onClick={() => window.dispatchEvent(new Event("ucc:open-chat"))}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#27aae1]/40 text-[#27aae1] text-sm font-medium hover:bg-[#27aae1]/10 transition-colors flex-shrink-0">
+              <MessageCircle className="w-3.5 h-3.5" />
+              Prefer to chat? Talk to Alex →
+            </button>
+          </div>
+        </div>
+
         {/* ── Page intro / anchor nav ── */}
         <section
           className="pt-20 pb-10 border-b border-[#1a1f22]"

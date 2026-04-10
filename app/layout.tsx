@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { Open_Sans } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { AIChatWidget } from '@/components/ai-chat-widget'
 import './globals.css'
 
 const openSans = Open_Sans({ 
@@ -41,6 +42,7 @@ export default function RootLayout({
     <html lang="en" className={openSans.variable}>
       <body className="font-sans antialiased">
         {children}
+        <AIChatWidget />
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
