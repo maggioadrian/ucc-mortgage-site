@@ -39,49 +39,76 @@ Track which fields you have collected. If the conversation stalls or the client 
 
 Always sign off warmly. You represent a trusted 50-year-old Windsor institution.`;
 
-// ── Helpers ──────────────────────────────────────────────────────────────────
+// ── Types ─────────────────────────────────────────────────────────────────────
 
-function parseCIMFields(messages: { role: string; content: string }[]) {
-  const conversation = messages.map((m) => `${m.role === "user" ? "Client" : "Alex"}: ${m.content}`).join("\n");
+interface CIMFields {
+  borrowerName:     string | null;
+  phone:            string | null;
+  email:            string | null;
+  propertyAddress:  string | null;
+  estimatedValue:   number | null;
+  existingMortgage: number | null;
+  position:         string | null;
+  loanAmount:       number | null;
+  purpose:          string | null;
+  term:             string | null;
+  amortization:     string | null;
+  urgency:          string | null;
+  exitStrategy:     string | null;
+  creditSituation:  string | null;
+  selfEmployed:     string | null;
+  // computed
+  ltv:              string;
+  monthlyEst:       string;
+  timestamp:        string;
+}
 
-  const extract = (patterns: RegExp[]) => {
-    for (const re of patterns) {
-      const m = conversation.match(re);
-      if (m) return m[1]?.trim() ?? "";
-    }
-    return "Not provided";
-  };
+// ── AI-powered field extractor ────────────────────────────────────────────────
 
-  const name     = extract([/(?:my name is|I(?:'m| am)|name[:\s]+)([A-Z][a-z]+ [A-Z][a-z]+)/i, /Client: (?:Hi,? )?I(?:'m| am) ([A-Z][a-z]+ [A-Z][a-z]+)/i]);
-  const phone    = extract([/(\(?\d{3}\)?[\s\-.]?\d{3}[\s\-.]?\d{4})/]);
-  const email    = extract([/([a-zA-Z0-9._%+\-]+@[a-zA-Z0-9.\-]+\.[a-zA-Z]{2,})/]);
-  const address  = extract([/(\d+\s+[A-Za-z\s]+(?:Street|St|Avenue|Ave|Drive|Dr|Road|Rd|Blvd|Boulevard|Way|Court|Ct|Lane|Ln)[^,\n]*(?:,\s*[A-Za-z\s]+)?)/i]);
-  const value    = extract([/(?:worth|value[d]?|appraise[d]?|estimate[d]?)[^\d]*\$?([\d,]+(?:k|K|M)?)/i, /\$?([\d,]+(?:k|K|M)?)\s*(?:is the value|value)/i]);
-  const balance  = extract([/(?:existing|current|outstanding)\s+mortgage[^\d]*\$?([\d,]+(?:k|K|M)?)/i, /owe[s]?[^\d]*\$?([\d,]+(?:k|K|M)?)/i]);
-  const position = extract([/(\bfirst\b|\bsecond\b|\b1st\b|\b2nd\b)\s+(?:mortgage|position)/i]);
-  const amount   = extract([/(?:borrow|need|loan|mortgage)[^\d]*\$?([\d,]+(?:k|K|M)?)/i, /\$?([\d,]+(?:k|K|M)?)\s+(?:mortgage|loan)/i]);
-  const purpose  = extract([/(?:for|to use (?:it )?for|purpose[:\s]+)([a-zA-Z ,]+?)(?:\.|,|\n|$)/i]);
-  const term     = extract([/(6[\s-]months?|1[\s-]year|2[\s-]years?|open[\s-]term)/i]);
-  const amort    = extract([/(interest[\s-]only|standard|regular)\s*(?:amortization|payments?)?/i]);
-  const urgency  = extract([/(?:need|close|fund)[^\n]*(?:within|in|by)\s+([^\n.]+)/i, /timing[:\s]+([^\n.]+)/i]);
-  const exit     = extract([/(?:exit strategy|plan to repay|pay (?:it )?(?:off|back))[:\s]*([^\n.]+)/i]);
-  const credit   = extract([/(?:credit[:\s]+|my credit is|credit situation[:\s]*)([^\n.]+)/i]);
-  const selfEmp  = /self[\s-]employed/i.test(conversation) ? "Yes" : /not self[\s-]employed|employee|employed (?:full|part)/i.test(conversation) ? "No" : "Not specified";
+const EXTRACTION_SYSTEM = `You are a data extraction assistant. Extract structured data from a mortgage intake conversation. Return ONLY valid JSON with these exact keys: borrowerName, phone, email, propertyAddress, estimatedValue (number only), existingMortgage (number only), position (first/second/blanket), loanAmount (number only), purpose, term, amortization (interest-only/standard), urgency, exitStrategy, creditSituation, selfEmployed (yes/no). If a field was not clearly provided by the CLIENT (not the advisor), use null. Convert shorthand like $500k to 500000. Do not include question text — only client answers.`;
 
-  // LTV calculation
-  const parseAmt = (s: string) => {
-    if (s === "Not provided") return 0;
-    const clean = s.replace(/,/g, "").replace(/k/i, "000").replace(/m/i, "000000");
-    return parseFloat(clean) || 0;
-  };
-  const v = parseAmt(value);
-  const b = parseAmt(balance);
-  const a = parseAmt(amount);
-  const ltv = v > 0 ? Math.round(((b + a) / v) * 100) : 0;
+async function extractCIMFields(
+  client: Anthropic,
+  messages: { role: string; content: string }[]
+): Promise<CIMFields> {
+  const transcript = messages
+    .map((m) => `${m.role === "user" ? "CLIENT" : "ALEX"}: ${m.content}`)
+    .join("\n\n");
 
-  // Monthly payment estimate at 11%
-  const r = 0.11 / 12;
-  const monthlyEst = a > 0 ? Math.round(a * r) : 0;
+  const extraction = await client.messages.create({
+    model: "claude-sonnet-4-20250514",
+    max_tokens: 1024,
+    system: EXTRACTION_SYSTEM,
+    messages: [{ role: "user", content: transcript }],
+  });
+
+  const raw = extraction.content[0].type === "text" ? extraction.content[0].text : "{}";
+
+  // Strip markdown code fences if present
+  const jsonStr = raw.replace(/```(?:json)?/gi, "").replace(/```/g, "").trim();
+
+  let extracted: Partial<CIMFields>;
+  try {
+    extracted = JSON.parse(jsonStr);
+  } catch {
+    console.error("[chat/route] Failed to parse extraction JSON:", jsonStr);
+    extracted = {};
+  }
+
+  // Derived calculations
+  const v = typeof extracted.estimatedValue === "number" && extracted.estimatedValue > 0
+    ? extracted.estimatedValue : null;
+  const a = typeof extracted.loanAmount === "number" && extracted.loanAmount > 0
+    ? extracted.loanAmount : null;
+
+  const ltv = v && a
+    ? `${((a / v) * 100).toFixed(1)}%`
+    : "N/A";
+
+  const monthlyEst = a
+    ? new Intl.NumberFormat("en-CA", { style: "currency", currency: "CAD", maximumFractionDigits: 0 })
+        .format(Math.round(a * 0.11 / 12))
+    : "N/A";
 
   const timestamp = new Date().toLocaleString("en-CA", {
     timeZone: "America/Toronto",
@@ -89,42 +116,72 @@ function parseCIMFields(messages: { role: string; content: string }[]) {
     timeStyle: "short",
   });
 
-  return { name, phone, email, address, value, balance, position, amount, purpose, term, amort, urgency, exit, credit, selfEmp, ltv, monthlyEst, timestamp };
+  return {
+    borrowerName:     extracted.borrowerName     ?? null,
+    phone:            extracted.phone            ?? null,
+    email:            extracted.email            ?? null,
+    propertyAddress:  extracted.propertyAddress  ?? null,
+    estimatedValue:   v,
+    existingMortgage: typeof extracted.existingMortgage === "number" ? extracted.existingMortgage : null,
+    position:         extracted.position         ?? null,
+    loanAmount:       a,
+    purpose:          extracted.purpose          ?? null,
+    term:             extracted.term             ?? null,
+    amortization:     extracted.amortization     ?? null,
+    urgency:          extracted.urgency          ?? null,
+    exitStrategy:     extracted.exitStrategy     ?? null,
+    creditSituation:  extracted.creditSituation  ?? null,
+    selfEmployed:     extracted.selfEmployed     ?? null,
+    ltv,
+    monthlyEst,
+    timestamp,
+  };
 }
 
-function formatCIM(f: ReturnType<typeof parseCIMFields>): string {
+// ── CIM formatter ─────────────────────────────────────────────────────────────
+
+function fmtNum(n: number | null): string {
+  if (n === null) return "Not provided";
+  return new Intl.NumberFormat("en-CA", { style: "currency", currency: "CAD", maximumFractionDigits: 0 }).format(n);
+}
+
+function fmtStr(s: string | null): string {
+  return s ?? "Not provided";
+}
+
+function formatCIM(f: CIMFields): string {
   return `PRIVATE MORTGAGE INVESTMENT SUMMARY
 UCC Mortgage Co. — For Administration Review Only
 Not a guarantee of approval. Present to Vince Castagna or John Battaglia.
 ${"─".repeat(60)}
 
-BORROWER: ${f.name}
-PHONE:    ${f.phone}
-EMAIL:    ${f.email}
+BORROWER: ${fmtStr(f.borrowerName)}
+PHONE:    ${fmtStr(f.phone)}
+EMAIL:    ${fmtStr(f.email)}
 
-PROPERTY:          ${f.address}
-ESTIMATED VALUE:   $${f.value}
-EXISTING MORTGAGE: $${f.balance}
-LTV:               ${f.ltv}%
+PROPERTY:          ${fmtStr(f.propertyAddress)}
+ESTIMATED VALUE:   ${fmtNum(f.estimatedValue)}
+EXISTING MORTGAGE: ${fmtNum(f.existingMortgage)}
+LTV:               ${f.ltv}
 
-POSITION:          ${f.position}
-AMOUNT REQUESTED:  $${f.amount}
-PURPOSE:           ${f.purpose}
-TERM:              ${f.term}
-AMORTIZATION:      ${f.amort}
-EST. MONTHLY PMT:  $${f.monthlyEst.toLocaleString()} (at 11% — indicative only)
+POSITION:          ${fmtStr(f.position)}
+AMOUNT REQUESTED:  ${fmtNum(f.loanAmount)}
+PURPOSE:           ${fmtStr(f.purpose)}
+TERM:              ${fmtStr(f.term)}
+AMORTIZATION:      ${fmtStr(f.amortization)}
+EST. MONTHLY PMT:  ${f.monthlyEst} (at 11% — indicative only)
 
-FUNDING DATE:      ${f.urgency}
-EXIT STRATEGY:     ${f.exit}
-CREDIT SITUATION:  ${f.credit}
-SELF-EMPLOYED:     ${f.selfEmp}
+FUNDING DATE:      ${fmtStr(f.urgency)}
+EXIT STRATEGY:     ${fmtStr(f.exitStrategy)}
+CREDIT SITUATION:  ${fmtStr(f.creditSituation)}
+SELF-EMPLOYED:     ${fmtStr(f.selfEmployed)}
 
 ${"─".repeat(60)}
 Generated via UCC AI Intake — ${f.timestamp}
 `;
 }
 
-async function sendCIMEmail(fields: ReturnType<typeof parseCIMFields>, cimText: string) {
+async function sendCIMEmail(fields: CIMFields, cimText: string) {
   const smtpUser = process.env.SMTP_USER;
   const smtpPass = process.env.SMTP_PASS;
   const smtpHost = process.env.SMTP_HOST ?? "smtp.gmail.com";
@@ -140,7 +197,10 @@ async function sendCIMEmail(fields: ReturnType<typeof parseCIMFields>, cimText: 
     auth: { user: smtpUser, pass: smtpPass },
   });
 
-  const subject = `New Private Mortgage CIM — ${fields.name} — $${fields.amount} — ${fields.address}`;
+  const amountStr = fields.loanAmount
+    ? `$${fields.loanAmount.toLocaleString("en-CA")}`
+    : "Amount TBD";
+  const subject = `New Private Mortgage CIM — ${fields.borrowerName ?? "Unknown"} — ${amountStr} — ${fields.propertyAddress ?? "Address TBD"}`;
 
   // To UCC team
   await transporter.sendMail({
@@ -152,12 +212,13 @@ async function sendCIMEmail(fields: ReturnType<typeof parseCIMFields>, cimText: 
   });
 
   // Confirmation to borrower
-  if (fields.email && fields.email !== "Not provided" && fields.email.includes("@")) {
+  if (fields.email && fields.email.includes("@")) {
+    const firstName = fields.borrowerName ? fields.borrowerName.split(" ")[0] : "there";
     await transporter.sendMail({
       from: `"UCC Mortgage Co." <${smtpUser}>`,
       to: fields.email,
       subject: "Your UCC Mortgage file has been received",
-      text: `Hi ${fields.name.split(" ")[0]},\n\nThank you for connecting with UCC Mortgage Co. Your file has been received and Vince or a member of our team will be in touch within 1 business day.\n\nIf you have urgent questions in the meantime, you can call us at (519) 252-1110.\n\nWarm regards,\nUCC Mortgage Co.\n3200 Deziel Drive, Suite 508\nWindsor, ON N8W 5K8`,
+      text: `Hi ${firstName},\n\nThank you for connecting with UCC Mortgage Co. Your file has been received and Vince or a member of our team will be in touch within 1 business day.\n\nIf you have urgent questions in the meantime, you can call us at (519) 252-1110.\n\nWarm regards,\nUCC Mortgage Co.\n3200 Deziel Drive, Suite 508\nWindsor, ON N8W 5K8`,
     });
   }
 
@@ -192,7 +253,7 @@ export async function POST(req: NextRequest) {
 
     // Detect CIM trigger
     const triggerMatch = text.includes("GENERATE_CIM:{\"complete\":true}");
-    let cimData: ReturnType<typeof parseCIMFields> | null = null;
+    let cimData: CIMFields | null = null;
     let cimText = "";
     let emailSent = false;
 
@@ -201,7 +262,7 @@ export async function POST(req: NextRequest) {
         ...messages,
         { role: "assistant" as const, content: text },
       ];
-      cimData = parseCIMFields(allMessages);
+      cimData = await extractCIMFields(client, allMessages);
       cimText = formatCIM(cimData);
 
       try {
