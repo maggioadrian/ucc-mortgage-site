@@ -121,7 +121,7 @@ const riskItems = [
 
 export function PrivatePageClient() {
   return (
-    <div className="min-h-screen bg-[#0e1214]">
+    <div className="min-h-screen bg-[#141210]">
       <ScrollProgress />
       <Navigation />
 
@@ -135,7 +135,7 @@ export function PrivatePageClient() {
             </p>
             <button
               onClick={() => window.dispatchEvent(new Event("ucc:open-chat"))}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#27aae1]/40 text-[#27aae1] text-sm font-medium hover:bg-[#27aae1]/10 transition-colors flex-shrink-0">
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-[#006f7f]/40 text-[#27aae1] text-sm font-medium hover:bg-[#006f7f]/10 transition-colors flex-shrink-0">
               <MessageCircle className="w-3.5 h-3.5" />
               Prefer to chat? Talk to Alex →
             </button>
@@ -144,7 +144,7 @@ export function PrivatePageClient() {
 
         {/* ── Page intro / anchor nav ── */}
         <section
-          className="pt-20 pb-10 border-b border-[#1a1f22]"
+          className="pt-20 pb-10 border-b border-[#1a1610]"
           style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(0,111,127,0.10) 0%, transparent 55%)" }}
         >
           <div className="max-w-7xl mx-auto px-6">
@@ -154,7 +154,7 @@ export function PrivatePageClient() {
               className="max-w-2xl"
             >
               <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#006f7f]/20 border border-[#006f7f]/30 rounded-full text-xs font-medium text-[#27aae1] mb-5">
-                <span className="w-1.5 h-1.5 bg-[#27aae1] rounded-full animate-pulse" />
+                <span className="w-1.5 h-1.5 bg-[#006f7f] rounded-full animate-pulse" />
                 For borrowers &amp; investors
               </span>
               <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4 tracking-tight">
@@ -173,14 +173,14 @@ export function PrivatePageClient() {
             >
               <a
                 href="#borrowers"
-                className="group inline-flex items-center gap-2 px-6 py-2.5 bg-[#27aae1] text-[#0e1214] text-sm font-semibold rounded-full transition-all hover:shadow-[0_0_20px_rgba(39,170,225,0.35)]"
+                className="group inline-flex items-center gap-2 px-6 py-2.5 bg-[#006f7f] text-[#141210] text-sm font-semibold rounded-full transition-all hover:shadow-[0_0_20px_rgba(0,111,127,0.35)]"
               >
                 I need a mortgage
                 <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5" />
               </a>
               <a
                 href="#invest"
-                className="inline-flex items-center gap-2 px-6 py-2.5 border border-[#006f7f]/50 text-[#27aae1] text-sm font-semibold rounded-full hover:border-[#27aae1]/50 hover:bg-[#27aae1]/5 transition-all"
+                className="inline-flex items-center gap-2 px-6 py-2.5 border border-[#006f7f]/50 text-[#27aae1] text-sm font-semibold rounded-full hover:border-[#006f7f]/50 hover:bg-[#006f7f]/5 transition-all"
               >
                 <TrendingUp className="w-4 h-4" />
                 I want to invest
@@ -192,12 +192,12 @@ export function PrivatePageClient() {
         {/* ════════════════════════════════════════════════════════════
             BORROWER SECTION
         ════════════════════════════════════════════════════════════ */}
-        <section id="borrowers" className="scroll-mt-[72px] bg-[#0e1214]">
+        <section id="borrowers" className="scroll-mt-[72px] bg-[#141210]">
 
           {/* Borrower hero */}
           <div
-            className="py-20 relative overflow-hidden border-b border-[#1a1f22]"
-            style={{ background: "radial-gradient(ellipse at 75% 50%, rgba(39,170,225,0.07) 0%, transparent 60%)" }}
+            className="py-20 relative overflow-hidden border-b border-[#1a1610]"
+            style={{ background: "radial-gradient(ellipse at 75% 50%, rgba(0,111,127,0.07) 0%, transparent 60%)" }}
           >
             <PageBackdrop variant="private" />
             <div className="relative max-w-7xl mx-auto px-6">
@@ -208,7 +208,7 @@ export function PrivatePageClient() {
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.5 }}
                 >
-                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#27aae1]/10 border border-[#27aae1]/20 text-xs font-semibold text-[#27aae1] mb-5">
+                  <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#006f7f]/10 border border-[#006f7f]/20 text-xs font-semibold text-[#27aae1] mb-5">
                     For Borrowers
                   </div>
                   <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 tracking-tight">
@@ -223,14 +223,14 @@ export function PrivatePageClient() {
                   <div className="flex flex-wrap gap-3">
                     <Link
                       href="/apply"
-                      className="group inline-flex items-center gap-2 px-7 py-3.5 bg-[#27aae1] text-[#0e1214] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(39,170,225,0.4)]"
+                      className="group inline-flex items-center gap-2 px-7 py-3.5 bg-[#006f7f] text-[#141210] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(0,111,127,0.4)]"
                     >
                       Apply for a private mortgage
                       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </Link>
                     <Link
                       href="/contact"
-                      className="inline-flex items-center gap-2 px-7 py-3.5 border border-[#2a3033] text-foreground font-semibold rounded-full hover:border-[#27aae1]/40 hover:bg-[#27aae1]/5 transition-all"
+                      className="inline-flex items-center gap-2 px-7 py-3.5 border border-[#2a2420] text-foreground font-semibold rounded-full hover:border-[#006f7f]/40 hover:bg-[#006f7f]/5 transition-all"
                     >
                       Call us first
                     </Link>
@@ -241,7 +241,7 @@ export function PrivatePageClient() {
           </div>
 
           {/* Borrower stats */}
-          <div className="border-b border-[#1a1f22] bg-[#0a0d0e]">
+          <div className="border-b border-[#1a1610] bg-[#0e0c0a]">
             <div className="max-w-7xl mx-auto px-6 py-7">
               <div className="grid grid-cols-3 gap-6 text-center">
                 {[
@@ -264,7 +264,7 @@ export function PrivatePageClient() {
           </div>
 
           {/* Benefits */}
-          <div className="py-20 bg-[#0e1214]">
+          <div className="py-20 bg-[#141210]">
             <div className="max-w-7xl mx-auto px-6">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -286,11 +286,11 @@ export function PrivatePageClient() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: "-60px" }}
                       transition={{ duration: 0.5, delay: i * 0.07 }}
-                      className="p-6 rounded-xl border border-[#27aae1]/10 hover:border-[#27aae1]/30 transition-all"
-                      style={{ background: "linear-gradient(135deg,#161c1f 0%,#0e1214 100%)" }}
+                      className="p-6 rounded-xl border border-[#006f7f]/10 hover:border-[#006f7f]/30 transition-all"
+                      style={{ background: "linear-gradient(135deg,#242018 0%,#141210 100%)" }}
                     >
-                      <div className="p-2.5 rounded-lg bg-[#27aae1]/10 w-fit mb-4">
-                        <Icon className="w-5 h-5 text-[#27aae1]" />
+                      <div className="p-2.5 rounded-lg bg-[#006f7f]/10 w-fit mb-4">
+                        <Icon className="w-5 h-5 text-[#006f7f]" />
                       </div>
                       <h4 className="text-base font-semibold text-foreground mb-1.5">{b.title}</h4>
                       <p className="text-sm text-muted-foreground leading-relaxed">{b.description}</p>
@@ -302,7 +302,7 @@ export function PrivatePageClient() {
           </div>
 
           {/* Who qualifies + how it works */}
-          <div className="py-20 bg-[#0a0d0e] border-t border-[#1a1f22]">
+          <div className="py-20 bg-[#0e0c0a] border-t border-[#1a1610]">
             <div className="max-w-7xl mx-auto px-6">
               <div className="grid lg:grid-cols-2 gap-16">
 
@@ -324,9 +324,9 @@ export function PrivatePageClient() {
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true, margin: "-40px" }}
                         transition={{ duration: 0.35, delay: i * 0.06 }}
-                        className="flex items-start gap-2.5 p-3 rounded-lg border border-[#27aae1]/8 bg-[#0e1214]"
+                        className="flex items-start gap-2.5 p-3 rounded-lg border border-[#006f7f]/8 bg-[#141210]"
                       >
-                        <CheckCircle2 className="w-4 h-4 text-[#27aae1] flex-shrink-0 mt-0.5" />
+                        <CheckCircle2 className="w-4 h-4 text-[#006f7f] flex-shrink-0 mt-0.5" />
                         <span className="text-sm text-muted-foreground">{item}</span>
                       </motion.div>
                     ))}
@@ -355,7 +355,7 @@ export function PrivatePageClient() {
                         transition={{ duration: 0.45, delay: i * 0.12 }}
                         className="relative flex gap-5 pb-8 last:pb-0"
                       >
-                        <div className="relative z-10 w-12 h-12 rounded-full bg-[#111618] border-2 border-[#27aae1]/40 flex items-center justify-center flex-shrink-0">
+                        <div className="relative z-10 w-12 h-12 rounded-full bg-[#1c1916] border-2 border-[#006f7f]/40 flex items-center justify-center flex-shrink-0">
                           <span className="text-xs font-bold text-[#27aae1]">{step.number}</span>
                         </div>
                         <div className="pt-2.5">
@@ -371,7 +371,7 @@ export function PrivatePageClient() {
           </div>
 
           {/* Indicative rates */}
-          <div className="py-16 bg-[#0e1214] border-t border-[#1a1f22]">
+          <div className="py-16 bg-[#141210] border-t border-[#1a1610]">
             <div className="max-w-7xl mx-auto px-6">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -394,8 +394,8 @@ export function PrivatePageClient() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-60px" }}
                     transition={{ duration: 0.4, delay: i * 0.12 }}
-                    className="p-6 rounded-xl border border-[#27aae1]/15"
-                    style={{ background: "linear-gradient(135deg,rgba(0,111,127,0.08) 0%,#0e1214 70%)" }}
+                    className="p-6 rounded-xl border border-[#006f7f]/15"
+                    style={{ background: "linear-gradient(135deg,rgba(0,111,127,0.08) 0%,#141210 70%)" }}
                   >
                     <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">{rate.type}</div>
                     <div className="flex items-baseline gap-1 mb-1">
@@ -411,7 +411,7 @@ export function PrivatePageClient() {
           </div>
 
           {/* Borrower CTA */}
-          <div className="py-16 bg-[#0a0d0e] border-t border-[#1a1f22]">
+          <div className="py-16 bg-[#0e0c0a] border-t border-[#1a1610]">
             <div className="max-w-7xl mx-auto px-6 text-center">
               <motion.div
                 initial={{ opacity: 0, y: 20 }}
@@ -425,7 +425,7 @@ export function PrivatePageClient() {
                 </p>
                 <Link
                   href="/apply"
-                  className="group inline-flex items-center gap-2 px-8 py-4 bg-[#27aae1] text-[#0e1214] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(39,170,225,0.4)]"
+                  className="group inline-flex items-center gap-2 px-8 py-4 bg-[#006f7f] text-[#141210] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(0,111,127,0.4)]"
                 >
                   Apply for a private mortgage
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
@@ -455,7 +455,7 @@ export function PrivatePageClient() {
                   transition={{ duration: 0.5 }}
                 >
                   <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#006f7f]/20 border border-[#006f7f]/30 text-xs font-semibold text-[#27aae1] mb-5">
-                    <span className="w-1.5 h-1.5 bg-[#27aae1] rounded-full animate-pulse" />
+                    <span className="w-1.5 h-1.5 bg-[#006f7f] rounded-full animate-pulse" />
                     For Investors · Licensed Administrator Lic. #11657
                   </div>
                   <h2 className="text-3xl sm:text-4xl font-bold text-foreground mb-4 tracking-tight">
@@ -471,13 +471,13 @@ export function PrivatePageClient() {
                   <div className="flex flex-wrap gap-3">
                     <Link
                       href="/contact"
-                      className="group inline-flex items-center gap-2 px-7 py-3.5 bg-[#27aae1] text-[#0e1214] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(39,170,225,0.4)]"
+                      className="group inline-flex items-center gap-2 px-7 py-3.5 bg-[#006f7f] text-[#141210] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(0,111,127,0.4)]"
                     >
                       Book an investor call
                       <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                     </Link>
                     <button
-                      className="inline-flex items-center gap-2 px-7 py-3.5 border border-[#006f7f]/50 text-[#27aae1] font-semibold rounded-full hover:border-[#27aae1]/50 hover:bg-[#27aae1]/5 transition-all cursor-pointer"
+                      className="inline-flex items-center gap-2 px-7 py-3.5 border border-[#006f7f]/50 text-[#27aae1] font-semibold rounded-full hover:border-[#006f7f]/50 hover:bg-[#006f7f]/5 transition-all cursor-pointer"
                     >
                       <FileText className="w-4 h-4" />
                       Download investor package
@@ -535,11 +535,11 @@ export function PrivatePageClient() {
                       whileInView={{ opacity: 1, y: 0 }}
                       viewport={{ once: true, margin: "-60px" }}
                       transition={{ duration: 0.5, delay: i * 0.08 }}
-                      className={`p-6 rounded-xl border transition-all ${i === 0 ? "border-[#006f7f]/40 bg-gradient-to-br from-[#0d1a1c] to-[#080b0c]" : "border-[#27aae1]/10 hover:border-[#27aae1]/25"}`}
+                      className={`p-6 rounded-xl border transition-all ${i === 0 ? "border-[#006f7f]/40 bg-gradient-to-br from-[#0d1a1c] to-[#080b0c]" : "border-[#006f7f]/10 hover:border-[#006f7f]/25"}`}
                       style={i !== 0 ? { background: "linear-gradient(135deg,#121619 0%,#080b0c 100%)" } : {}}
                     >
                       <div className="p-2.5 rounded-lg bg-[#006f7f]/20 w-fit mb-4">
-                        <Icon className="w-5 h-5 text-[#27aae1]" />
+                        <Icon className="w-5 h-5 text-[#006f7f]" />
                       </div>
                       <h4 className="text-base font-semibold text-foreground mb-2">{b.title}</h4>
                       <p className="text-sm text-muted-foreground leading-relaxed">{b.description}</p>
@@ -573,7 +573,7 @@ export function PrivatePageClient() {
                     whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-60px" }}
                     transition={{ duration: 0.5, delay: i * 0.12 }}
-                    className={`relative rounded-2xl border p-7 ${tier.highlight ? "border-[#27aae1]/40 shadow-[0_0_40px_rgba(39,170,225,0.1)]" : "border-[#27aae1]/12"}`}
+                    className={`relative rounded-2xl border p-7 ${tier.highlight ? "border-[#006f7f]/40 shadow-[0_0_40px_rgba(0,111,127,0.1)]" : "border-[#006f7f]/12"}`}
                     style={{
                       background: tier.highlight
                         ? "linear-gradient(135deg, rgba(0,111,127,0.14) 0%, #0a0e10 100%)"
@@ -582,7 +582,7 @@ export function PrivatePageClient() {
                   >
                     {tier.highlight && (
                       <div className="absolute -top-3 left-1/2 -translate-x-1/2">
-                        <span className="px-3 py-1 bg-[#27aae1] text-[#0e1214] text-xs font-bold rounded-full">Most popular</span>
+                        <span className="px-3 py-1 bg-[#006f7f] text-[#141210] text-xs font-bold rounded-full">Most popular</span>
                       </div>
                     )}
 
@@ -603,10 +603,10 @@ export function PrivatePageClient() {
                       </div>
                     </div>
 
-                    <div className="border-t border-[#1a1f22] pt-5 space-y-2.5">
+                    <div className="border-t border-[#1a1610] pt-5 space-y-2.5">
                       {tier.features.map((f) => (
                         <div key={f} className="flex items-start gap-2.5">
-                          <CheckCircle2 className="w-4 h-4 text-[#27aae1] flex-shrink-0 mt-0.5" />
+                          <CheckCircle2 className="w-4 h-4 text-[#006f7f] flex-shrink-0 mt-0.5" />
                           <span className="text-sm text-muted-foreground">{f}</span>
                         </div>
                       ))}
@@ -616,8 +616,8 @@ export function PrivatePageClient() {
                       href="/contact"
                       className={`mt-6 w-full flex items-center justify-center gap-2 py-2.5 rounded-full text-sm font-semibold transition-all ${
                         tier.highlight
-                          ? "bg-[#27aae1] text-[#0e1214] hover:shadow-[0_0_20px_rgba(39,170,225,0.35)]"
-                          : "border border-[#27aae1]/25 text-[#27aae1] hover:border-[#27aae1]/50 hover:bg-[#27aae1]/5"
+                          ? "bg-[#006f7f] text-[#141210] hover:shadow-[0_0_20px_rgba(0,111,127,0.35)]"
+                          : "border border-[#006f7f]/25 text-[#27aae1] hover:border-[#006f7f]/50 hover:bg-[#006f7f]/5"
                       }`}
                     >
                       Get started
@@ -652,7 +652,7 @@ export function PrivatePageClient() {
                         transition={{ duration: 0.4, delay: i * 0.07 }}
                         className="flex items-start gap-3 p-4 rounded-xl border border-[#006f7f]/20 bg-[#060809]"
                       >
-                        <Shield className="w-4 h-4 text-[#27aae1] flex-shrink-0 mt-0.5" />
+                        <Shield className="w-4 h-4 text-[#006f7f] flex-shrink-0 mt-0.5" />
                         <div>
                           <div className="text-sm font-semibold text-foreground mb-0.5">{item.label}</div>
                           <div className="text-xs text-muted-foreground">{item.detail}</div>
@@ -688,7 +688,7 @@ export function PrivatePageClient() {
                     </div>
                   </div>
 
-                  <div className="mt-6 p-5 rounded-xl border border-[#1a1f22] bg-[#060809]">
+                  <div className="mt-6 p-5 rounded-xl border border-[#1a1610] bg-[#060809]">
                     <div className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-3">Typical investment example</div>
                     <div className="space-y-2">
                       {[
@@ -698,7 +698,7 @@ export function PrivatePageClient() {
                         { label: "Rate",               value: "10.5% per annum" },
                         { label: "Monthly income",     value: "$656.25 / month" },
                       ].map((row) => (
-                        <div key={row.label} className="flex justify-between text-sm py-1.5 border-b border-[#111618] last:border-0">
+                        <div key={row.label} className="flex justify-between text-sm py-1.5 border-b border-[#1c1916] last:border-0">
                           <span className="text-muted-foreground">{row.label}</span>
                           <span className="font-semibold text-foreground">{row.value}</span>
                         </div>
@@ -733,12 +733,12 @@ export function PrivatePageClient() {
                 <div className="flex flex-wrap justify-center gap-4">
                   <Link
                     href="/contact"
-                    className="group inline-flex items-center gap-2 px-8 py-4 bg-[#27aae1] text-[#0e1214] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(39,170,225,0.4)]"
+                    className="group inline-flex items-center gap-2 px-8 py-4 bg-[#006f7f] text-[#141210] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(0,111,127,0.4)]"
                   >
                     Book an investor call
                     <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                   </Link>
-                  <button className="inline-flex items-center gap-2 px-8 py-4 border border-[#27aae1]/25 text-[#27aae1] font-semibold rounded-full hover:border-[#27aae1]/50 hover:bg-[#27aae1]/5 transition-all">
+                  <button className="inline-flex items-center gap-2 px-8 py-4 border border-[#006f7f]/25 text-[#27aae1] font-semibold rounded-full hover:border-[#006f7f]/50 hover:bg-[#006f7f]/5 transition-all">
                     <FileText className="w-4 h-4" />
                     Download investor package
                   </button>

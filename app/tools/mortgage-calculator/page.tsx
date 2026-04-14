@@ -18,7 +18,7 @@ function fmt(n: number) {
 }
 
 const inputClass =
-  "w-full px-4 py-3 rounded-xl bg-[#111618] border border-[#2a3033] text-foreground text-sm focus:outline-none focus:border-[#27aae1]/50 transition-colors";
+  "w-full px-4 py-3 rounded-xl bg-[#1c1916] border border-[#2a2420] text-foreground text-sm focus:outline-none focus:border-[#006f7f]/50 transition-colors";
 const labelClass = "block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2";
 
 export default function MortgageCalculatorPage() {
@@ -35,27 +35,27 @@ export default function MortgageCalculatorPage() {
   const totalInt  = totalPaid - p;
 
   return (
-    <div className="min-h-screen bg-[#0e1214]">
+    <div className="min-h-screen bg-[#141210]">
       <ScrollProgress />
       <Navigation />
       <main>
         <section className="pt-24 pb-20"
           style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(0,111,127,0.12) 0%, transparent 60%)" }}>
           <div className="max-w-2xl mx-auto px-6 text-center">
-            <div className="inline-flex p-3 rounded-xl bg-[#27aae1]/10 mb-6">
-              <Calculator className="w-6 h-6 text-[#27aae1]" />
+            <div className="inline-flex p-3 rounded-xl bg-[#006f7f]/10 mb-6">
+              <Calculator className="w-6 h-6 text-[#006f7f]" />
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-foreground mb-3">Mortgage Calculator</h1>
             <p className="text-muted-foreground">Estimate your monthly payment in seconds.</p>
           </div>
         </section>
 
-        <section className="pb-24 bg-[#0a0d0e]">
+        <section className="pb-24 bg-[#0e0c0a]">
           <div className="max-w-2xl mx-auto px-6 space-y-6">
 
             {/* Inputs */}
-            <div className="p-8 rounded-2xl border border-[#27aae1]/10"
-              style={{ background: "linear-gradient(135deg, #161c1f 0%, #0e1214 100%)" }}>
+            <div className="p-8 rounded-2xl border border-[#006f7f]/10"
+              style={{ background: "linear-gradient(135deg, #242018 0%, #141210 100%)" }}>
               <div className="space-y-5">
                 <div>
                   <label className={labelClass}>Loan amount (CAD)</label>
@@ -94,19 +94,19 @@ export default function MortgageCalculatorPage() {
 
             {/* Results */}
             {monthly > 0 && (
-              <div className="p-8 rounded-2xl border border-[#27aae1]/20"
-                style={{ background: "linear-gradient(135deg, rgba(0,111,127,0.08) 0%, #161c1f 100%)" }}>
+              <div className="p-8 rounded-2xl border border-[#006f7f]/20"
+                style={{ background: "linear-gradient(135deg, rgba(0,111,127,0.08) 0%, #242018 100%)" }}>
                 <p className="text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-6">Estimated breakdown</p>
                 <div className="text-center mb-8">
                   <div className="text-5xl font-bold text-[#27aae1] mb-1">{fmt(monthly)}</div>
                   <div className="text-sm text-muted-foreground">per month</div>
                 </div>
                 <div className="grid grid-cols-2 gap-4">
-                  <div className="p-4 rounded-xl bg-[#111618] border border-[#2a3033] text-center">
+                  <div className="p-4 rounded-xl bg-[#1c1916] border border-[#2a2420] text-center">
                     <div className="text-xl font-bold text-foreground mb-0.5">{fmt(totalPaid)}</div>
                     <div className="text-xs text-muted-foreground">Total paid</div>
                   </div>
-                  <div className="p-4 rounded-xl bg-[#111618] border border-[#2a3033] text-center">
+                  <div className="p-4 rounded-xl bg-[#1c1916] border border-[#2a2420] text-center">
                     <div className="text-xl font-bold text-foreground mb-0.5">{fmt(totalInt)}</div>
                     <div className="text-xs text-muted-foreground">Total interest</div>
                   </div>

@@ -49,8 +49,8 @@ function downloadCIM(text: string) {
 
 function CIMCard({ text, emailSent }: { text: string; emailSent: boolean }) {
   return (
-    <div className="mt-3 rounded-xl border border-[#27aae1]/20 overflow-hidden">
-      <div className="px-4 py-3 border-b border-[#27aae1]/15 flex items-center justify-between"
+    <div className="mt-3 rounded-xl border border-[#006f7f]/20 overflow-hidden">
+      <div className="px-4 py-3 border-b border-[#006f7f]/15 flex items-center justify-between"
         style={{ background: "rgba(0,111,127,0.12)" }}>
         <span className="text-xs font-semibold text-[#27aae1] uppercase tracking-wider">
           {emailSent ? "File sent to UCC team \u2713" : "Your Mortgage Summary"}
@@ -60,7 +60,7 @@ function CIMCard({ text, emailSent }: { text: string; emailSent: boolean }) {
           <Download className="w-3 h-3" /> Download
         </button>
       </div>
-      <pre className="px-4 py-3 text-[10px] text-muted-foreground leading-relaxed whitespace-pre-wrap max-h-48 overflow-y-auto bg-[#0a0d0e]">
+      <pre className="px-4 py-3 text-[10px] text-muted-foreground leading-relaxed whitespace-pre-wrap max-h-48 overflow-y-auto bg-[#0e0c0a]">
         {text}
       </pre>
     </div>
@@ -73,7 +73,7 @@ function TypingDots() {
   return (
     <div className="flex items-center gap-1 px-4 py-3.5">
       {[0, 1, 2].map((i) => (
-        <span key={i} className="w-1.5 h-1.5 rounded-full bg-[#27aae1]/60 animate-bounce"
+        <span key={i} className="w-1.5 h-1.5 rounded-full bg-[#006f7f]/60 animate-bounce"
           style={{ animationDelay: `${i * 0.15}s`, animationDuration: "0.9s" }} />
       ))}
     </div>
@@ -97,15 +97,15 @@ function Bubble({ msg }: { msg: Message }) {
       )}
       <div className={`max-w-[80%] ${isUser ? "" : "flex-1 min-w-0"}`}>
         {msg.isTyping ? (
-          <div className="rounded-2xl rounded-tl-sm bg-[#161c1f] border border-[#2a3033] inline-block">
+          <div className="rounded-2xl rounded-tl-sm bg-[#242018] border border-[#2a2420] inline-block">
             <TypingDots />
           </div>
         ) : (
           <>
             <div className={`rounded-2xl px-4 py-3 text-sm leading-relaxed ${
               isUser
-                ? "rounded-tr-sm bg-[#27aae1] text-[#0e1214] font-medium"
-                : "rounded-tl-sm bg-[#161c1f] border border-[#2a3033] text-foreground"
+                ? "rounded-tr-sm bg-[#006f7f] text-[#141210] font-medium"
+                : "rounded-tl-sm bg-[#242018] border border-[#2a2420] text-foreground"
             }`}>
               {msg.content}
             </div>
@@ -123,8 +123,8 @@ function Bubble({ msg }: { msg: Message }) {
 
 function LeftPanel({ stage, done }: { stage: number; done: boolean }) {
   return (
-    <div className="hidden lg:flex flex-col w-[38%] flex-shrink-0 h-screen sticky top-0 px-12 py-10 border-r border-[#1a1f22]"
-      style={{ background: "linear-gradient(180deg, #0a0d0e 0%, #0e1214 100%)" }}>
+    <div className="hidden lg:flex flex-col w-[38%] flex-shrink-0 h-screen sticky top-0 px-12 py-10 border-r border-[#1a1610]"
+      style={{ background: "linear-gradient(180deg, #0e0c0a 0%, #141210 100%)" }}>
 
       <Link href="/" className="inline-flex items-center gap-1 mb-12">
         <svg viewBox="0 0 80 28" className="h-7 w-auto" aria-label="UCC Mortgage">
@@ -151,14 +151,14 @@ function LeftPanel({ stage, done }: { stage: number; done: boolean }) {
           const isComplete = done || stage > s.n;
           return (
             <div key={s.n} className={`flex items-start gap-4 px-4 py-3.5 rounded-xl transition-all duration-300 ${
-              isActive ? "bg-[#006f7f]/12 border border-[#27aae1]/20" : ""
+              isActive ? "bg-[#006f7f]/12 border border-[#006f7f]/20" : ""
             }`}>
               <div className={`w-7 h-7 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5 text-xs font-semibold border-2 transition-all ${
                 isComplete
-                  ? "bg-[#27aae1] border-[#27aae1] text-[#0e1214]"
+                  ? "bg-[#006f7f] border-[#006f7f] text-[#141210]"
                   : isActive
-                  ? "border-[#27aae1] text-[#27aae1] bg-[#27aae1]/10"
-                  : "border-[#2a3033] text-muted-foreground/50"
+                  ? "border-[#006f7f] text-[#27aae1] bg-[#006f7f]/10"
+                  : "border-[#2a2420] text-muted-foreground/50"
               }`}>
                 {isComplete ? <CheckCircle2 className="w-3.5 h-3.5" /> : s.n}
               </div>
@@ -177,14 +177,14 @@ function LeftPanel({ stage, done }: { stage: number; done: boolean }) {
         })}
       </div>
 
-      <div className="mt-8 pt-8 border-t border-[#1a1f22] space-y-3">
+      <div className="mt-8 pt-8 border-t border-[#1a1610] space-y-3">
         {[
           { Icon: Building2, text: "50+ years serving Windsor-Essex" },
           { Icon: Shield,    text: "No hard credit pull at this stage" },
           { Icon: Clock,     text: "Response within 1 business day" },
         ].map(({ Icon, text }) => (
           <div key={text} className="flex items-center gap-2.5 text-xs text-muted-foreground">
-            <Icon className="w-3.5 h-3.5 text-[#27aae1]/60 flex-shrink-0" />
+            <Icon className="w-3.5 h-3.5 text-[#006f7f]/60 flex-shrink-0" />
             {text}
           </div>
         ))}
@@ -267,30 +267,30 @@ export default function ApplyPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#0e1214]">
+    <div className="flex min-h-screen bg-[#141210]">
       <LeftPanel stage={stage} done={done} />
 
       <div className="flex flex-col flex-1 min-w-0 h-screen">
 
         {/* Mobile header */}
-        <div className="lg:hidden flex items-center justify-between px-5 py-4 border-b border-[#1a1f22] bg-[#0a0d0e]">
+        <div className="lg:hidden flex items-center justify-between px-5 py-4 border-b border-[#1a1610] bg-[#0e0c0a]">
           <Link href="/">
             <svg viewBox="0 0 80 28" className="h-6 w-auto" aria-label="UCC Mortgage">
               <text x="0" y="22" style={{ fontFamily: "Open Sans, sans-serif", fontWeight: 600, fontSize: 28 }}>
                 <tspan fill="#2e5f92">U</tspan>
                 <tspan fill="#006f7f">C</tspan>
-                <tspan fill="#27aae1">C</tspan>
+                <tspan fill="#006f7f">C</tspan>
               </text>
             </svg>
           </Link>
-          <span className="text-xs font-medium px-3 py-1 rounded-full bg-[#006f7f]/20 border border-[#27aae1]/20 text-[#27aae1]">
+          <span className="text-xs font-medium px-3 py-1 rounded-full bg-[#006f7f]/20 border border-[#006f7f]/20 text-[#27aae1]">
             Stage {stage} of 4
           </span>
         </div>
 
         {/* Desktop chat header */}
-        <div className="hidden lg:flex items-center gap-3 px-8 py-5 border-b border-[#1a1f22]"
-          style={{ background: "linear-gradient(135deg, #161c1f 0%, #0e1214 100%)" }}>
+        <div className="hidden lg:flex items-center gap-3 px-8 py-5 border-b border-[#1a1610]"
+          style={{ background: "linear-gradient(135deg, #242018 0%, #141210 100%)" }}>
           <div className="w-10 h-10 rounded-full bg-[#006f7f] flex items-center justify-center font-bold text-white flex-shrink-0">
             A
           </div>
@@ -324,7 +324,7 @@ export default function ApplyPage() {
                 "I want to invest in mortgages",
               ].map((s) => (
                 <button key={s} onClick={() => send(s)}
-                  className="text-xs px-3.5 py-2 rounded-full border border-[#27aae1]/30 text-[#27aae1] hover:bg-[#27aae1]/10 transition-colors">
+                  className="text-xs px-3.5 py-2 rounded-full border border-[#006f7f]/30 text-[#27aae1] hover:bg-[#006f7f]/10 transition-colors">
                   {s}
                 </button>
               ))}
@@ -335,7 +335,7 @@ export default function ApplyPage() {
         </div>
 
         {/* Input bar */}
-        <div className="px-5 lg:px-8 py-4 border-t border-[#1a1f22] bg-[#0a0d0e]">
+        <div className="px-5 lg:px-8 py-4 border-t border-[#1a1610] bg-[#0e0c0a]">
           <div className="flex items-center gap-3 max-w-3xl">
             <input
               ref={inputRef}
@@ -345,12 +345,12 @@ export default function ApplyPage() {
               onKeyDown={handleKey}
               placeholder={done ? "Your file has been submitted." : "Type a message\u2026"}
               disabled={loading || done}
-              className="flex-1 px-4 py-3 rounded-xl bg-[#111618] border border-[#2a3033] text-foreground text-sm placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#27aae1]/50 transition-colors disabled:opacity-50"
+              className="flex-1 px-4 py-3 rounded-xl bg-[#1c1916] border border-[#2a2420] text-foreground text-sm placeholder:text-muted-foreground/40 focus:outline-none focus:border-[#006f7f]/50 transition-colors disabled:opacity-50"
             />
             <button
               onClick={() => send()}
               disabled={!input.trim() || loading || done}
-              className="w-11 h-11 flex-shrink-0 rounded-xl bg-[#27aae1] text-[#0e1214] flex items-center justify-center transition-all hover:shadow-[0_0_16px_rgba(39,170,225,0.4)] disabled:opacity-40 disabled:cursor-not-allowed">
+              className="w-11 h-11 flex-shrink-0 rounded-xl bg-[#006f7f] text-[#141210] flex items-center justify-center transition-all hover:shadow-[0_0_16px_rgba(0,111,127,0.4)] disabled:opacity-40 disabled:cursor-not-allowed">
               <Send className="w-4 h-4" />
             </button>
           </div>

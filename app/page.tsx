@@ -12,7 +12,7 @@ import { Footer } from "@/components/footer";
 
 export default function HomePage() {
   return (
-    <div className="min-h-screen bg-[#0e1214]">
+    <div className="min-h-screen bg-[#141210]">
       <ScrollProgress />
       <Navigation />
       <main>

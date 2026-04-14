@@ -37,7 +37,7 @@ const tools = [
 
 export function ToolsPreview() {
   return (
-    <section className="py-24 bg-[#0e1214]">
+    <section className="py-24 bg-[#141210]">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -70,11 +70,11 @@ export function ToolsPreview() {
               >
                 <Link href={tool.href} className="group block h-full">
                   <div
-                    className="h-full p-6 rounded-2xl border border-[#27aae1]/10 hover:border-[#27aae1]/35 transition-all duration-300 hover:shadow-[0_0_20px_rgba(39,170,225,0.08)]"
-                    style={{ background: "linear-gradient(145deg, #161c1f 0%, #0e1214 100%)" }}
+                    className="h-full p-6 rounded-2xl border border-[#006f7f]/10 hover:border-[#006f7f]/35 transition-all duration-300 hover:shadow-[0_0_20px_rgba(0,111,127,0.1)]"
+                    style={{ background: "linear-gradient(145deg, #242018 0%, #141210 100%)" }}
                   >
-                    <div className="p-2.5 rounded-lg bg-[#27aae1]/10 w-fit mb-4 group-hover:bg-[#27aae1]/18 transition-colors">
-                      <Icon className="w-5 h-5 text-[#27aae1]" />
+                    <div className="p-2.5 rounded-lg bg-[#006f7f]/10 w-fit mb-4 group-hover:bg-[#006f7f]/18 transition-colors">
+                      <Icon className="w-5 h-5 text-[#006f7f]" />
                     </div>
                     <h3 className="text-sm font-bold text-foreground mb-2 group-hover:text-[#27aae1] transition-colors">
                       {tool.title}

@@ -27,7 +27,7 @@ const steps = [
 
 export function HowItWorks() {
   return (
-    <section className="py-24 bg-[#0a0d0e]">
+    <section className="py-24 bg-[#0e0c0a]">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -57,7 +57,7 @@ export function HowItWorks() {
                 className="relative text-center"
               >
                 {/* Number circle */}
-                <div className="relative z-10 mx-auto w-32 h-32 rounded-full bg-[#111618] border-2 border-[#27aae1]/30 flex flex-col items-center justify-center mb-6">
+                <div className="relative z-10 mx-auto w-32 h-32 rounded-full bg-[#1c1916] border-2 border-[#006f7f]/30 flex flex-col items-center justify-center mb-6">
                   <span className="text-xs text-muted-foreground mb-1">{step.number}</span>
                   <step.icon className="w-8 h-8 text-[#27aae1]" />
                 </div>
@@ -78,7 +78,7 @@ export function HowItWorks() {
         >
           <Link
             href="#book"
-            className="group inline-flex items-center gap-2 px-8 py-4 bg-[#27aae1] text-[#0e1214] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(39,170,225,0.4)]"
+            className="group inline-flex items-center gap-2 px-8 py-4 bg-[#006f7f] text-[#141210] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(0,111,127,0.4)]"
           >
             Start your journey
           </Link>

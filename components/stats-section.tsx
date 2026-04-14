@@ -57,7 +57,7 @@ export function StatsSection() {
   const isInView = useInView(sectionRef, { once: true, amount: 0.2 });
 
   return (
-    <section ref={sectionRef} className="py-20 bg-[#0a0d0e] border-y border-[#1a1f22]">
+    <section ref={sectionRef} className="py-20 bg-[#0e0c0a] border-y border-[#1a1610]">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           className="grid grid-cols-2 md:grid-cols-4 gap-8 md:gap-4"

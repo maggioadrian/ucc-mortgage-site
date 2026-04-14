@@ -47,7 +47,7 @@ const fadeUp = { hidden: { opacity: 0, y: 20 }, visible: { opacity: 1, y: 0 } };
 
 export default function BorrowersPage() {
   return (
-    <div className="min-h-screen bg-[#0e1214]">
+    <div className="min-h-screen bg-[#141210]">
       <ScrollProgress />
       <Navigation />
       <main>
@@ -58,7 +58,7 @@ export default function BorrowersPage() {
           <div className="max-w-7xl mx-auto px-6">
             <motion.div variants={fadeUp} initial="hidden" animate="visible" transition={{ duration: 0.5 }}>
               <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#006f7f]/20 border border-[#006f7f]/30 rounded-full text-xs font-medium text-[#27aae1] mb-6">
-                <span className="w-1.5 h-1.5 bg-[#27aae1] rounded-full animate-pulse" />
+                <span className="w-1.5 h-1.5 bg-[#006f7f] rounded-full animate-pulse" />
                 Borrower solutions
               </span>
             </motion.div>
@@ -73,11 +73,11 @@ export default function BorrowersPage() {
             <motion.div className="flex flex-wrap gap-4"
               variants={fadeUp} initial="hidden" animate="visible" transition={{ duration: 0.5, delay: 0.3 }}>
               <Link href="/tools/deal-submission"
-                className="group inline-flex items-center gap-2 px-7 py-3.5 bg-[#27aae1] text-[#0e1214] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(39,170,225,0.4)]">
+                className="group inline-flex items-center gap-2 px-7 py-3.5 bg-[#006f7f] text-[#141210] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(0,111,127,0.4)]">
                 Submit a deal <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </Link>
               <Link href="/contact"
-                className="inline-flex items-center gap-2 px-7 py-3.5 border border-[#2a3033] text-foreground font-semibold rounded-full hover:border-[#27aae1]/40 hover:bg-[#27aae1]/5 transition-all">
+                className="inline-flex items-center gap-2 px-7 py-3.5 border border-[#2a2420] text-foreground font-semibold rounded-full hover:border-[#006f7f]/40 hover:bg-[#006f7f]/5 transition-all">
                 Book a call
               </Link>
             </motion.div>
@@ -85,7 +85,7 @@ export default function BorrowersPage() {
         </section>
 
         {/* Products */}
-        <section className="py-24 bg-[#0a0d0e]">
+        <section className="py-24 bg-[#0e0c0a]">
           <div className="max-w-7xl mx-auto px-6 space-y-5">
             {products.map((p, i) => {
               const Icon = p.icon;
@@ -96,15 +96,15 @@ export default function BorrowersPage() {
                   className="group p-8 rounded-2xl"
                   style={{
                     background: p.priority
-                      ? "linear-gradient(135deg, rgba(0,111,127,0.09) 0%, #161c1f 40%, #0e1214 100%)"
-                      : "linear-gradient(145deg, #161c1f 0%, #0e1214 100%)",
-                    border: p.priority ? "1px solid rgba(0,111,127,0.35)" : "1px solid rgba(39,170,225,0.10)",
+                      ? "linear-gradient(135deg, rgba(0,111,127,0.09) 0%, #242018 40%, #141210 100%)"
+                      : "linear-gradient(145deg, #242018 0%, #141210 100%)",
+                    border: p.priority ? "1px solid rgba(0,111,127,0.35)" : "1px solid rgba(0,111,127,0.10)",
                   }}>
                   <div className="flex flex-col lg:flex-row lg:items-center gap-6">
                     <div className="flex-1">
                       <div className="flex items-center gap-3 mb-4">
-                        <div className="p-3 rounded-xl bg-[#27aae1]/10">
-                          <Icon className="w-5 h-5 text-[#27aae1]" />
+                        <div className="p-3 rounded-xl bg-[#006f7f]/10">
+                          <Icon className="w-5 h-5 text-[#006f7f]" />
                         </div>
                         {p.priority && (
                           <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#006f7f]/20 border border-[#006f7f]/30 text-[#27aae1]">
@@ -128,7 +128,7 @@ export default function BorrowersPage() {
                       </div>
                     </div>
                     <Link href={p.href}
-                      className="inline-flex items-center gap-2 px-6 py-3 bg-[#27aae1] text-[#0e1214] text-sm font-semibold rounded-full transition-all hover:shadow-[0_0_24px_rgba(39,170,225,0.35)] flex-shrink-0">
+                      className="inline-flex items-center gap-2 px-6 py-3 bg-[#006f7f] text-[#141210] text-sm font-semibold rounded-full transition-all hover:shadow-[0_0_24px_rgba(0,111,127,0.35)] flex-shrink-0">
                       {p.cta} <ArrowRight className="w-4 h-4" />
                     </Link>
                   </div>
@@ -139,7 +139,7 @@ export default function BorrowersPage() {
         </section>
 
         {/* How it works */}
-        <section className="py-24 bg-[#0e1214]">
+        <section className="py-24 bg-[#141210]">
           <div className="max-w-7xl mx-auto px-6">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.5 }}
@@ -155,7 +155,7 @@ export default function BorrowersPage() {
                     initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.5, delay: i * 0.12 }}
                     className="text-center">
-                    <div className="relative z-10 mx-auto w-28 h-28 rounded-full bg-[#111618] border-2 border-[#27aae1]/30 flex flex-col items-center justify-center mb-5">
+                    <div className="relative z-10 mx-auto w-28 h-28 rounded-full bg-[#1c1916] border-2 border-[#006f7f]/30 flex flex-col items-center justify-center mb-5">
                       <span className="text-xs text-muted-foreground mb-0.5">{step.n}</span>
                       <span className="text-xl font-bold text-[#27aae1]">{step.n}</span>
                     </div>
@@ -169,7 +169,7 @@ export default function BorrowersPage() {
         </section>
 
         {/* CTA */}
-        <section className="py-20 bg-[#0a0d0e] border-t border-[#1a1f22]">
+        <section className="py-20 bg-[#0e0c0a] border-t border-[#1a1610]">
           <div className="max-w-7xl mx-auto px-6 text-center">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.5 }}>
@@ -179,11 +179,11 @@ export default function BorrowersPage() {
               </p>
               <div className="flex flex-wrap justify-center gap-4">
                 <Link href="/tools/deal-submission"
-                  className="group inline-flex items-center gap-2 px-8 py-4 bg-[#27aae1] text-[#0e1214] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(39,170,225,0.4)]">
+                  className="group inline-flex items-center gap-2 px-8 py-4 bg-[#006f7f] text-[#141210] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(0,111,127,0.4)]">
                   Submit a deal <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link href="/contact"
-                  className="inline-flex items-center gap-2 px-8 py-4 border border-[#2a3033] text-foreground font-semibold rounded-full hover:border-[#27aae1]/40 hover:bg-[#27aae1]/5 transition-all">
+                  className="inline-flex items-center gap-2 px-8 py-4 border border-[#2a2420] text-foreground font-semibold rounded-full hover:border-[#006f7f]/40 hover:bg-[#006f7f]/5 transition-all">
                   Book a free call
                 </Link>
               </div>

@@ -82,7 +82,7 @@ function TrendIcon({ trend }: { trend: string }) {
 
 export default function RatesPage() {
   return (
-    <div className="min-h-screen bg-[#0e1214]">
+    <div className="min-h-screen bg-[#141210]">
       <ScrollProgress />
       <Navigation />
 
@@ -91,7 +91,7 @@ export default function RatesPage() {
         <section
           className="pt-24 pb-16 relative overflow-hidden"
           style={{
-            background: "radial-gradient(ellipse at 60% 0%, rgba(39,170,225,0.08) 0%, transparent 60%)",
+            background: "radial-gradient(ellipse at 60% 0%, rgba(0,111,127,0.1) 0%, transparent 60%)",
           }}
         >
           <PageBackdrop variant="rates" />
@@ -104,7 +104,7 @@ export default function RatesPage() {
               className="max-w-2xl"
             >
               <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#006f7f]/20 border border-[#006f7f]/30 rounded-full text-xs font-medium text-[#27aae1] mb-6">
-                <span className="w-1.5 h-1.5 bg-[#27aae1] rounded-full animate-pulse" />
+                <span className="w-1.5 h-1.5 bg-[#006f7f] rounded-full animate-pulse" />
                 Updated April 2025
               </span>
               <h1 className="text-4xl sm:text-5xl font-bold text-foreground mb-4 tracking-tight">
@@ -122,7 +122,7 @@ export default function RatesPage() {
         </section>
 
         {/* Rate Tables */}
-        <section className="pb-24 bg-[#0e1214]">
+        <section className="pb-24 bg-[#141210]">
           <div className="max-w-7xl mx-auto px-6 space-y-10">
             {rateCategories.map((cat, catIdx) => (
               <motion.div
@@ -137,9 +137,9 @@ export default function RatesPage() {
                   <p className="text-sm text-muted-foreground">{cat.description}</p>
                 </div>
 
-                <div className="rounded-xl overflow-hidden border border-[#27aae1]/10">
+                <div className="rounded-xl overflow-hidden border border-[#006f7f]/10">
                   {/* Table header */}
-                  <div className="grid grid-cols-4 gap-0 bg-[#111618] border-b border-[#1a1f22]">
+                  <div className="grid grid-cols-4 gap-0 bg-[#1c1916] border-b border-[#1a1610]">
                     <div className="px-5 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Term</div>
                     <div className="px-5 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Insured</div>
                     <div className="px-5 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Conventional</div>
@@ -149,7 +149,7 @@ export default function RatesPage() {
                   {cat.rates.map((row, rowIdx) => (
                     <div
                       key={rowIdx}
-                      className="grid grid-cols-4 gap-0 border-b border-[#1a1f22] last:border-0 bg-[#0e1214] hover:bg-[#111618] transition-colors"
+                      className="grid grid-cols-4 gap-0 border-b border-[#1a1610] last:border-0 bg-[#141210] hover:bg-[#1c1916] transition-colors"
                     >
                       <div className="px-5 py-4 text-sm font-medium text-foreground">{row.term}</div>
                       <div className="px-5 py-4 text-sm text-[#27aae1] font-semibold">{row.insured}</div>
@@ -176,7 +176,7 @@ export default function RatesPage() {
         </section>
 
         {/* Rate History Context */}
-        <section className="py-24 bg-[#0a0d0e] border-t border-[#1a1f22]">
+        <section className="py-24 bg-[#0e0c0a] border-t border-[#1a1610]">
           <div className="max-w-7xl mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -196,9 +196,9 @@ export default function RatesPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: 0.15 }}
-              className="rounded-xl overflow-hidden border border-[#27aae1]/10"
+              className="rounded-xl overflow-hidden border border-[#006f7f]/10"
             >
-              <div className="grid grid-cols-4 bg-[#111618] border-b border-[#1a1f22]">
+              <div className="grid grid-cols-4 bg-[#1c1916] border-b border-[#1a1610]">
                 <div className="px-5 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Date</div>
                 <div className="px-5 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">BoC Rate</div>
                 <div className="px-5 py-3 text-xs font-semibold text-muted-foreground uppercase tracking-wider">Prime Rate</div>
@@ -207,7 +207,7 @@ export default function RatesPage() {
               {rateHistory.map((row, i) => (
                 <div
                   key={i}
-                  className="grid grid-cols-4 border-b border-[#1a1f22] last:border-0 bg-[#0e1214] hover:bg-[#111618] transition-colors"
+                  className="grid grid-cols-4 border-b border-[#1a1610] last:border-0 bg-[#141210] hover:bg-[#1c1916] transition-colors"
                 >
                   <div className="px-5 py-3.5 text-sm text-muted-foreground">{row.date}</div>
                   <div className="px-5 py-3.5 text-sm text-foreground font-medium">{row.boc}</div>
@@ -220,7 +220,7 @@ export default function RatesPage() {
         </section>
 
         {/* AI Explainer */}
-        <section className="py-24 bg-[#0e1214]">
+        <section className="py-24 bg-[#141210]">
           <div className="max-w-7xl mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -230,7 +230,7 @@ export default function RatesPage() {
               className="mb-10"
             >
               <div className="flex items-center gap-2 mb-3">
-                <Sparkles className="w-5 h-5 text-[#27aae1]" />
+                <Sparkles className="w-5 h-5 text-[#006f7f]" />
                 <span className="text-sm font-semibold text-[#27aae1] uppercase tracking-wider">Rate explainer</span>
               </div>
               <h2 className="text-3xl font-bold text-foreground mb-3">Understand what these numbers mean</h2>
@@ -247,8 +247,8 @@ export default function RatesPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="p-6 rounded-xl border border-[#27aae1]/10 hover:border-[#27aae1]/25 transition-all"
-                  style={{ background: "linear-gradient(135deg, #161c1f 0%, #0e1214 100%)" }}
+                  className="p-6 rounded-xl border border-[#006f7f]/10 hover:border-[#006f7f]/25 transition-all"
+                  style={{ background: "linear-gradient(135deg, #242018 0%, #141210 100%)" }}
                 >
                   <h3 className="text-base font-semibold text-foreground mb-3">{item.q}</h3>
                   <p className="text-sm text-muted-foreground leading-relaxed">{item.a}</p>
@@ -259,7 +259,7 @@ export default function RatesPage() {
         </section>
 
         {/* CTA */}
-        <section className="py-20 bg-[#0a0d0e] border-t border-[#1a1f22]">
+        <section className="py-20 bg-[#0e0c0a] border-t border-[#1a1610]">
           <div className="max-w-7xl mx-auto px-6 text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -274,14 +274,14 @@ export default function RatesPage() {
               <div className="flex flex-wrap justify-center gap-4">
                 <Link
                   href="/apply"
-                  className="group inline-flex items-center gap-2 px-8 py-4 bg-[#27aae1] text-[#0e1214] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(39,170,225,0.4)]"
+                  className="group inline-flex items-center gap-2 px-8 py-4 bg-[#006f7f] text-[#141210] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(0,111,127,0.4)]"
                 >
                   Get pre-approved
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 px-8 py-4 border border-[#2a3033] text-foreground font-semibold rounded-full hover:border-[#27aae1]/40 hover:bg-[#27aae1]/5 transition-all"
+                  className="inline-flex items-center gap-2 px-8 py-4 border border-[#2a2420] text-foreground font-semibold rounded-full hover:border-[#006f7f]/40 hover:bg-[#006f7f]/5 transition-all"
                 >
                   Speak to a broker
                 </Link>

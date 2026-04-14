@@ -7,7 +7,7 @@ import { ScrollProgress } from "@/components/scroll-progress";
 import { FileText, CheckCircle2 } from "lucide-react";
 
 const inputClass =
-  "w-full px-4 py-3 rounded-xl bg-[#111618] border border-[#2a3033] text-foreground text-sm focus:outline-none focus:border-[#27aae1]/50 transition-colors";
+  "w-full px-4 py-3 rounded-xl bg-[#1c1916] border border-[#2a2420] text-foreground text-sm focus:outline-none focus:border-[#006f7f]/50 transition-colors";
 const labelClass = "block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2";
 
 export default function DealSubmissionPage() {
@@ -38,33 +38,33 @@ export default function DealSubmissionPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0e1214]">
+    <div className="min-h-screen bg-[#141210]">
       <ScrollProgress />
       <Navigation />
       <main>
         <section className="pt-24 pb-16"
           style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(0,111,127,0.12) 0%, transparent 60%)" }}>
           <div className="max-w-2xl mx-auto px-6 text-center">
-            <div className="inline-flex p-3 rounded-xl bg-[#27aae1]/10 mb-6">
-              <FileText className="w-6 h-6 text-[#27aae1]" />
+            <div className="inline-flex p-3 rounded-xl bg-[#006f7f]/10 mb-6">
+              <FileText className="w-6 h-6 text-[#006f7f]" />
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-foreground mb-3">Submit a Deal</h1>
             <p className="text-muted-foreground">Fill out the form and a broker will respond within 4 business hours. No hard credit pull.</p>
           </div>
         </section>
 
-        <section className="pb-24 bg-[#0a0d0e]">
+        <section className="pb-24 bg-[#0e0c0a]">
           <div className="max-w-2xl mx-auto px-6">
             {submitted ? (
               <div className="text-center py-16">
-                <CheckCircle2 className="w-12 h-12 text-[#27aae1] mx-auto mb-4" />
+                <CheckCircle2 className="w-12 h-12 text-[#006f7f] mx-auto mb-4" />
                 <h2 className="text-xl font-bold text-foreground mb-2">Deal submitted</h2>
                 <p className="text-muted-foreground">Your email client should have opened. We&apos;ll be in touch shortly.</p>
               </div>
             ) : (
               <form onSubmit={handleSubmit}
-                className="p-8 rounded-2xl border border-[#27aae1]/10 space-y-5"
-                style={{ background: "linear-gradient(135deg, #161c1f 0%, #0e1214 100%)" }}>
+                className="p-8 rounded-2xl border border-[#006f7f]/10 space-y-5"
+                style={{ background: "linear-gradient(135deg, #242018 0%, #141210 100%)" }}>
 
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
@@ -149,7 +149,7 @@ export default function DealSubmissionPage() {
                 </div>
 
                 <button type="submit"
-                  className="w-full py-4 bg-[#27aae1] text-[#0e1214] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(39,170,225,0.4)]">
+                  className="w-full py-4 bg-[#006f7f] text-[#141210] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(0,111,127,0.4)]">
                   Submit deal
                 </button>
 

@@ -100,8 +100,8 @@ function FarmHeroBackdrop() {
     >
       <defs>
         <radialGradient id="farm-vp-glow" cx="50%" cy="50%" r="50%">
-          <stop offset="0%"   stopColor="#27aae1" stopOpacity="0.08" />
-          <stop offset="100%" stopColor="#27aae1" stopOpacity="0"    />
+          <stop offset="0%"   stopColor="#006f7f" stopOpacity="0.08" />
+          <stop offset="100%" stopColor="#006f7f" stopOpacity="0"    />
         </radialGradient>
         <style>{`
           @keyframes farm-sway-l {
@@ -118,7 +118,7 @@ function FarmHeroBackdrop() {
       {/* Sun / horizon glow at vanishing point */}
       <circle cx={VP.x} cy={VP.y} r="120" fill="url(#farm-vp-glow)" />
       <circle cx={VP.x} cy={VP.y} r="60"
-        fill="none" stroke="#27aae1" strokeOpacity="0.04" strokeWidth="1" />
+        fill="none" stroke="#006f7f" strokeOpacity="0.04" strokeWidth="1" />
 
       {/* Perspective fan lines */}
       {fanXs.map((x2, i) => (
@@ -299,7 +299,7 @@ const fadeUp = {
 // ── Page component ────────────────────────────────────────────────────────────
 export function FarmPageClient() {
   return (
-    <div className="min-h-screen bg-[#0e1214]">
+    <div className="min-h-screen bg-[#141210]">
       <ScrollProgress />
       <Navigation />
 
@@ -372,7 +372,7 @@ export function FarmPageClient() {
                     className="group inline-flex items-center gap-2 px-7 py-3.5 font-semibold rounded-full transition-all"
                     style={{
                       background:  AG_TEXT,
-                      color:       "#0e1214",
+                      color:       "#141210",
                       boxShadow:   `0 0 0 0 ${AG_TEXT}00`,
                     }}
                     onMouseEnter={e => (e.currentTarget.style.boxShadow = `0 0 28px ${AG_TEXT}55`)}
@@ -419,7 +419,7 @@ export function FarmPageClient() {
                     transition={{ duration: 0.5, delay: 0.4 + i * 0.08 }}
                     className="p-6 rounded-xl text-center"
                     style={{
-                      background: "linear-gradient(135deg, rgba(10,122,90,0.08) 0%, rgba(14,18,20,0.9) 100%)",
+                      background: "linear-gradient(135deg, rgba(10,122,90,0.08) 0%, rgba(20,18,16,0.9) 100%)",
                       border:     `1px solid ${AG_ACCENT}35`,
                     }}
                   >
@@ -463,7 +463,7 @@ export function FarmPageClient() {
         </section>
 
         {/* ── Stats bar ────────────────────────────────────────────────────── */}
-        <section className="border-y border-[#1a1f22] bg-[#0a0d0e]">
+        <section className="border-y border-[#1a1610] bg-[#0e0c0a]">
           <div className="max-w-7xl mx-auto px-6 py-8">
             <div className="grid grid-cols-3 gap-8">
               {[
@@ -487,7 +487,7 @@ export function FarmPageClient() {
         </section>
 
         {/* ── Key benefits ─────────────────────────────────────────────────── */}
-        <section className="py-24 bg-[#0e1214]">
+        <section className="py-24 bg-[#141210]">
           <div className="max-w-7xl mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -512,7 +512,7 @@ export function FarmPageClient() {
                   transition={{ duration: 0.5, delay: i * 0.08 }}
                   className="group p-6 rounded-xl transition-all duration-300"
                   style={{
-                    background: "linear-gradient(135deg, #161c1f 0%, #0e1214 100%)",
+                    background: "linear-gradient(135deg, #242018 0%, #141210 100%)",
                     border:     `1px solid ${AG_ACCENT}25`,
                   }}
                   onMouseEnter={e => {
@@ -541,7 +541,7 @@ export function FarmPageClient() {
         </section>
 
         {/* ── Eligibility ──────────────────────────────────────────────────── */}
-        <section className="py-24 bg-[#0a0d0e]">
+        <section className="py-24 bg-[#0e0c0a]">
           <div className="max-w-7xl mx-auto px-6">
             <div className="grid lg:grid-cols-2 gap-16 items-center">
               <motion.div
@@ -578,7 +578,7 @@ export function FarmPageClient() {
                 transition={{ duration: 0.5, delay: 0.2 }}
                 className="p-8 rounded-xl"
                 style={{
-                  background: `linear-gradient(135deg, ${AG_ACCENT}12 0%, rgba(14,18,20,1) 70%)`,
+                  background: `linear-gradient(135deg, ${AG_ACCENT}12 0%, rgba(20,18,16,1) 70%)`,
                   border:     `1px solid ${AG_ACCENT}30`,
                 }}
               >
@@ -590,7 +590,7 @@ export function FarmPageClient() {
                 <Link
                   href="/contact"
                   className="group inline-flex items-center gap-2 px-6 py-3 font-semibold rounded-full text-sm transition-all"
-                  style={{ background: AG_TEXT, color: "#0e1214" }}
+                  style={{ background: AG_TEXT, color: "#141210" }}
                   onMouseEnter={e => (e.currentTarget.style.boxShadow = `0 0 20px ${AG_TEXT}50`)}
                   onMouseLeave={e => (e.currentTarget.style.boxShadow = "none")}
                 >
@@ -603,7 +603,7 @@ export function FarmPageClient() {
         </section>
 
         {/* ── Windsor-Essex Greenhouse Spotlight ───────────────────────────── */}
-        <section className="py-24 bg-[#0e1214]">
+        <section className="py-24 bg-[#141210]">
           <div className="max-w-7xl mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -612,7 +612,7 @@ export function FarmPageClient() {
               transition={{ duration: 0.5 }}
               className="rounded-2xl p-10 relative overflow-hidden"
               style={{
-                background: "linear-gradient(135deg, #0d1c17 0%, #0a0d0e 100%)",
+                background: "linear-gradient(135deg, #0d1c17 0%, #0e0c0a 100%)",
                 border:     `2px solid ${AG_ACCENT}50`,
               }}
             >
@@ -693,7 +693,7 @@ export function FarmPageClient() {
         </section>
 
         {/* ── How It Works ─────────────────────────────────────────────────── */}
-        <section className="py-24 bg-[#0a0d0e]">
+        <section className="py-24 bg-[#0e0c0a]">
           <div className="max-w-7xl mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -726,7 +726,7 @@ export function FarmPageClient() {
                     <div
                       className="relative z-10 mx-auto w-28 h-28 rounded-full flex flex-col items-center justify-center mb-5"
                       style={{
-                        background:   "#111618",
+                        background:   "#1c1916",
                         border:       `2px solid ${AG_ACCENT}55`,
                       }}
                     >
@@ -747,7 +747,7 @@ export function FarmPageClient() {
         </section>
 
         {/* ── CTA ──────────────────────────────────────────────────────────── */}
-        <section className="py-20 bg-[#0e1214] border-t border-[#1a1f22]">
+        <section className="py-20 bg-[#141210] border-t border-[#1a1610]">
           <div className="max-w-7xl mx-auto px-6 text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -766,7 +766,7 @@ export function FarmPageClient() {
                 <Link
                   href="/apply"
                   className="group inline-flex items-center gap-2 px-8 py-4 font-semibold rounded-full transition-all"
-                  style={{ background: AG_TEXT, color: "#0e1214" }}
+                  style={{ background: AG_TEXT, color: "#141210" }}
                   onMouseEnter={e => (e.currentTarget.style.boxShadow = `0 0 30px ${AG_TEXT}55`)}
                   onMouseLeave={e => (e.currentTarget.style.boxShadow = "none")}
                 >

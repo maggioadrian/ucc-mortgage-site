@@ -13,17 +13,17 @@
   --ucc-black: #1a1a1a;
   
   /* Dark Theme (Default) */
-  --background: #0e1214;
+  --background: #141210;
   --foreground: #f0f4f5;
-  --card: #161c1f;
+  --card: #1c1916;
   --card-foreground: #c8dde4;
-  --popover: #161c1f;
+  --popover: #1c1916;
   --popover-foreground: #f0f4f5;
   --primary: #27aae1;
-  --primary-foreground: #0e1214;
+  --primary-foreground: #141210;
   --secondary: #006f7f;
   --secondary-foreground: #f0f4f5;
-  --muted: #161c1f;
+  --muted: #242018;
   --muted-foreground: #7a9099;
   --accent: #2e5f92;
   --accent-foreground: #f0f4f5;
@@ -122,7 +122,7 @@
     90deg,
     #27aae1 0%,
     #27aae1 40%,
-    #4dd0e1 50%,
+    #006f7f 50%,
     #27aae1 60%,
     #27aae1 100%
   );

@@ -39,9 +39,9 @@ function downloadCIM(text: string) {
 
 function CIMCard({ text, emailSent }: { text: string; emailSent: boolean }) {
   return (
-    <div className="mt-2 rounded-xl border border-[#27aae1]/20 overflow-hidden"
-      style={{ background: "linear-gradient(135deg, rgba(0,111,127,0.10) 0%, #161c1f 100%)" }}>
-      <div className="px-4 py-3 border-b border-[#27aae1]/15 flex items-center justify-between">
+    <div className="mt-2 rounded-xl border border-[#006f7f]/20 overflow-hidden"
+      style={{ background: "linear-gradient(135deg, rgba(0,111,127,0.10) 0%, #242018 100%)" }}>
+      <div className="px-4 py-3 border-b border-[#006f7f]/15 flex items-center justify-between">
         <span className="text-xs font-semibold text-[#27aae1] uppercase tracking-wider">
           {emailSent ? "CIM sent to UCC team" : "Your Mortgage Summary"}
         </span>
@@ -64,7 +64,7 @@ function TypingDots() {
   return (
     <div className="flex items-center gap-1 px-4 py-3">
       {[0, 1, 2].map((i) => (
-        <span key={i} className="w-1.5 h-1.5 rounded-full bg-[#27aae1]/60 animate-bounce"
+        <span key={i} className="w-1.5 h-1.5 rounded-full bg-[#006f7f]/60 animate-bounce"
           style={{ animationDelay: `${i * 0.15}s`, animationDuration: "0.9s" }} />
       ))}
     </div>
@@ -97,15 +97,15 @@ function Bubble({
       )}
       <div className={`max-w-[78%] ${isUser ? "" : "flex-1"}`}>
         {msg.isTyping ? (
-          <div className="rounded-2xl rounded-tl-sm bg-[#161c1f] border border-[#2a3033]">
+          <div className="rounded-2xl rounded-tl-sm bg-[#242018] border border-[#2a2420]">
             <TypingDots />
           </div>
         ) : (
           <>
             <div className={`rounded-2xl px-4 py-3 text-sm leading-relaxed ${
               isUser
-                ? "rounded-tr-sm bg-[#27aae1] text-[#0e1214] font-medium"
-                : "rounded-tl-sm bg-[#161c1f] border border-[#2a3033] text-foreground"
+                ? "rounded-tr-sm bg-[#006f7f] text-[#141210] font-medium"
+                : "rounded-tl-sm bg-[#242018] border border-[#2a2420] text-foreground"
             }`}>
               {msg.content}
             </div>
@@ -223,7 +223,7 @@ export function AIChatWidget() {
             exit={{ opacity: 0, scale: 0.8, y: 16 }}
             transition={{ duration: 0.25 }}
             onClick={() => setOpen(true)}
-            className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-5 py-3 rounded-full bg-[#27aae1] text-[#0e1214] font-semibold text-sm shadow-[0_4px_24px_rgba(39,170,225,0.45)] hover:shadow-[0_4px_32px_rgba(39,170,225,0.65)] transition-shadow">
+            className="fixed bottom-6 right-6 z-50 flex items-center gap-2.5 px-5 py-3 rounded-full bg-[#006f7f] text-[#141210] font-semibold text-sm shadow-[0_4px_24px_rgba(0,111,127,0.45)] hover:shadow-[0_4px_32px_rgba(0,111,127,0.65)] transition-shadow">
             <MessageCircle className="w-4 h-4" />
             Chat with Alex
           </motion.button>
@@ -250,12 +250,12 @@ export function AIChatWidget() {
               className="fixed z-50 flex flex-col
                 bottom-0 left-0 right-0 h-[100dvh]
                 md:bottom-6 md:right-6 md:left-auto md:w-[400px] md:h-[600px] md:rounded-2xl
-                bg-[#0e1214] border border-[#2a3033] shadow-[0_8px_48px_rgba(0,0,0,0.6)]
+                bg-[#141210] border border-[#2a2420] shadow-[0_8px_48px_rgba(0,0,0,0.6)]
                 overflow-hidden">
 
               {/* Header */}
-              <div className="flex items-center justify-between px-4 py-3.5 border-b border-[#1a1f22]"
-                style={{ background: "linear-gradient(135deg, #161c1f 0%, #0e1214 100%)" }}>
+              <div className="flex items-center justify-between px-4 py-3.5 border-b border-[#1a1610]"
+                style={{ background: "linear-gradient(135deg, #242018 0%, #141210 100%)" }}>
                 <div className="flex items-center gap-3">
                   <div className="w-9 h-9 rounded-full bg-[#006f7f] flex items-center justify-center font-bold text-white text-sm flex-shrink-0">
                     A
@@ -267,7 +267,7 @@ export function AIChatWidget() {
                   <span className="ml-1 w-2 h-2 rounded-full bg-emerald-400 flex-shrink-0" title="Online" />
                 </div>
                 <button onClick={() => setOpen(false)}
-                  className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-[#2a3033] transition-colors text-muted-foreground hover:text-foreground">
+                  className="w-8 h-8 flex items-center justify-center rounded-full hover:bg-[#2a2420] transition-colors text-muted-foreground hover:text-foreground">
                   <X className="w-4 h-4" />
                 </button>
               </div>
@@ -298,7 +298,7 @@ export function AIChatWidget() {
                     "I want to invest in mortgages",
                   ].map((s) => (
                     <button key={s} onClick={() => send(s)}
-                      className="text-xs px-3 py-1.5 rounded-full border border-[#27aae1]/30 text-[#27aae1] hover:bg-[#27aae1]/10 transition-colors">
+                      className="text-xs px-3 py-1.5 rounded-full border border-[#006f7f]/30 text-[#27aae1] hover:bg-[#006f7f]/10 transition-colors">
                       {s}
                     </button>
                   ))}
@@ -309,7 +309,7 @@ export function AIChatWidget() {
               <ChevronDown className="hidden" />
 
               {/* Input bar */}
-              <div className="px-4 py-3 border-t border-[#1a1f22] bg-[#0a0d0e]">
+              <div className="px-4 py-3 border-t border-[#1a1610] bg-[#0e0c0a]">
                 <div className="flex items-center gap-2">
                   <input
                     ref={inputRef}
@@ -319,12 +319,12 @@ export function AIChatWidget() {
                     onKeyDown={handleKey}
                     placeholder="Type a message…"
                     disabled={loading}
-                    className="flex-1 px-4 py-2.5 rounded-xl bg-[#111618] border border-[#2a3033] text-foreground text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-[#27aae1]/50 transition-colors disabled:opacity-50"
+                    className="flex-1 px-4 py-2.5 rounded-xl bg-[#1c1916] border border-[#2a2420] text-foreground text-sm placeholder:text-muted-foreground/50 focus:outline-none focus:border-[#006f7f]/50 transition-colors disabled:opacity-50"
                   />
                   <button
                     onClick={() => send()}
                     disabled={!input.trim() || loading}
-                    className="w-10 h-10 flex-shrink-0 rounded-xl bg-[#27aae1] text-[#0e1214] flex items-center justify-center transition-all hover:shadow-[0_0_16px_rgba(39,170,225,0.4)] disabled:opacity-40 disabled:cursor-not-allowed">
+                    className="w-10 h-10 flex-shrink-0 rounded-xl bg-[#006f7f] text-[#141210] flex items-center justify-center transition-all hover:shadow-[0_0_16px_rgba(0,111,127,0.4)] disabled:opacity-40 disabled:cursor-not-allowed">
                     <Send className="w-4 h-4" />
                   </button>
                 </div>

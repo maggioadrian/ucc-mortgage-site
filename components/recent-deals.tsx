@@ -38,7 +38,7 @@ const deals = [
 
 export function RecentDeals() {
   return (
-    <section className="py-24 bg-[#0a0d0e]">
+    <section className="py-24 bg-[#0e0c0a]">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -48,7 +48,7 @@ export function RecentDeals() {
           className="mb-12"
         >
           <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#006f7f]/20 border border-[#006f7f]/30 rounded-full text-xs font-medium text-[#27aae1] mb-4">
-            <span className="w-1.5 h-1.5 bg-[#27aae1] rounded-full" />
+            <span className="w-1.5 h-1.5 bg-[#006f7f] rounded-full" />
             Recent deals
           </span>
           <h2 className="text-3xl font-bold text-foreground mb-3">Deals we&apos;ve closed</h2>
@@ -69,7 +69,7 @@ export function RecentDeals() {
                 transition={{ duration: 0.5, delay: deal.delay }}
                 className="relative p-6 rounded-2xl overflow-hidden"
                 style={{
-                  background: "linear-gradient(145deg, #161c1f 0%, #0e1214 100%)",
+                  background: "linear-gradient(145deg, #242018 0%, #141210 100%)",
                   border: "1px solid #1d2428",
                 }}
               >
@@ -78,9 +78,9 @@ export function RecentDeals() {
 
                 <div className="flex items-start justify-between mb-4">
                   <div className="p-2.5 rounded-lg bg-[#006f7f]/15">
-                    <Icon className="w-4 h-4 text-[#27aae1]" />
+                    <Icon className="w-4 h-4 text-[#006f7f]" />
                   </div>
-                  <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#27aae1]/10 border border-[#27aae1]/15 text-[#27aae1]">
+                  <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-[#006f7f]/10 border border-[#006f7f]/15 text-[#27aae1]">
                     {deal.type}
                   </span>
                 </div>

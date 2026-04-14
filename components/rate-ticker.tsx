@@ -10,13 +10,13 @@ const rates = [
 
 export function RateTicker() {
   return (
-    <div className="h-10 bg-[#111618] flex items-center overflow-hidden border-b border-[#1a1f22]">
-      <div className="flex items-center gap-3 px-6 shrink-0 border-r border-[#1a1f22]">
+    <div className="h-10 bg-[#1c1916] flex items-center overflow-hidden border-b border-[#1a1610]">
+      <div className="flex items-center gap-3 px-6 shrink-0 border-r border-[#1a1610]">
         <span className="relative flex h-2 w-2">
           <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#006f7f] opacity-75"></span>
           <span className="relative inline-flex rounded-full h-2 w-2 bg-[#006f7f]"></span>
         </span>
-        <span className="text-xs font-semibold tracking-wider text-muted-foreground">
+        <span className="text-xs font-semibold tracking-wider text-[#006f7f]">
           LIVE RATES
         </span>
       </div>

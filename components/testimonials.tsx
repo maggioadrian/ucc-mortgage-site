@@ -36,7 +36,7 @@ export function Testimonials() {
 
   return (
     <motion.section
-      className="relative py-32 bg-[#0a0d0e]"
+      className="relative py-32 bg-[#0e0c0a]"
       initial={{ opacity: 0 }}
       whileInView={{ opacity: 1 }}
       viewport={{ once: true, margin: "-100px" }}
@@ -83,7 +83,7 @@ export function Testimonials() {
             {/* Five-star dots */}
             <div className="mt-4 flex justify-center gap-1.5">
               {[...Array(5)].map((_, i) => (
-                <span key={i} className="w-2 h-2 rounded-full bg-[#27aae1]" />
+                <span key={i} className="w-2 h-2 rounded-full bg-[#006f7f]" />
               ))}
             </div>
           </motion.div>
@@ -93,7 +93,7 @@ export function Testimonials() {
         <div className="mt-10 flex justify-center items-center gap-4">
           <button
             onClick={prev}
-            className="p-2 rounded-full border border-[#2a3033] text-muted-foreground hover:text-foreground hover:border-[#27aae1]/40 transition-colors"
+            className="p-2 rounded-full border border-[#2a2420] text-muted-foreground hover:text-foreground hover:border-[#006f7f]/40 transition-colors"
             aria-label="Previous testimonial"
           >
             <ChevronLeft className="w-5 h-5" />
@@ -107,8 +107,8 @@ export function Testimonials() {
                 onClick={() => setActiveIndex(index)}
                 className={`rounded-full transition-all ${
                   index === activeIndex
-                    ? "w-6 h-2 bg-[#27aae1]"
-                    : "w-2 h-2 bg-[#2a3033] hover:bg-[#27aae1]/40"
+                    ? "w-6 h-2 bg-[#006f7f]"
+                    : "w-2 h-2 bg-[#2a2420] hover:bg-[#006f7f]/40"
                 }`}
                 aria-label={`Go to testimonial ${index + 1}`}
               />
@@ -117,7 +117,7 @@ export function Testimonials() {
 
           <button
             onClick={next}
-            className="p-2 rounded-full border border-[#2a3033] text-muted-foreground hover:text-foreground hover:border-[#27aae1]/40 transition-colors"
+            className="p-2 rounded-full border border-[#2a2420] text-muted-foreground hover:text-foreground hover:border-[#006f7f]/40 transition-colors"
             aria-label="Next testimonial"
           >
             <ChevronRight className="w-5 h-5" />

@@ -20,7 +20,7 @@ export function UCCLogo({ className = "", showTagline = true }: { className?: st
       {/* Second C - Light Blue */}
       <path
         d="M86 6c-10 0-16 7-16 15s6 15 16 15c5 0 9-2 12-5l-4-4c-2 2-5 3-8 3-6 0-10-4-10-9s4-9 10-9c3 0 6 1 8 3l4-4c-3-3-7-5-12-5z"
-        fill="#27aae1"
+        fill="#006f7f"
       />
       {showTagline && (
         <text
@@ -61,7 +61,7 @@ export function UCCLogoCompact({ className = "" }: { className?: string }) {
       {/* Second C - Light Blue */}
       <path
         d="M75.5 4c-8.75 0-14 6.125-14 13.125s5.25 13.125 14 13.125c4.375 0 7.875-1.75 10.5-4.375l-3.5-3.5c-1.75 1.75-4.375 2.625-7 2.625-5.25 0-8.75-3.5-8.75-7.875s3.5-7.875 8.75-7.875c2.625 0 5.25.875 7 2.625l3.5-3.5C83.375 5.75 79.875 4 75.5 4z"
-        fill="#27aae1"
+        fill="#006f7f"
       />
     </svg>
   );

@@ -156,34 +156,34 @@ export default function QualifyPage() {
   const rec = done ? getRecommendation(answers) : null;
 
   return (
-    <div className="min-h-screen bg-[#0e1214]">
+    <div className="min-h-screen bg-[#141210]">
       <ScrollProgress />
       <Navigation />
       <main>
         <section className="pt-24 pb-16"
           style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(0,111,127,0.12) 0%, transparent 60%)" }}>
           <div className="max-w-xl mx-auto px-6 text-center">
-            <div className="inline-flex p-3 rounded-xl bg-[#27aae1]/10 mb-6">
-              <HelpCircle className="w-6 h-6 text-[#27aae1]" />
+            <div className="inline-flex p-3 rounded-xl bg-[#006f7f]/10 mb-6">
+              <HelpCircle className="w-6 h-6 text-[#006f7f]" />
             </div>
             <h1 className="text-4xl font-bold tracking-tight text-foreground mb-3">Find Your Product</h1>
             <p className="text-muted-foreground">Answer 5 quick questions and we&apos;ll match you with the right UCC solution.</p>
           </div>
         </section>
 
-        <section className="pb-24 bg-[#0a0d0e]">
+        <section className="pb-24 bg-[#0e0c0a]">
           <div className="max-w-xl mx-auto px-6">
             {!done ? (
-              <div className="p-8 rounded-2xl border border-[#27aae1]/10"
-                style={{ background: "linear-gradient(135deg, #161c1f 0%, #0e1214 100%)" }}>
+              <div className="p-8 rounded-2xl border border-[#006f7f]/10"
+                style={{ background: "linear-gradient(135deg, #242018 0%, #141210 100%)" }}>
 
                 {/* Progress */}
                 <div className="flex items-center justify-between mb-6">
                   <span className="text-xs text-muted-foreground">Question {current + 1} of {questions.length}</span>
                   <span className="text-xs text-muted-foreground">{Math.round(progress)}%</span>
                 </div>
-                <div className="w-full h-1 bg-[#2a3033] rounded-full mb-8">
-                  <div className="h-full bg-[#27aae1] rounded-full transition-all duration-300"
+                <div className="w-full h-1 bg-[#2a2420] rounded-full mb-8">
+                  <div className="h-full bg-[#006f7f] rounded-full transition-all duration-300"
                     style={{ width: `${progress}%` }} />
                 </div>
 
@@ -191,7 +191,7 @@ export default function QualifyPage() {
                 <div className="space-y-3">
                   {question.options.map((opt) => (
                     <button key={opt.value} onClick={() => answer(opt.value)}
-                      className="w-full flex items-center justify-between px-5 py-4 rounded-xl border border-[#2a3033] text-left text-sm text-foreground hover:border-[#27aae1]/40 hover:bg-[#27aae1]/5 transition-all group">
+                      className="w-full flex items-center justify-between px-5 py-4 rounded-xl border border-[#2a2420] text-left text-sm text-foreground hover:border-[#006f7f]/40 hover:bg-[#006f7f]/5 transition-all group">
                       {opt.label}
                       <ChevronRight className="w-4 h-4 text-muted-foreground group-hover:text-[#27aae1] transition-colors" />
                     </button>
@@ -199,18 +199,18 @@ export default function QualifyPage() {
                 </div>
               </div>
             ) : rec && (
-              <div className="p-8 rounded-2xl border border-[#27aae1]/20"
-                style={{ background: "linear-gradient(135deg, rgba(0,111,127,0.08) 0%, #161c1f 100%)" }}>
+              <div className="p-8 rounded-2xl border border-[#006f7f]/20"
+                style={{ background: "linear-gradient(135deg, rgba(0,111,127,0.08) 0%, #242018 100%)" }}>
                 <p className="text-xs font-semibold text-[#27aae1] uppercase tracking-wider mb-2">Your best match</p>
                 <h2 className="text-2xl font-bold text-foreground mb-3">{rec.title}</h2>
                 <p className="text-sm text-muted-foreground leading-relaxed mb-8">{rec.description}</p>
                 <div className="flex flex-col sm:flex-row gap-3">
                   <Link href={rec.href}
-                    className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-[#27aae1] text-[#0e1214] font-semibold rounded-full transition-all hover:shadow-[0_0_24px_rgba(39,170,225,0.35)]">
+                    className="flex-1 flex items-center justify-center gap-2 py-3.5 bg-[#006f7f] text-[#141210] font-semibold rounded-full transition-all hover:shadow-[0_0_24px_rgba(0,111,127,0.35)]">
                     {rec.cta} <ArrowRight className="w-4 h-4" />
                   </Link>
                   <button onClick={restart}
-                    className="flex-1 py-3.5 border border-[#2a3033] text-foreground font-semibold rounded-full hover:border-[#27aae1]/40 transition-all text-sm">
+                    className="flex-1 py-3.5 border border-[#2a2420] text-foreground font-semibold rounded-full hover:border-[#006f7f]/40 transition-all text-sm">
                     Start over
                   </button>
                 </div>

@@ -195,7 +195,7 @@ function CommercialBackdrop() {
           .win-c { animation: com-blink-c 6s ease-in-out infinite 2s; }
         `}</style>
       </defs>
-      <g fill="none" stroke="#27aae1" strokeOpacity="0.10" strokeWidth="1">
+      <g fill="none" stroke="#006f7f" strokeOpacity="0.10" strokeWidth="1">
         <rect x="200" y="160" width="80" height="380" />
         <rect x="400" y="220" width="60" height="320" />
         <rect x="560" y="100" width="100" height="440" />
@@ -206,7 +206,7 @@ function CommercialBackdrop() {
         {[220, 260, 300, 340].map((y) => <line key={y} x1="200" y1={y} x2="280" y2={y} strokeOpacity="0.07" />)}
         {[240, 280, 320].map((y) => <line key={y} x1="560" y1={y} x2="660" y2={y} strokeOpacity="0.07" />)}
       </g>
-      <g fill="#27aae1">
+      <g fill="#006f7f">
         {[180, 210, 240, 270, 300, 330].map((y, i) =>
           [210, 230, 250, 270].map((x, j) => (
             <rect key={`a-${i}-${j}`} className={j % 2 === 0 ? "win-a" : "win-b"}
@@ -318,7 +318,7 @@ function RefinancingBackdrop() {
           .ref-arc3 { transform-origin: 720px 300px; animation: ref-spin 60s linear infinite; }
         `}</style>
       </defs>
-      <g fill="none" stroke="#27aae1">
+      <g fill="none" stroke="#006f7f">
         <circle className="ref-arc1" cx="720" cy="300" r="340"
           strokeOpacity="0.10" strokeWidth="1.5" strokeDasharray="30 18" />
         <circle className="ref-arc2" cx="720" cy="300" r="240"
@@ -397,7 +397,7 @@ function RatesBackdrop() {
       </defs>
       {items.map((item, i) => (
         <text key={i} className="rate-num"
-          x={item.x} y={item.y} fill="#27aae1" fontSize="13"
+          x={item.x} y={item.y} fill="#006f7f" fontSize="13"
           style={{ animationDelay: `${item.delay}s` }}>
           {item.val}
         </text>
@@ -508,19 +508,19 @@ function InvestBackdrop() {
       </defs>
       {[160, 240, 320, 400, 480].map((y) => (
         <line key={y} x1="150" y1={y} x2="1290" y2={y}
-          stroke="#27aae1" strokeOpacity="0.05" strokeWidth="1" />
+          stroke="#006f7f" strokeOpacity="0.05" strokeWidth="1" />
       ))}
       <path className="inv-curve" d={pts}
-        fill="none" stroke="#27aae1" strokeOpacity="0.14" strokeWidth="1.5" />
+        fill="none" stroke="#006f7f" strokeOpacity="0.14" strokeWidth="1.5" />
       {dataPoints.map((pt, i) => (
         <circle key={i} className="inv-dot"
-          cx={pt.x} cy={pt.y} r="4" fill="#27aae1"
+          cx={pt.x} cy={pt.y} r="4" fill="#006f7f"
           style={{ animationDelay: `${i * 0.4}s` }} />
       ))}
       <line x1="200" y1="160" x2="200" y2="490"
-        stroke="#27aae1" strokeOpacity="0.10" strokeWidth="1" />
+        stroke="#006f7f" strokeOpacity="0.10" strokeWidth="1" />
       <line x1="190" y1="480" x2="1210" y2="480"
-        stroke="#27aae1" strokeOpacity="0.10" strokeWidth="1" />
+        stroke="#006f7f" strokeOpacity="0.10" strokeWidth="1" />
     </svg>
   );
 }

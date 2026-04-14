@@ -40,7 +40,7 @@ const footerColumns = [
 
 export function Footer() {
   return (
-    <footer className="border-t-2 border-[#006f7f] bg-[#0a0d0e] shadow-[0_-4px_20px_rgba(0,111,127,0.15)]">
+    <footer className="border-t-2 border-[#006f7f] bg-[#0e0c0a] shadow-[0_-4px_20px_rgba(0,111,127,0.15)]">
       <div className="max-w-7xl mx-auto px-6 py-16">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-10">
 
@@ -51,7 +51,7 @@ export function Footer() {
                 <text x="0" y="22" style={{ fontFamily: "Open Sans, sans-serif", fontWeight: 600, fontSize: 28 }}>
                   <tspan fill="#2e5f92">U</tspan>
                   <tspan fill="#006f7f">C</tspan>
-                  <tspan fill="#27aae1">C</tspan>
+                  <tspan fill="#006f7f">C</tspan>
                 </text>
               </svg>
             </Link>
@@ -83,7 +83,7 @@ export function Footer() {
         </div>
 
         {/* Bottom bar */}
-        <div className="mt-16 pt-8 border-t border-[#1a1f22] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
+        <div className="mt-16 pt-8 border-t border-[#1a1610] flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4">
           <p className="text-xs text-muted-foreground">
             © {new Date().getFullYear()} UCC Mortgage Co. All rights reserved.
           </p>

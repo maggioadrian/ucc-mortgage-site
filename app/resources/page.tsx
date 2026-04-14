@@ -135,7 +135,7 @@ export default function ResourcesPage() {
   const [openFaq, setOpenFaq] = useState<number | null>(null);
 
   return (
-    <div className="min-h-screen bg-[#0e1214]">
+    <div className="min-h-screen bg-[#141210]">
       <ScrollProgress />
       <Navigation />
 
@@ -169,7 +169,7 @@ export default function ResourcesPage() {
         </section>
 
         {/* Featured Article */}
-        <section className="pb-16 bg-[#0e1214]">
+        <section className="pb-16 bg-[#141210]">
           <div className="max-w-7xl mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -186,11 +186,11 @@ export default function ResourcesPage() {
               whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }}
               transition={{ duration: 0.5, delay: 0.1 }}
-              className="p-8 rounded-2xl border border-[#27aae1]/15 hover:border-[#27aae1]/30 transition-all"
-              style={{ background: "linear-gradient(135deg, rgba(0,111,127,0.08) 0%, #0e1214 60%)" }}
+              className="p-8 rounded-2xl border border-[#006f7f]/15 hover:border-[#006f7f]/30 transition-all"
+              style={{ background: "linear-gradient(135deg, rgba(0,111,127,0.08) 0%, #141210 60%)" }}
             >
               <div className="flex items-center gap-3 mb-4">
-                <span className="px-2.5 py-1 bg-[#27aae1]/15 text-[#27aae1] text-xs font-semibold rounded-full">
+                <span className="px-2.5 py-1 bg-[#006f7f]/15 text-[#27aae1] text-xs font-semibold rounded-full">
                   {featuredArticle.tag}
                 </span>
                 <span className="text-xs text-muted-foreground flex items-center gap-1">
@@ -210,7 +210,7 @@ export default function ResourcesPage() {
         </section>
 
         {/* News Grid */}
-        <section className="py-16 bg-[#0a0d0e] border-t border-[#1a1f22]">
+        <section className="py-16 bg-[#0e0c0a] border-t border-[#1a1610]">
           <div className="max-w-7xl mx-auto px-6">
             <motion.h2
               className="text-2xl font-bold text-foreground mb-8"
@@ -230,8 +230,8 @@ export default function ResourcesPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.5, delay: i * 0.08 }}
-                  className="group p-6 rounded-xl border border-[#27aae1]/10 hover:border-[#27aae1]/25 transition-all cursor-pointer"
-                  style={{ background: "linear-gradient(135deg, #161c1f 0%, #0e1214 100%)" }}
+                  className="group p-6 rounded-xl border border-[#006f7f]/10 hover:border-[#006f7f]/25 transition-all cursor-pointer"
+                  style={{ background: "linear-gradient(135deg, #242018 0%, #141210 100%)" }}
                 >
                   <div className="flex items-center gap-2 mb-3">
                     <Tag className="w-3 h-3 text-[#006f7f]" />
@@ -252,7 +252,7 @@ export default function ResourcesPage() {
         </section>
 
         {/* Government Incentives */}
-        <section className="py-24 bg-[#0e1214]">
+        <section className="py-24 bg-[#141210]">
           <div className="max-w-7xl mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -275,8 +275,8 @@ export default function ResourcesPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.4, delay: i * 0.08 }}
-                  className="p-6 rounded-xl border border-[#27aae1]/10 hover:border-[#27aae1]/20 transition-all"
-                  style={{ background: "linear-gradient(135deg, #161c1f 0%, #0e1214 100%)" }}
+                  className="p-6 rounded-xl border border-[#006f7f]/10 hover:border-[#006f7f]/20 transition-all"
+                  style={{ background: "linear-gradient(135deg, #242018 0%, #141210 100%)" }}
                 >
                   <div className="grid md:grid-cols-[1fr_auto] gap-4 items-start">
                     <div>
@@ -309,7 +309,7 @@ export default function ResourcesPage() {
         </section>
 
         {/* FAQ Accordion */}
-        <section className="py-24 bg-[#0a0d0e] border-t border-[#1a1f22]">
+        <section className="py-24 bg-[#0e0c0a] border-t border-[#1a1610]">
           <div className="max-w-4xl mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -332,12 +332,12 @@ export default function ResourcesPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-60px" }}
                   transition={{ duration: 0.4, delay: i * 0.05 }}
-                  className="rounded-xl border border-[#27aae1]/10 overflow-hidden"
-                  style={{ background: "linear-gradient(135deg, #161c1f 0%, #0e1214 100%)" }}
+                  className="rounded-xl border border-[#006f7f]/10 overflow-hidden"
+                  style={{ background: "linear-gradient(135deg, #242018 0%, #141210 100%)" }}
                 >
                   <button
                     onClick={() => setOpenFaq(openFaq === i ? null : i)}
-                    className="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-[#27aae1]/3 transition-colors"
+                    className="w-full flex items-center justify-between px-6 py-5 text-left hover:bg-[#006f7f]/3 transition-colors"
                   >
                     <span className="text-sm font-semibold text-foreground pr-4">{faq.question}</span>
                     <ChevronDown
@@ -353,7 +353,7 @@ export default function ResourcesPage() {
                         transition={{ duration: 0.25 }}
                         className="overflow-hidden"
                       >
-                        <div className="px-6 pb-5 text-sm text-muted-foreground leading-relaxed border-t border-[#1a1f22] pt-4">
+                        <div className="px-6 pb-5 text-sm text-muted-foreground leading-relaxed border-t border-[#1a1610] pt-4">
                           {faq.answer}
                         </div>
                       </motion.div>
@@ -366,7 +366,7 @@ export default function ResourcesPage() {
         </section>
 
         {/* CTA */}
-        <section className="py-20 bg-[#0e1214] border-t border-[#1a1f22]">
+        <section className="py-20 bg-[#141210] border-t border-[#1a1610]">
           <div className="max-w-7xl mx-auto px-6 text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -381,14 +381,14 @@ export default function ResourcesPage() {
               <div className="flex flex-wrap justify-center gap-4">
                 <Link
                   href="/contact"
-                  className="group inline-flex items-center gap-2 px-8 py-4 bg-[#27aae1] text-[#0e1214] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(39,170,225,0.4)]"
+                  className="group inline-flex items-center gap-2 px-8 py-4 bg-[#006f7f] text-[#141210] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(0,111,127,0.4)]"
                 >
                   Speak to a broker
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link
                   href="/apply"
-                  className="inline-flex items-center gap-2 px-8 py-4 border border-[#2a3033] text-foreground font-semibold rounded-full hover:border-[#27aae1]/40 hover:bg-[#27aae1]/5 transition-all"
+                  className="inline-flex items-center gap-2 px-8 py-4 border border-[#2a2420] text-foreground font-semibold rounded-full hover:border-[#006f7f]/40 hover:bg-[#006f7f]/5 transition-all"
                 >
                   Start an application
                 </Link>

@@ -6,7 +6,7 @@ import Link from "next/link";
 
 export function InvestSection() {
   return (
-    <section className="py-24 bg-[#0e1214]">
+    <section className="py-24 bg-[#141210]">
       <div className="max-w-7xl mx-auto px-6">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -15,7 +15,7 @@ export function InvestSection() {
           transition={{ duration: 0.5 }}
           className="relative overflow-hidden rounded-2xl border border-[#006f7f]/30 p-8 md:p-12"
           style={{
-            background: "linear-gradient(135deg, #0d1a1f 0%, #0e1214 50%, #0d1518 100%)",
+            background: "linear-gradient(135deg, #0d1a1f 0%, #141210 50%, #0d1518 100%)",
           }}
         >
           {/* Accent glow */}
@@ -48,19 +48,19 @@ export function InvestSection() {
             </div>
             
             <div className="grid grid-cols-2 gap-4">
-              <div className="p-5 rounded-xl bg-[#111618] border border-[#1a1f22]">
-                <Percent className="w-6 h-6 text-[#27aae1] mb-3" />
+              <div className="p-5 rounded-xl bg-[#1c1916] border border-[#1a1610]">
+                <Percent className="w-6 h-6 text-[#006f7f] mb-3" />
                 <div className="text-2xl font-bold text-foreground mb-1">8-12%</div>
                 <div className="text-sm text-muted-foreground">Annual returns</div>
               </div>
               
-              <div className="p-5 rounded-xl bg-[#111618] border border-[#1a1f22]">
-                <Shield className="w-6 h-6 text-[#27aae1] mb-3" />
+              <div className="p-5 rounded-xl bg-[#1c1916] border border-[#1a1610]">
+                <Shield className="w-6 h-6 text-[#006f7f] mb-3" />
                 <div className="text-2xl font-bold text-foreground mb-1">Secured</div>
                 <div className="text-sm text-muted-foreground">Real estate backed</div>
               </div>
               
-              <div className="col-span-2 p-5 rounded-xl bg-[#111618] border border-[#1a1f22]">
+              <div className="col-span-2 p-5 rounded-xl bg-[#1c1916] border border-[#1a1610]">
                 <div className="text-sm text-muted-foreground mb-2">Minimum investment</div>
                 <div className="text-3xl font-bold text-[#27aae1]">$25,000</div>
               </div>

@@ -32,7 +32,7 @@ const mainLinks = [
 
 export function AnnouncementBanner() {
   return (
-    <div className="h-9 bg-[#0d1e2a] flex items-center justify-center border-l-2 border-[#006f7f]">
+    <div className="h-9 bg-[#0e0c0a] flex items-center justify-center border-l-2 border-[#006f7f]">
       <p className="text-xs text-foreground/70">
         Windsor&apos;s only licensed mortgage administrator since 2008
         <span className="text-[#27aae1] ml-1">→</span>
@@ -68,9 +68,9 @@ export function Navigation() {
     <>
       <AnnouncementBanner />
       <nav
-        className="sticky top-0 z-50 h-[72px] border-b border-[#27aae1]/15"
+        className="sticky top-0 z-50 h-[72px] border-b border-[#006f7f]/20"
         style={{
-          background: "rgba(14,18,20,0.88)",
+          background: "rgba(20,18,16,0.88)",
           backdropFilter: "blur(16px)",
           WebkitBackdropFilter: "blur(16px)",
         }}
@@ -83,7 +83,7 @@ export function Navigation() {
               <text x="0" y="22" style={{ fontFamily: "Open Sans, sans-serif", fontWeight: 600, fontSize: 28 }}>
                 <tspan fill="#2e5f92">U</tspan>
                 <tspan fill="#006f7f">C</tspan>
-                <tspan fill="#27aae1">C</tspan>
+                <tspan fill="#006f7f">C</tspan>
               </text>
             </svg>
             <span className="text-foreground/80 text-sm font-medium tracking-tight ml-1 hidden sm:inline">
@@ -114,13 +114,13 @@ export function Navigation() {
                     {hasDropdown && (
                       <ChevronDown className={`w-3.5 h-3.5 transition-transform ${openDropdown === item.dropdown ? "rotate-180" : ""}`} />
                     )}
-                    <span className={`absolute bottom-0 left-0 right-0 h-0.5 bg-[#27aae1] transition-transform origin-left ${active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
+                    <span className={`absolute bottom-0 left-0 right-0 h-0.5 bg-[#006f7f] transition-transform origin-left ${active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
                   </Link>
 
                   {hasDropdown && openDropdown === item.dropdown && (
                     <div
-                      className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-72 rounded-2xl border border-[#27aae1]/15 shadow-2xl overflow-hidden"
-                      style={{ background: "rgba(14,18,20,0.97)", backdropFilter: "blur(20px)" }}
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-3 w-72 rounded-2xl border border-[#006f7f]/20 shadow-2xl overflow-hidden"
+                      style={{ background: "rgba(20,18,16,0.97)", backdropFilter: "blur(20px)" }}
                       onMouseEnter={keepOpen}
                       onMouseLeave={handleLeave}
                     >
@@ -131,11 +131,11 @@ export function Navigation() {
                             <Link
                               key={link.href}
                               href={link.href}
-                              className="group flex items-start gap-3 p-3 rounded-xl hover:bg-[#27aae1]/6 transition-colors"
+                              className="group flex items-start gap-3 p-3 rounded-xl hover:bg-[#006f7f]/6 transition-colors"
                               onClick={() => setOpenDropdown(null)}
                             >
-                              <div className="p-2 rounded-lg bg-[#27aae1]/10 flex-shrink-0 group-hover:bg-[#27aae1]/18 transition-colors">
-                                <Icon className="w-3.5 h-3.5 text-[#27aae1]" />
+                              <div className="p-2 rounded-lg bg-[#006f7f]/10 flex-shrink-0 group-hover:bg-[#006f7f]/18 transition-colors">
+                                <Icon className="w-3.5 h-3.5 text-[#006f7f]" />
                               </div>
                               <div>
                                 <div className="text-sm font-semibold text-foreground group-hover:text-[#27aae1] transition-colors leading-tight">
@@ -158,13 +158,13 @@ export function Navigation() {
           <div className="hidden md:flex items-center gap-3 flex-shrink-0">
             <Link
               href="/apply"
-              className="text-sm font-semibold text-[#27aae1]/80 hover:text-[#27aae1] border border-[#27aae1]/25 hover:border-[#27aae1]/60 px-4 py-2 rounded-full transition-all whitespace-nowrap"
+              className="text-sm font-semibold text-[#006f7f] hover:text-[#006f7f] border border-[#006f7f]/50 hover:border-[#006f7f]/70 px-4 py-2 rounded-full transition-all whitespace-nowrap"
             >
               Apply now →
             </Link>
             <Link
               href="/contact"
-              className="inline-flex items-center gap-1.5 px-5 py-2 bg-[#27aae1] text-[#0e1214] text-sm font-semibold rounded-full transition-all hover:shadow-[0_0_20px_rgba(39,170,225,0.3)] whitespace-nowrap"
+              className="inline-flex items-center gap-1.5 px-5 py-2 bg-[#006f7f] text-[#f5f0e8] text-sm font-semibold rounded-full transition-all hover:shadow-[0_0_20px_rgba(0,111,127,0.3)] whitespace-nowrap"
             >
               Book a call
             </Link>
@@ -183,8 +183,8 @@ export function Navigation() {
         {/* Mobile menu */}
         {mobileOpen && (
           <div
-            className="md:hidden absolute top-[72px] left-0 right-0 border-b border-[#27aae1]/15 py-4 px-8 max-h-[80vh] overflow-y-auto"
-            style={{ background: "rgba(14,18,20,0.97)", backdropFilter: "blur(12px)" }}
+            className="md:hidden absolute top-[72px] left-0 right-0 border-b border-[#006f7f]/20 py-4 px-8 max-h-[80vh] overflow-y-auto"
+            style={{ background: "rgba(20,18,16,0.97)", backdropFilter: "blur(12px)" }}
           >
             <div className="flex flex-col gap-1">
               {/* Borrowers accordion */}
@@ -237,14 +237,14 @@ export function Navigation() {
                   {item.label}
                 </Link>
               ))}
-              <div className="pt-4 mt-2 border-t border-[#1a1f22] flex flex-col gap-3">
+              <div className="pt-4 mt-2 border-t border-[#1a1610] flex flex-col gap-3">
                 <Link href="/apply"
                   className="text-sm font-semibold text-[#27aae1] transition-colors"
                   onClick={() => setMobileOpen(false)}>
                   Apply now →
                 </Link>
                 <Link href="/contact"
-                  className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-[#27aae1] text-[#0e1214] text-sm font-semibold rounded-full"
+                  className="inline-flex items-center justify-center gap-1.5 px-5 py-2.5 bg-[#006f7f] text-[#f5f0e8] text-sm font-semibold rounded-full"
                   onClick={() => setMobileOpen(false)}>
                   Book a call <ArrowRight className="w-4 h-4" />
                 </Link>

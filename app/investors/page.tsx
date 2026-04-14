@@ -63,7 +63,7 @@ export default function InvestorsPage() {
   };
 
   return (
-    <div className="min-h-screen bg-[#0e1214]">
+    <div className="min-h-screen bg-[#141210]">
       <ScrollProgress />
       <Navigation />
       <main>
@@ -74,7 +74,7 @@ export default function InvestorsPage() {
           <div className="max-w-7xl mx-auto px-6">
             <motion.div variants={fadeUp} initial="hidden" animate="visible" transition={{ duration: 0.5 }}>
               <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#006f7f]/20 border border-[#006f7f]/30 rounded-full text-xs font-medium text-[#27aae1] mb-6">
-                <span className="w-1.5 h-1.5 bg-[#27aae1] rounded-full animate-pulse" />
+                <span className="w-1.5 h-1.5 bg-[#006f7f] rounded-full animate-pulse" />
                 Private mortgage investing
               </span>
             </motion.div>
@@ -89,11 +89,11 @@ export default function InvestorsPage() {
             <motion.div className="flex flex-wrap gap-4"
               variants={fadeUp} initial="hidden" animate="visible" transition={{ duration: 0.5, delay: 0.3 }}>
               <a href="#inquiry"
-                className="group inline-flex items-center gap-2 px-7 py-3.5 bg-[#27aae1] text-[#0e1214] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(39,170,225,0.4)]">
+                className="group inline-flex items-center gap-2 px-7 py-3.5 bg-[#006f7f] text-[#141210] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(0,111,127,0.4)]">
                 Book investor call <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
               </a>
               <Link href="/solutions/private#invest"
-                className="inline-flex items-center gap-2 px-7 py-3.5 border border-[#2a3033] text-foreground font-semibold rounded-full hover:border-[#27aae1]/40 hover:bg-[#27aae1]/5 transition-all">
+                className="inline-flex items-center gap-2 px-7 py-3.5 border border-[#2a2420] text-foreground font-semibold rounded-full hover:border-[#006f7f]/40 hover:bg-[#006f7f]/5 transition-all">
                 Learn more
               </Link>
             </motion.div>
@@ -101,7 +101,7 @@ export default function InvestorsPage() {
         </section>
 
         {/* Stats */}
-        <section className="border-y border-[#1a1f22] bg-[#0a0d0e]">
+        <section className="border-y border-[#1a1610] bg-[#0e0c0a]">
           <div className="max-w-7xl mx-auto px-6 py-8 grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
               { v: "8–12%", l: "Target annual return"   },
@@ -120,7 +120,7 @@ export default function InvestorsPage() {
         </section>
 
         {/* Benefits */}
-        <section className="py-24 bg-[#0e1214]">
+        <section className="py-24 bg-[#141210]">
           <div className="max-w-7xl mx-auto px-6">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.5 }} className="mb-12">
@@ -133,10 +133,10 @@ export default function InvestorsPage() {
                   <motion.div key={b.title}
                     initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.5, delay: i * 0.08 }}
-                    className="p-6 rounded-xl border border-[#27aae1]/10 hover:border-[#27aae1]/30 transition-all"
-                    style={{ background: "linear-gradient(135deg, #161c1f 0%, #0e1214 100%)" }}>
-                    <div className="p-2.5 rounded-lg bg-[#27aae1]/10 w-fit mb-4">
-                      <Icon className="w-5 h-5 text-[#27aae1]" />
+                    className="p-6 rounded-xl border border-[#006f7f]/10 hover:border-[#006f7f]/30 transition-all"
+                    style={{ background: "linear-gradient(135deg, #242018 0%, #141210 100%)" }}>
+                    <div className="p-2.5 rounded-lg bg-[#006f7f]/10 w-fit mb-4">
+                      <Icon className="w-5 h-5 text-[#006f7f]" />
                     </div>
                     <h3 className="text-base font-semibold text-foreground mb-2">{b.title}</h3>
                     <p className="text-sm text-muted-foreground leading-relaxed">{b.desc}</p>
@@ -148,7 +148,7 @@ export default function InvestorsPage() {
         </section>
 
         {/* Investment tiers */}
-        <section className="py-24 bg-[#0a0d0e]">
+        <section className="py-24 bg-[#0e0c0a]">
           <div className="max-w-7xl mx-auto px-6">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.5 }} className="text-center mb-12">
@@ -162,12 +162,12 @@ export default function InvestorsPage() {
                   className="p-7 rounded-2xl relative"
                   style={{
                     background: tier.highlighted
-                      ? "linear-gradient(135deg, rgba(0,111,127,0.12) 0%, #161c1f 100%)"
-                      : "linear-gradient(145deg, #161c1f 0%, #0e1214 100%)",
-                    border: tier.highlighted ? "1px solid rgba(39,170,225,0.35)" : "1px solid rgba(39,170,225,0.10)",
+                      ? "linear-gradient(135deg, rgba(0,111,127,0.12) 0%, #242018 100%)"
+                      : "linear-gradient(145deg, #242018 0%, #141210 100%)",
+                    border: tier.highlighted ? "1px solid rgba(0,111,127,0.35)" : "1px solid rgba(0,111,127,0.10)",
                   }}>
                   {tier.highlighted && (
-                    <span className="absolute top-4 right-4 text-xs font-semibold px-2.5 py-1 rounded-full bg-[#27aae1]/15 border border-[#27aae1]/25 text-[#27aae1]">
+                    <span className="absolute top-4 right-4 text-xs font-semibold px-2.5 py-1 rounded-full bg-[#006f7f]/15 border border-[#006f7f]/25 text-[#27aae1]">
                       Most popular
                     </span>
                   )}
@@ -177,7 +177,7 @@ export default function InvestorsPage() {
                   <ul className="space-y-2.5">
                     {tier.features.map((f) => (
                       <li key={f} className="flex items-center gap-2 text-sm text-muted-foreground">
-                        <CheckCircle2 className="w-4 h-4 text-[#27aae1] flex-shrink-0" />
+                        <CheckCircle2 className="w-4 h-4 text-[#006f7f] flex-shrink-0" />
                         {f}
                       </li>
                     ))}
@@ -189,7 +189,7 @@ export default function InvestorsPage() {
         </section>
 
         {/* Process */}
-        <section id="process" className="py-24 bg-[#0e1214]">
+        <section id="process" className="py-24 bg-[#141210]">
           <div className="max-w-7xl mx-auto px-6">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-100px" }} transition={{ duration: 0.5 }}
@@ -204,7 +204,7 @@ export default function InvestorsPage() {
                     initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
                     viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.5, delay: i * 0.12 }}
                     className="relative text-center">
-                    <div className="relative z-10 mx-auto w-28 h-28 rounded-full bg-[#111618] border-2 border-[#27aae1]/30 flex flex-col items-center justify-center mb-5">
+                    <div className="relative z-10 mx-auto w-28 h-28 rounded-full bg-[#1c1916] border-2 border-[#006f7f]/30 flex flex-col items-center justify-center mb-5">
                       <span className="text-xs text-muted-foreground mb-0.5">{step.n}</span>
                       <span className="text-xl font-bold text-[#27aae1]">{step.n}</span>
                     </div>
@@ -218,7 +218,7 @@ export default function InvestorsPage() {
         </section>
 
         {/* Lead capture form */}
-        <section id="inquiry" className="py-24 bg-[#0a0d0e] border-t border-[#1a1f22]">
+        <section id="inquiry" className="py-24 bg-[#0e0c0a] border-t border-[#1a1610]">
           <div className="max-w-2xl mx-auto px-6">
             <motion.div initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }}
               viewport={{ once: true, margin: "-80px" }} transition={{ duration: 0.5 }}
@@ -229,7 +229,7 @@ export default function InvestorsPage() {
 
             {submitted ? (
               <div className="text-center py-12">
-                <CheckCircle2 className="w-12 h-12 text-[#27aae1] mx-auto mb-4" />
+                <CheckCircle2 className="w-12 h-12 text-[#006f7f] mx-auto mb-4" />
                 <h3 className="text-xl font-bold text-foreground mb-2">Inquiry received</h3>
                 <p className="text-muted-foreground">Your email client should have opened. We&apos;ll follow up within one business day.</p>
               </div>
@@ -239,19 +239,19 @@ export default function InvestorsPage() {
                   <div>
                     <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Name *</label>
                     <input required value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-[#111618] border border-[#2a3033] text-foreground text-sm focus:outline-none focus:border-[#27aae1]/50 transition-colors" />
+                      className="w-full px-4 py-3 rounded-xl bg-[#1c1916] border border-[#2a2420] text-foreground text-sm focus:outline-none focus:border-[#006f7f]/50 transition-colors" />
                   </div>
                   <div>
                     <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Email *</label>
                     <input required type="email" value={form.email} onChange={e => setForm(f => ({ ...f, email: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-[#111618] border border-[#2a3033] text-foreground text-sm focus:outline-none focus:border-[#27aae1]/50 transition-colors" />
+                      className="w-full px-4 py-3 rounded-xl bg-[#1c1916] border border-[#2a2420] text-foreground text-sm focus:outline-none focus:border-[#006f7f]/50 transition-colors" />
                   </div>
                 </div>
                 <div className="grid sm:grid-cols-2 gap-4">
                   <div>
                     <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Investment range</label>
                     <select value={form.range} onChange={e => setForm(f => ({ ...f, range: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-[#111618] border border-[#2a3033] text-foreground text-sm focus:outline-none focus:border-[#27aae1]/50">
+                      className="w-full px-4 py-3 rounded-xl bg-[#1c1916] border border-[#2a2420] text-foreground text-sm focus:outline-none focus:border-[#006f7f]/50">
                       <option value="">Select range</option>
                       <option>$25,000 – $99,999</option>
                       <option>$100,000 – $249,999</option>
@@ -261,7 +261,7 @@ export default function InvestorsPage() {
                   <div>
                     <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Timeline</label>
                     <select value={form.timeline} onChange={e => setForm(f => ({ ...f, timeline: e.target.value }))}
-                      className="w-full px-4 py-3 rounded-xl bg-[#111618] border border-[#2a3033] text-foreground text-sm focus:outline-none focus:border-[#27aae1]/50">
+                      className="w-full px-4 py-3 rounded-xl bg-[#1c1916] border border-[#2a2420] text-foreground text-sm focus:outline-none focus:border-[#006f7f]/50">
                       <option value="">Select timeline</option>
                       <option>Ready now</option>
                       <option>Within 30 days</option>
@@ -273,10 +273,10 @@ export default function InvestorsPage() {
                 <div>
                   <label className="block text-xs font-semibold text-muted-foreground uppercase tracking-wider mb-2">Additional notes</label>
                   <textarea rows={3} value={form.notes} onChange={e => setForm(f => ({ ...f, notes: e.target.value }))}
-                    className="w-full px-4 py-3 rounded-xl bg-[#111618] border border-[#2a3033] text-foreground text-sm focus:outline-none focus:border-[#27aae1]/50 transition-colors resize-none" />
+                    className="w-full px-4 py-3 rounded-xl bg-[#1c1916] border border-[#2a2420] text-foreground text-sm focus:outline-none focus:border-[#006f7f]/50 transition-colors resize-none" />
                 </div>
                 <button type="submit"
-                  className="w-full py-4 bg-[#27aae1] text-[#0e1214] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(39,170,225,0.4)]">
+                  className="w-full py-4 bg-[#006f7f] text-[#141210] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(0,111,127,0.4)]">
                   Book investor call
                 </button>
               </form>

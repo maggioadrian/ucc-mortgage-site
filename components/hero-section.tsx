@@ -46,7 +46,7 @@ export function HeroSection() {
         <motion.div variants={fadeUp} initial="hidden" animate="visible"
           transition={{ duration: 0.5 }}>
           <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#006f7f]/20 border border-[#006f7f]/30 rounded-full text-xs font-medium text-[#27aae1] mb-8">
-            <span className="w-1.5 h-1.5 bg-[#27aae1] rounded-full animate-pulse" />
+            <span className="w-1.5 h-1.5 bg-[#006f7f] rounded-full animate-pulse" />
             Windsor&apos;s commercial &amp; private lending specialists since 1974
           </span>
         </motion.div>
@@ -79,10 +79,10 @@ export function HeroSection() {
             >
               <Link href={path.href} className="group block h-full">
                 <div
-                  className="h-full p-7 rounded-2xl border border-[#27aae1]/12 hover:border-[#27aae1]/45 transition-all duration-300 hover:shadow-[0_0_28px_rgba(39,170,225,0.10)] text-left"
-                  style={{ background: "linear-gradient(145deg, #161c1f 0%, #0e1214 100%)" }}
+                  className="h-full p-7 rounded-2xl border border-[#006f7f]/12 hover:border-[#006f7f]/45 transition-all duration-300 hover:shadow-[0_0_28px_rgba(0,111,127,0.10)] text-left"
+                  style={{ background: "linear-gradient(145deg, #242018 0%, #141210 100%)" }}
                 >
-                  <div className="p-3 rounded-xl bg-[#27aae1]/10 w-fit mb-5 group-hover:bg-[#27aae1]/18 transition-colors">
+                  <div className="p-3 rounded-xl bg-[#006f7f]/10 w-fit mb-5 group-hover:bg-[#006f7f]/18 transition-colors">
                     <path.icon className="w-6 h-6 text-[#27aae1]" />
                   </div>
                   <h2 className="text-lg font-bold text-foreground mb-2 group-hover:text-[#27aae1] transition-colors">

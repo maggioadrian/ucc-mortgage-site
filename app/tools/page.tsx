@@ -41,7 +41,7 @@ const tools = [
 
 export default function ToolsPage() {
   return (
-    <div className="min-h-screen bg-[#0e1214]">
+    <div className="min-h-screen bg-[#141210]">
       <ScrollProgress />
       <Navigation />
       <main>
@@ -49,7 +49,7 @@ export default function ToolsPage() {
           style={{ background: "radial-gradient(ellipse at 50% 0%, rgba(0,111,127,0.12) 0%, transparent 60%)" }}>
           <div className="max-w-7xl mx-auto px-6 text-center">
             <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#006f7f]/20 border border-[#006f7f]/30 rounded-full text-xs font-medium text-[#27aae1] mb-6">
-              <span className="w-1.5 h-1.5 bg-[#27aae1] rounded-full animate-pulse" />
+              <span className="w-1.5 h-1.5 bg-[#006f7f] rounded-full animate-pulse" />
               Tools & calculators
             </span>
             <h1 className="text-4xl sm:text-5xl font-bold tracking-tight text-foreground mb-4">
@@ -61,17 +61,17 @@ export default function ToolsPage() {
           </div>
         </section>
 
-        <section className="py-16 bg-[#0a0d0e]">
+        <section className="py-16 bg-[#0e0c0a]">
           <div className="max-w-5xl mx-auto px-6 grid sm:grid-cols-2 gap-6">
             {tools.map((t) => {
               const Icon = t.icon;
               return (
                 <div key={t.title}
-                  className="group p-8 rounded-2xl border border-[#27aae1]/10 hover:border-[#27aae1]/30 transition-all"
-                  style={{ background: "linear-gradient(135deg, #161c1f 0%, #0e1214 100%)" }}>
+                  className="group p-8 rounded-2xl border border-[#006f7f]/10 hover:border-[#006f7f]/30 transition-all"
+                  style={{ background: "linear-gradient(135deg, #242018 0%, #141210 100%)" }}>
                   <div className="flex items-start justify-between mb-5">
-                    <div className="p-3 rounded-xl bg-[#27aae1]/10">
-                      <Icon className="w-5 h-5 text-[#27aae1]" />
+                    <div className="p-3 rounded-xl bg-[#006f7f]/10">
+                      <Icon className="w-5 h-5 text-[#006f7f]" />
                     </div>
                     <span className="text-xs font-medium px-2.5 py-1 rounded-full bg-[#006f7f]/15 border border-[#006f7f]/20 text-[#27aae1]">
                       {t.tag}
@@ -82,7 +82,7 @@ export default function ToolsPage() {
                   </h2>
                   <p className="text-sm text-muted-foreground leading-relaxed mb-6">{t.description}</p>
                   <Link href={t.href}
-                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#27aae1] text-[#0e1214] text-sm font-semibold rounded-full transition-all hover:shadow-[0_0_20px_rgba(39,170,225,0.35)]">
+                    className="inline-flex items-center gap-2 px-5 py-2.5 bg-[#006f7f] text-[#141210] text-sm font-semibold rounded-full transition-all hover:shadow-[0_0_20px_rgba(0,111,127,0.35)]">
                     {t.cta} <ArrowRight className="w-4 h-4" />
                   </Link>
                 </div>

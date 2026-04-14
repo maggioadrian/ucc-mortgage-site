@@ -109,7 +109,7 @@ const team = [
 
 export default function AboutPage() {
   return (
-    <div className="min-h-screen bg-[#0e1214]">
+    <div className="min-h-screen bg-[#141210]">
       <ScrollProgress />
       <Navigation />
 
@@ -130,7 +130,7 @@ export default function AboutPage() {
                 transition={{ duration: 0.5 }}
               >
                 <span className="inline-flex items-center gap-2 px-3 py-1.5 bg-[#2e5f92]/20 border border-[#2e5f92]/30 rounded-full text-xs font-medium text-[#27aae1] mb-6">
-                  <span className="w-1.5 h-1.5 bg-[#27aae1] rounded-full" />
+                  <span className="w-1.5 h-1.5 bg-[#006f7f] rounded-full" />
                   Est. 1974 · Windsor, Ontario
                 </span>
               </motion.div>
@@ -157,7 +157,7 @@ export default function AboutPage() {
         </section>
 
         {/* Stats */}
-        <section className="border-y border-[#1a1f22] bg-[#0a0d0e]">
+        <section className="border-y border-[#1a1610] bg-[#0e0c0a]">
           <div className="max-w-7xl mx-auto px-6 py-10">
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8">
               {[
@@ -183,7 +183,7 @@ export default function AboutPage() {
         </section>
 
         {/* Our Story */}
-        <section className="py-24 bg-[#0e1214]">
+        <section className="py-24 bg-[#141210]">
           <div className="max-w-7xl mx-auto px-6">
             <div className="grid lg:grid-cols-2 gap-16 items-start">
               <motion.div
@@ -223,12 +223,12 @@ export default function AboutPage() {
                       whileInView={{ opacity: 1, x: 0 }}
                       viewport={{ once: true, margin: "-80px" }}
                       transition={{ duration: 0.4, delay: i * 0.1 }}
-                      className="p-5 rounded-xl border border-[#27aae1]/10 hover:border-[#27aae1]/25 transition-all"
-                      style={{ background: "linear-gradient(135deg, #161c1f 0%, #0e1214 100%)" }}
+                      className="p-5 rounded-xl border border-[#006f7f]/10 hover:border-[#006f7f]/25 transition-all"
+                      style={{ background: "linear-gradient(135deg, #242018 0%, #141210 100%)" }}
                     >
                       <div className="flex items-start gap-4">
-                        <div className="p-2.5 rounded-lg bg-[#27aae1]/10 flex-shrink-0">
-                          <Icon className="w-5 h-5 text-[#27aae1]" />
+                        <div className="p-2.5 rounded-lg bg-[#006f7f]/10 flex-shrink-0">
+                          <Icon className="w-5 h-5 text-[#006f7f]" />
                         </div>
                         <div>
                           <h3 className="text-base font-semibold text-foreground mb-1.5">{value.title}</h3>
@@ -244,7 +244,7 @@ export default function AboutPage() {
         </section>
 
         {/* Timeline */}
-        <section className="py-24 bg-[#0a0d0e] border-t border-[#1a1f22]">
+        <section className="py-24 bg-[#0e0c0a] border-t border-[#1a1610]">
           <div className="max-w-7xl mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -278,8 +278,8 @@ export default function AboutPage() {
                     {/* Content */}
                     <div className={`${i % 2 === 0 ? "md:order-1" : "md:order-2"}`}>
                       <div
-                        className="p-6 rounded-xl border border-[#27aae1]/10 hover:border-[#27aae1]/25 transition-all"
-                        style={{ background: "linear-gradient(135deg, #161c1f 0%, #0e1214 100%)" }}
+                        className="p-6 rounded-xl border border-[#006f7f]/10 hover:border-[#006f7f]/25 transition-all"
+                        style={{ background: "linear-gradient(135deg, #242018 0%, #141210 100%)" }}
                       >
                         <div className="text-[#27aae1] text-sm font-semibold mb-1">{item.year}</div>
                         <h3 className="text-base font-bold text-foreground mb-2">{item.title}</h3>
@@ -288,13 +288,13 @@ export default function AboutPage() {
                     </div>
 
                     {/* Center dot */}
-                    <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#0a0d0e] border-2 border-[#27aae1] items-center justify-center z-10">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#27aae1]" />
+                    <div className="hidden md:flex absolute left-1/2 -translate-x-1/2 w-4 h-4 rounded-full bg-[#0e0c0a] border-2 border-[#006f7f] items-center justify-center z-10">
+                      <div className="w-1.5 h-1.5 rounded-full bg-[#006f7f]" />
                     </div>
 
                     {/* Year label (other side) */}
                     <div className={`hidden md:flex items-center ${i % 2 === 0 ? "md:order-2 justify-start" : "md:order-1 justify-end"}`}>
-                      <span className="text-4xl font-bold text-[#1a1f22]">{item.year}</span>
+                      <span className="text-4xl font-bold text-[#1a1610]">{item.year}</span>
                     </div>
                   </motion.div>
                 ))}
@@ -304,7 +304,7 @@ export default function AboutPage() {
         </section>
 
         {/* Team */}
-        <section className="py-24 bg-[#0e1214]">
+        <section className="py-24 bg-[#141210]">
           <div className="max-w-7xl mx-auto px-6">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -327,11 +327,11 @@ export default function AboutPage() {
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, margin: "-80px" }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
-                  className="p-6 rounded-xl border border-[#27aae1]/10 hover:border-[#27aae1]/25 transition-all"
-                  style={{ background: "linear-gradient(135deg, #161c1f 0%, #0e1214 100%)" }}
+                  className="p-6 rounded-xl border border-[#006f7f]/10 hover:border-[#006f7f]/25 transition-all"
+                  style={{ background: "linear-gradient(135deg, #242018 0%, #141210 100%)" }}
                 >
                   {/* Avatar placeholder */}
-                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#2e5f92]/40 to-[#006f7f]/40 border border-[#27aae1]/20 flex items-center justify-center mb-4">
+                  <div className="w-14 h-14 rounded-full bg-gradient-to-br from-[#2e5f92]/40 to-[#006f7f]/40 border border-[#006f7f]/20 flex items-center justify-center mb-4">
                     <span className="text-lg font-bold text-[#27aae1]">
                       {member.name.split(" ").map((n) => n[0]).join("")}
                     </span>
@@ -347,7 +347,7 @@ export default function AboutPage() {
         </section>
 
         {/* CTA */}
-        <section className="py-20 bg-[#0a0d0e] border-t border-[#1a1f22]">
+        <section className="py-20 bg-[#0e0c0a] border-t border-[#1a1610]">
           <div className="max-w-7xl mx-auto px-6 text-center">
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -362,14 +362,14 @@ export default function AboutPage() {
               <div className="flex flex-wrap justify-center gap-4">
                 <Link
                   href="/apply"
-                  className="group inline-flex items-center gap-2 px-8 py-4 bg-[#27aae1] text-[#0e1214] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(39,170,225,0.4)]"
+                  className="group inline-flex items-center gap-2 px-8 py-4 bg-[#006f7f] text-[#141210] font-semibold rounded-full transition-all hover:shadow-[0_0_30px_rgba(0,111,127,0.4)]"
                 >
                   Start an application
                   <ArrowRight className="w-4 h-4 transition-transform group-hover:translate-x-1" />
                 </Link>
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 px-8 py-4 border border-[#2a3033] text-foreground font-semibold rounded-full hover:border-[#27aae1]/40 hover:bg-[#27aae1]/5 transition-all"
+                  className="inline-flex items-center gap-2 px-8 py-4 border border-[#2a2420] text-foreground font-semibold rounded-full hover:border-[#006f7f]/40 hover:bg-[#006f7f]/5 transition-all"
                 >
                   Contact us
                 </Link>
